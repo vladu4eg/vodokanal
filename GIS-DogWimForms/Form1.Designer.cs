@@ -39,6 +39,11 @@
             this.button4 = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -96,13 +101,13 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 36);
             this.button2.TabIndex = 3;
-            this.button2.Text = "Выбор localbd экспорта";
+            this.button2.Text = "Выбор БД экспорта";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(64, 337);
+            this.button3.Location = new System.Drawing.Point(15, 356);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(103, 35);
             this.button3.TabIndex = 6;
@@ -112,9 +117,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(227, 337);
+            this.button4.Location = new System.Drawing.Point(227, 356);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(131, 35);
+            this.button4.Size = new System.Drawing.Size(95, 35);
             this.button4.TabIndex = 7;
             this.button4.Text = "Проверить на дубликаты ГИС экспорт";
             this.button4.UseVisualStyleBackColor = true;
@@ -123,25 +128,77 @@
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(18, 93);
+            this.listBox2.Location = new System.Drawing.Point(15, 112);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(203, 238);
+            this.listBox2.Size = new System.Drawing.Size(206, 238);
             this.listBox2.TabIndex = 9;
             this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(238, 93);
+            this.listBox1.Location = new System.Drawing.Point(227, 112);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 238);
+            this.listBox1.Size = new System.Drawing.Size(148, 238);
             this.listBox1.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(124, 353);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Счетчик";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(328, 356);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(47, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Счетчик";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(302, 12);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(148, 36);
+            this.button5.TabIndex = 14;
+            this.button5.Text = "Работа с шаблонами";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 93);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(110, 13);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "Список совпадений:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(224, 93);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(108, 13);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Список дубликатов:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(763, 405);
+            this.ClientSize = new System.Drawing.Size(462, 464);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.button4);
@@ -173,6 +230,11 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }
 
