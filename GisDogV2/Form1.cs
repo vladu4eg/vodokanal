@@ -24,7 +24,7 @@ namespace GisDogV2
         {
             try
             {
-                string Connect = "Database=test1;Data Source=127.0.0.1;User Id=root;charset=cp1251";
+                string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;Password=vlad19957";
                 MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
                 MySql.Data.MySqlClient.MySqlCommand myCommand = new MySql.Data.MySqlClient.MySqlCommand();
                 myConnection.Open();
@@ -34,7 +34,7 @@ namespace GisDogV2
                 myCommand.ExecuteNonQuery();//выполняет запрос
 
                 
-                myCommand.CommandText = string.Format("INSERT INTO result SELECT ok.id_dog FROM ok,adress WHERE adress.id=ok.id_dog");//запрос: если есть такой логин в таблице
+                myCommand.CommandText = string.Format("INSERT INTO result SELECT ok.id_dog FROM ok,import_adress WHERE import_adress.id=ok.id_dog");//запрос: если есть такой логин в таблице
                 myCommand.Prepare();//подготавливает строку
                 myCommand.ExecuteNonQuery();//выполняет запрос
 
@@ -51,7 +51,7 @@ namespace GisDogV2
         {
             try
             {
-                string Connect = "Database=test1;Data Source=127.0.0.1;User Id=root;charset=cp1251";
+                string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;Password=vlad19957";
                 MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
                 MySql.Data.MySqlClient.MySqlCommand myCommand = new MySql.Data.MySqlClient.MySqlCommand();
                 myConnection.Open();
@@ -61,7 +61,7 @@ namespace GisDogV2
                 myCommand.ExecuteNonQuery();//выполняет запрос
 
                 // добавить проверку на уникальность
-                myCommand.CommandText = string.Format("INSERT INTO ok SELECT id_gis,id_dog,status FROM project WHERE status='{0}'", textBox1.Text);//запрос: если есть такой логин в таблице
+                myCommand.CommandText = string.Format("INSERT INTO ok SELECT id_gis,id_dog,status FROM import_project WHERE status='{0}'", textBox1.Text);//запрос: если есть такой логин в таблице
                 myCommand.Prepare();//подготавливает строку
                 myCommand.ExecuteNonQuery();//выполняет запрос
 
@@ -80,7 +80,7 @@ namespace GisDogV2
             try
             {
                 
-                string Connect = "Database=test1;Data Source=127.0.0.1;User Id=root;charset=cp1251;default command timeout = 240";
+                string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
                 MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
                 MySql.Data.MySqlClient.MySqlCommand myCommand = new MySql.Data.MySqlClient.MySqlCommand();
                 myConnection.Open();
@@ -101,7 +101,7 @@ namespace GisDogV2
 
 
                 myConnection.Close();
-                MessageBox.Show("Готово! Бегом в БД :)");
+                MessageBox.Show("Готово! Бегом в БД :) export");
             }
             catch (Exception ex)
             {
@@ -115,36 +115,118 @@ namespace GisDogV2
             try
             {
 
-                string Connect = "Database=test1;Data Source=127.0.0.1;User Id=root;charset=cp1251;default command timeout = 240";
+                string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
                 MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
                 MySql.Data.MySqlClient.MySqlCommand myCommand = new MySql.Data.MySqlClient.MySqlCommand();
                 myConnection.Open();
                 myCommand.Connection = myConnection;
 
-                myCommand.CommandText = string.Format("TRUNCATE TABLE adress_gis");//запрос: если есть такой логин в таблице
+                myCommand.CommandText = string.Format("TRUNCATE TABLE export_adress_gis");//запрос: если есть такой логин в таблице
                 myCommand.Prepare();//подготавливает строку
                 myCommand.ExecuteNonQuery();//выполняет запрос
 
-                myCommand.CommandText = string.Format("INSERT INTO adress_gis SELECT result.id,adress.full_adr,adress.houseguid FROM result,adress WHERE result.id=adress.id");//запрос: если есть такой логин в таблице
+                myCommand.CommandText = string.Format("INSERT INTO export_adress_gis SELECT result.id,import_adress.full_adr,import_adress.houseguid FROM result,import_adress WHERE result.id=import_adress.id");//запрос: если есть такой логин в таблице
                 myCommand.Prepare();//подготавливает строку
                 myCommand.ExecuteNonQuery();//выполняет запрос
 
 
-                myCommand.CommandText = string.Format("TRUNCATE TABLE new_with");//запрос: если есть такой логин в таблице
+                myCommand.CommandText = string.Format("TRUNCATE TABLE export_with");//запрос: если есть такой логин в таблице
                 myCommand.Prepare();//подготавливает строку
                 myCommand.ExecuteNonQuery();//выполняет запрос
 
-                myCommand.CommandText = string.Format("INSERT INTO new_with SELECT firstwith.A,firstwith.B,firstwith.C, firstwith.DATA1,firstwith.DATA2 FROM firstwith,result WHERE result.id=firstwith.A");//запрос: если есть такой логин в таблице
+                myCommand.CommandText = string.Format("INSERT INTO export_with SELECT import_with.A,import_with.B,import_with.C, import_with.DATA1,import_with.DATA2 FROM import_with,result WHERE result.id=import_with.A");//запрос: если есть такой логин в таблице
                 myCommand.Prepare();//подготавливает строку
                 myCommand.ExecuteNonQuery();//выполняет запрос
 
                 myConnection.Close();
-                MessageBox.Show("Готово! Бегом в БД (Adress_gis) :)");
+                MessageBox.Show("Готово! Бегом в БД (export_adress_gis) :)");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+                try
+                {
+                    string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;Password=vlad19957";
+                    MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
+                    MySql.Data.MySqlClient.MySqlCommand myCommand = new MySql.Data.MySqlClient.MySqlCommand();
+                    myConnection.Open();
+                    myCommand.Connection = myConnection;
+                    myCommand.CommandText = string.Format("TRUNCATE TABLE export_double");//запрос: если есть такой логин в таблице
+                    myCommand.Prepare();//подготавливает строку
+                    myCommand.ExecuteNonQuery();//выполняет запрос
+                
+                    // добавить проверку на уникальность
+                    myCommand.CommandText = string.Format("INSERT INTO export_double select id_dog, count(*) from import_double group by id_dog having count(*) > 1");//запрос: если есть такой логин в таблице
+                    myCommand.Prepare();//подготавливает строку
+                    myCommand.ExecuteNonQuery();//выполняет запрос
+
+
+                     myCommand.CommandText = string.Format("select count(id_dog) from export_double");//запрос: если есть такой логин в таблице
+                    myCommand.Prepare();//подготавливает строку
+                    myCommand.ExecuteNonQuery();//выполняет запрос
+                    int count = Convert.ToInt32(myCommand.ExecuteScalar());
+                    myConnection.Close();
+                    MessageBox.Show("Все export_double! " + count);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
+                MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
+                MySql.Data.MySqlClient.MySqlCommand myCommand = new MySql.Data.MySqlClient.MySqlCommand();
+                myConnection.Open();
+                myCommand.Connection = myConnection;
+
+                myCommand.CommandText = string.Format("TRUNCATE TABLE export_error");//запрос: если есть такой логин в таблице
+                myCommand.Prepare();//подготавливает строку
+                myCommand.ExecuteNonQuery();//выполняет запрос
+
+                myCommand.CommandText = string.Format("insert into export_error " +
+                                                      "SELECT * FROM import_error_gis " +
+                                                      "WHERE NOT EXISTS(" +
+                                                      "SELECT * FROM import_error_LS " +
+                                                      "WHERE import_error_LS.id = import_error_gis.id " +
+                                                      "and import_error_LS.lastname = import_error_gis.lastname " +
+                                                      "and import_error_LS.firtname = import_error_gis.firtname " +
+                                                      "and import_error_LS.lastname = import_error_gis.lastname)");//запрос: если есть такой логин в таблице
+                myCommand.Prepare();//подготавливает строку
+                myCommand.ExecuteNonQuery();//выполняет запрос
+
+                myCommand.CommandText = string.Format("select count(id) from export_error");//запрос: если есть такой логин в таблице
+                myCommand.Prepare();//подготавливает строку
+                myCommand.ExecuteNonQuery();//выполняет запрос
+                int count = Convert.ToInt32(myCommand.ExecuteScalar());
+
+                myConnection.Close();
+                MessageBox.Show("Готово export_error! Господи, спаси меня это этого: " + count);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }
