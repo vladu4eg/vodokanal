@@ -90,7 +90,7 @@ namespace GisDogV2
                 myCommand.Prepare();//подготавливает строку
                 myCommand.ExecuteNonQuery();//выполняет запрос
 
-                myCommand.CommandText = string.Format("INSERT INTO export SELECT final.A,final.PUBL_B,final.NUM_DOG_C,final.DAT_DOG_D,final.DAT_VST_E,final.F,final.G,final.H,final.FAMIL_NAME_R,final.IMEN_NAME_R,final.OTCH_NAME_R,final.POL_L,final.M,final.SNILS,final.O,final.P,final.Q,final.R,final.SROK1,final.СЛЕДУЮЩЕГОМЕСЯЦАЗАРАСЧЕТНЫМ,final.SROR2,final.СЛЕДУЮЩЕГОМЕСЯЦАЗАРАСЧЕТНЫМ2,final.DAT_NACH,final.НЕТ,final.DAT_OK,final.НЕТ2,final.opis,final.ychet,final.kachestvo,final.plan,final.id_gis FROM final,result WHERE final.NUM_DOG_C = result.id");//запрос: если есть такой логин в таблице
+                myCommand.CommandText = string.Format("INSERT INTO export SELECT final.A,final.PUBL_B,final.NUM_DOG_C,final.DAT_DOG_D,final.DAT_VST_E,final.F,final.G,final.H,final.FAMIL_NAME_R,final.IMEN_NAME_R,final.OTCH_NAME_R,final.POL_L,final.M,final.SNILS,final.O,final.P,final.Q,final.R,final.SROK1,final.СЛЕДУЮЩЕГОМЕСЯЦАЗАРАСЧЕТНЫМ,final.SROR2,final.СЛЕДУЮЩЕГОМЕСЯЦАЗАРАСЧЕТНЫМ2,final.DAT_NACH,final.НЕТ,final.DAT_OK,final.НЕТ2,final.id_gis FROM final,result WHERE final.NUM_DOG_C = result.id");//запрос: если есть такой логин в таблице
                 myCommand.Prepare();//подготавливает строку
                 myCommand.ExecuteNonQuery();//выполняет запрос
 
@@ -220,6 +220,11 @@ namespace GisDogV2
             }
         }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+            textBox2.Text = "select * from import_lischt join export_error on import_lischt.NUM_DOG_C = export_error.id join id_gis_and_LS on id_gis_and_LS.id_dog = import_lischt.NUM_DOG_C";
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -228,6 +233,28 @@ namespace GisDogV2
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            textBox2.Text = "SELECT * FROM export_error WHERE NOT EXISTS(SELECT * FROM import_error_LS WHERE import_error_LS.id = export_error.id)";
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            /*
+             * select * from import_with where EXISTS
+(
+select import_lischt.A 
+from import_lischt 
+join export_error on 
+import_lischt.NUM_DOG_C = export_error.id 
+join id_gis_and_LS 
+on id_gis_and_LS.id_dog = import_lischt.NUM_DOG_C 
+where import_lischt.A = import_with.A
+)
+             * 
+             */
         }
     }
 }

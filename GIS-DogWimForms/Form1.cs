@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using ClosedXML.Excel;
 using System.Threading;
 using System.Globalization;
+using BotAgent.DataExporter;
+using MySql.Data.MySqlClient;
 
 namespace GIS_DogWimForms
 {
@@ -114,8 +116,8 @@ namespace GIS_DogWimForms
                 MessageBox.Show("Введите номер столбца в ГИС!");
             else if (GisExport.Rows.Count <= 0)
                 MessageBox.Show("Загрузите экспорт ГИС");
-         //   else if (GisExport.Rows[1].Count <= Convert.ToInt32(textBox1.Text) - 1)
-          //      MessageBox.Show("Нет такого столбца");
+            //   else if (GisExport.Rows[1].Count <= Convert.ToInt32(textBox1.Text) - 1)
+            //      MessageBox.Show("Нет такого столбца");
             else if (Convert.ToInt32(textBox1.Text) <= 0)
                 MessageBox.Show("Число должно быть больше нуля");
             else
@@ -189,6 +191,205 @@ namespace GIS_DogWimForms
         }
 
         private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Csv dogovor = new Csv();
+            Csv object1 = new Csv();
+            Csv vkh = new Csv();
+            Csv kyandkr = new Csv();
+            Csv kr = new Csv();
+
+            string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
+            MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
+            MySql.Data.MySqlClient.MySqlCommand myCommand = new MySql.Data.MySqlClient.MySqlCommand();
+            myConnection.Open();
+            myCommand.Connection = myConnection;
+
+            myCommand.CommandText = string.Format("SELECT import_lischt.A," +
+                "import_lischt.PUBL_B," +
+                "import_lischt.NUM_DOG_C," +
+                "import_lischt.DAT_DOG_D," +
+                "import_lischt.DAT_VST_E," +
+                "import_lischt.F," +
+                "import_lischt.G," +
+                "import_lischt.H," +
+                "import_lischt.FAMIL_NAME_R," +
+                "import_lischt.IMEN_NAME_R," +
+                "import_lischt.OTCH_NAME_R," +
+                "import_lischt.POL_L," +
+                "import_lischt.M," +
+                "import_lischt.SNILS," +
+                "import_lischt.O," +
+                "import_lischt.Q," +
+                "import_lischt.P," +
+                "import_lischt.R," +
+                "'', '', ''," +
+                "import_lischt.SROK1," +
+                "import_lischt.`СЛЕДУЮЩЕГОМЕСЯЦАЗАРАСЧЕТНЫМ`," +
+                "import_lischt.SROR2," +
+                "import_lischt.`СЛЕДУЮЩЕГОМЕСЯЦАЗАРАСЧЕТНЫМ2`," +
+                "'', ''," +
+                "import_lischt.DAT_NACH," +
+                "import_lischt.`НЕТ`," +
+                "import_lischt.DAT_OK," +
+                "import_lischt.`НЕТ2`," +
+                "'Нормативный правовой акт'," +
+                "'РСО'," +
+                "'В разрезе договора'," +
+                "'Нет'," +
+                "id_gis.id_gis," +
+                "''," +
+                //with
+                "import_with.*," +
+                "''," +
+                //адрес
+                "ipadr_new.id," +
+                "ipadr_new.type_home," +
+                "ipadr_new.adr," +
+                "ipadr_new.ipadr," +
+                "ipadr_new.pomesh," +
+                //
+                "ipadr_new.id," +
+                "ipadr_new.adr," +
+                "ipadr_new.pomesh," +
+                "'',"+
+                "import_with.B," +
+                "import_with.C," +
+                "import_with.DATA1," +
+                "import_with.DATA2," +
+                //
+                "ipadr_new.id," +
+                "ipadr_new.adr," +
+                "ipadr_new.pomesh," +
+                "''," +
+                "import_with.B," +
+                "import_with.C," +
+                "'Соответствие показателей качества холодной воды требованиям законодательства Российской Федерации'," +
+                "'', '', ''," +
+                "'Соответствует' " +
+                //
+                "FROM id_gis " +
+                "JOIN ipadr_new ON id_gis.id = ipadr_new.id " +
+                "JOIN import_lischt ON id_gis.id = import_lischt.A " +
+                "JOIN import_with ON id_gis.id = import_with.A " +
+                "where (id_gis.status = 'Размещен' or id_gis.status = 'Проект') " +
+                "GROUP BY id_gis.id ");
+            myCommand.Prepare();//подготавливает строку
+
+            MySqlDataReader MyDataReader;
+            MyDataReader = myCommand.ExecuteReader();
+            int i = 0;
+            int y = 1;
+            int z = 1;
+            while (MyDataReader.Read())
+            {
+                dogovor.AddRow(MyDataReader.GetString(0),
+                           MyDataReader.GetString(1),
+                           MyDataReader.GetString(2),
+                           MyDataReader.GetString(3),
+                           MyDataReader.GetString(4),
+                           MyDataReader.GetString(5),
+                           MyDataReader.GetString(6),
+                           MyDataReader.GetString(7),
+                           MyDataReader.GetString(8),
+                           MyDataReader.GetString(9),
+                           MyDataReader.GetString(10),
+                           MyDataReader.GetString(11),
+                           MyDataReader.GetString(12),
+                           MyDataReader.GetString(13),
+                           MyDataReader.GetString(14),
+                           MyDataReader.GetString(15),
+                           MyDataReader.GetString(16),
+                           MyDataReader.GetString(17),
+                           MyDataReader.GetString(18),
+                           MyDataReader.GetString(19),
+                           MyDataReader.GetString(20),
+                           MyDataReader.GetString(21),
+                           MyDataReader.GetString(22),
+                           MyDataReader.GetString(23),
+                           MyDataReader.GetString(24),
+                           MyDataReader.GetString(25),
+                           MyDataReader.GetString(26),
+                           MyDataReader.GetString(27),
+                           MyDataReader.GetString(28),
+                           MyDataReader.GetString(29),
+                           MyDataReader.GetString(30),
+                           MyDataReader.GetString(31),
+                           MyDataReader.GetString(32),
+                           MyDataReader.GetString(33),
+                           MyDataReader.GetString(34),
+                           MyDataReader.GetString(35));
+
+                object1.AddRow(MyDataReader.GetString(37),
+                               MyDataReader.GetString(38),
+                               MyDataReader.GetString(39),
+                               MyDataReader.GetString(40),
+                               MyDataReader.GetString(41));
+
+                vkh.AddRow(MyDataReader.GetString(43),
+                MyDataReader.GetString(44),
+                MyDataReader.GetString(45),
+                MyDataReader.GetString(46),
+                MyDataReader.GetString(47));
+
+                kyandkr.AddRow(MyDataReader.GetString(48),
+                MyDataReader.GetString(49),
+                MyDataReader.GetString(50),
+                MyDataReader.GetString(51),
+                MyDataReader.GetString(52),
+                MyDataReader.GetString(53),
+                MyDataReader.GetString(54),
+                MyDataReader.GetString(55));
+
+                kr.AddRow(MyDataReader.GetString(56),
+                MyDataReader.GetString(57),
+                MyDataReader.GetString(58),
+                MyDataReader.GetString(59),
+                MyDataReader.GetString(60),
+                MyDataReader.GetString(61),
+                MyDataReader.GetString(62),
+                MyDataReader.GetString(63),
+                MyDataReader.GetString(64),
+                MyDataReader.GetString(65),
+                MyDataReader.GetString(66));
+
+                i += 67;
+                z++;
+                if (z % 1000 == 0)
+                {
+                    dogovor.FileSave("c:\\gis\\DOG" + y + "k.csv");
+                    dogovor.Rows.Clear();
+
+                    object1.FileSave("c:\\gis\\object" + y + "k.csv");
+                    object1.Rows.Clear();
+
+                    vkh.FileSave("c:\\gis\\vkh" + y + "k.csv");
+                    vkh.Rows.Clear();
+
+                    kyandkr.FileSave("c:\\gis\\KYandKR" + y + "k.csv");
+                    kyandkr.Rows.Clear();
+
+                    kr.FileSave("c:\\gis\\KR" + y + "k.csv");
+                    kr.Rows.Clear();
+
+                    y++;
+                }
+            }
+            dogovor.FileSave("c:\\gis\\DOG-Final.csv");
+            object1.FileSave("c:\\gis\\object-Final.csv");
+            vkh.FileSave("c:\\gis\\vkh-Final.csv");
+            kyandkr.FileSave("c:\\gis\\KYandKR-Final.csv");
+            kr.FileSave("c:\\gis\\KR-Final.csv");
+            MyDataReader.Close();
+            myConnection.Close();
+            MessageBox.Show("Готово! С:\\gis\\");
+        }
+
+        private void button7_Click(object sender, EventArgs e)
         {
 
         }
