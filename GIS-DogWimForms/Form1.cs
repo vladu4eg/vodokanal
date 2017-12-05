@@ -741,7 +741,7 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("select LS.l_schet, " +
+            myCommand.CommandText = string.Format("select distinct LS.l_schet, " +
                 "LS.l_schet, " +
                 "LS.ident, " +
                 "LS.lsrso, " +
@@ -771,7 +771,7 @@ namespace GIS_DogWimForms
                 "LS.l_schet," +
                 "'Договор ресурсоснабжения (ЛС РСО или ЛС РЦ)'," +
                 "id_gis.id_gis " +
-                "from LS, id_gis, ipadr_new, object_adress " +
+                "from LS, ipadr_new, object_adress,id_gis " +
                 "where LS.l_schet NOT IN " +
                 "(" +
                 "SELECT distinct LS.l_schet " +
@@ -782,7 +782,7 @@ namespace GIS_DogWimForms
                 "and LS.l_schet = id_gis.id " +
                 "and ipadr_new.ipadr = object_adress.HOUSEGUID_fias " +
                 "and ipadr_new.pomesh = object_adress.kv " +
-                "group by LS.l_schet " +
+                "and id_gis.`status` in ('Размещен','Проект') " +
                 "order by LS.l_schet; ");
             myCommand.Prepare();//подготавливает строку
 
