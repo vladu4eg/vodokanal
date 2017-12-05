@@ -2,43 +2,32 @@
 using System.IO;
 using System.Linq;
 using ClosedXML.Excel;
-using System;
-using System.Windows.Forms;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace GIS_DogWimForms
+namespace BotAgent.DataExporter
 {
     public class Excel
     {
         public List<List<string>> Rows = new List<List<string>>();
 
-
-        public void FileOpen(string path, int str, string cellNead)
+        public void FileOpen(string path)
         {
-            //Thread t = Thread.CurrentThread;
-            try
-            {
-                var workbook = new XLWorkbook(path);
-                var ws1 = workbook.Worksheet(str);
 
-                foreach (var xlRow in ws1.RangeUsed().Rows())
+            var workbook = new XLWorkbook(path);
+            var ws1 = workbook.Worksheet(1);
+
+            foreach (var xlRow in ws1.RangeUsed().Rows())
+            {
+                Rows.Add(new List<string>());
+
+                foreach (var xlCell in xlRow.Cells())
                 {
-                    Rows.Add(new List<string>());
+                    var formula = xlCell.FormulaA1;
+                    var value = xlCell.Value.ToString();
 
-                    foreach (var xlCell in xlRow.Cells(cellNead))
-                    {
-                        var formula = xlCell.FormulaA1;
-                        var value = xlCell.Value.ToString();
-                        string targetCellValue = (formula.Length == 0) ? value : "=" + formula;
-                        Rows[Rows.Count - 1].Add(targetCellValue);
-                    }
+                    string targetCellValue = (formula.Length == 0) ? value : "=" + formula;
+
+                    Rows[Rows.Count - 1].Add(targetCellValue);
                 }
-                MessageBox.Show("Готово!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
 
