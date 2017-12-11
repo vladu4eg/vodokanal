@@ -323,7 +323,7 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("SELECT import_lischt.A," +
+            myCommand.CommandText = string.Format("SELECT distinct import_lischt.A," +
                 "import_lischt.PUBL_B," +
                 "import_lischt.NUM_DOG_C," +
                 "import_lischt.DAT_DOG_D," +
@@ -365,11 +365,11 @@ namespace GIS_DogWimForms
                 "''," +
                 "ipadr_new.adr," +
                 "ipadr_new.ipadr," +
-                "''," +
+                "ipadr_new.pomesh," +
                 //
                 "ipadr_new.id," +
                 "ipadr_new.adr," +
-                "''," +
+                "ipadr_new.pomesh," +
                 "''," +
                 "import_with.B," +
                 "import_with.C," +
@@ -378,7 +378,7 @@ namespace GIS_DogWimForms
                 //
                 "ipadr_new.id," +
                 "ipadr_new.adr," +
-                "''," +
+                "ipadr_new.pomesh," +
                 "''," +
                 "import_with.B," +
                 "import_with.C," +
@@ -390,10 +390,12 @@ namespace GIS_DogWimForms
                 "JOIN ipadr_new ON id_gis.id = ipadr_new.id " +
                 "JOIN import_lischt ON id_gis.id = import_lischt.A " +
                 "JOIN import_with ON id_gis.id = import_with.A " +
+                "join object_adress on ipadr_new.ipadr = object_adress.HOUSEGUID_fias " +
                 // "where (id_gis.status = 'Размещен' or id_gis.status = 'Проект') " +
                 //поиск проектов. НЕ ЗАБУДЬ УДАЛИТЬ!!!!!!
                 "where id_gis.status = 'Проект' " +
-                "GROUP BY id_gis.id ");
+                "and ipadr_new.pomesh = object_adress.kv ");
+
             myCommand.Prepare();//подготавливает строку
 
             MySqlDataReader MyDataReader;
@@ -527,7 +529,7 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("SELECT import_lischt.A," +
+            myCommand.CommandText = string.Format("SELECT distinct import_lischt.A," +
                 "import_lischt.PUBL_B," +
                 "import_lischt.NUM_DOG_C," +
                 "import_lischt.DAT_DOG_D," +
@@ -593,13 +595,6 @@ namespace GIS_DogWimForms
                 "FROM import_lischt " +
                 "JOIN ipadr_new ON import_lischt.A = ipadr_new.id " +
                 "JOIN import_with ON import_lischt.A = import_with.A " +
-                "JOIN import_with ON import_lischt.A = import_with.A " +
-                "JOIN import_with ON import_lischt.A = import_with.A " +
-                "JOIN import_with ON import_lischt.A = import_with.A " +
-                "JOIN import_with ON import_lischt.A = import_with.A " +
-                "JOIN import_with ON import_lischt.A = import_with.A " +
-                "JOIN import_with ON import_lischt.A = import_with.A " +
-                "JOIN import_with ON import_lischt.A = import_with.A " +
                 // "where (id_gis.status = 'Размещен' or id_gis.status = 'Проект') " +
                 //поиск проектов. НЕ ЗАБУДЬ УДАЛИТЬ!!!!!!
                 "where import_lischt.A NOT IN " +
@@ -607,9 +602,8 @@ namespace GIS_DogWimForms
                     "SELECT distinct import_lischt.A " +
                     "FROM import_lischt, id_gis " +
                     "WHERE import_lischt.A = id_gis.id " +
-                    "AND(id_gis.status = 'Проект' OR id_gis.status = 'Размещен') " +
-                ")" +
-                "GROUP BY import_lischt.A");
+                    "AND id_gis.status in ('Проект','Размещен') " +
+                ")");
             myCommand.Prepare();//подготавливает строку
 
             MySqlDataReader MyDataReader;
@@ -782,7 +776,7 @@ namespace GIS_DogWimForms
                 "and LS.l_schet = id_gis.id " +
                 "and ipadr_new.ipadr = object_adress.HOUSEGUID_fias " +
                 "and ipadr_new.pomesh = object_adress.kv " +
-                "and id_gis.`status` in ('Размещен','Проект') " +
+                "and id_gis.`status` = 'Размещен' " +
                 "order by LS.l_schet; ");
             myCommand.Prepare();//подготавливает строку
 
