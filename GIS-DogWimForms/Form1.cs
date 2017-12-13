@@ -362,14 +362,14 @@ namespace GIS_DogWimForms
                 "''," +
                 //адрес
                 "ipadr_new.id," +
-                "''," +
+                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then 'МКД' else '' end pomeshen," +
                 "ipadr_new.adr," +
                 "ipadr_new.ipadr," +
-                "ipadr_new.pomesh," +
+                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen," +
                 //
                 "ipadr_new.id," +
                 "ipadr_new.adr," +
-                "ipadr_new.pomesh," +
+                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen," +
                 "''," +
                 "import_with.B," +
                 "import_with.C," +
@@ -378,7 +378,7 @@ namespace GIS_DogWimForms
                 //
                 "ipadr_new.id," +
                 "ipadr_new.adr," +
-                "ipadr_new.pomesh," +
+                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen," +
                 "''," +
                 "import_with.B," +
                 "import_with.C," +
@@ -390,11 +390,8 @@ namespace GIS_DogWimForms
                 "JOIN ipadr_new ON id_gis.id = ipadr_new.id " +
                 "JOIN import_lischt ON id_gis.id = import_lischt.A " +
                 "JOIN import_with ON id_gis.id = import_with.A " +
-                "join object_adress on ipadr_new.ipadr = object_adress.HOUSEGUID_fias " +
-                // "where (id_gis.status = 'Размещен' or id_gis.status = 'Проект') " +
-                //поиск проектов. НЕ ЗАБУДЬ УДАЛИТЬ!!!!!!
-                "where id_gis.status = 'Проект' " +
-                "and ipadr_new.pomesh = object_adress.kv ");
+
+                "where id_gis.status = 'Проект'");
 
             myCommand.Prepare();//подготавливает строку
 
@@ -568,14 +565,14 @@ namespace GIS_DogWimForms
                 "''," +
                 //адрес
                 "ipadr_new.id," +
-                "''," +
+                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then 'МКД' else '' end pomeshen," +
                 "ipadr_new.adr," +
                 "ipadr_new.ipadr," +
-                "''," +
+                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen," +
                 //
                 "ipadr_new.id," +
                 "ipadr_new.adr," +
-                "''," +
+                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen," +
                 "''," +
                 "import_with.B," +
                 "import_with.C," +
@@ -584,7 +581,7 @@ namespace GIS_DogWimForms
                 //
                 "ipadr_new.id," +
                 "ipadr_new.adr," +
-                "''," +
+                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen," +
                 "''," +
                 "import_with.B," +
                 "import_with.C," +
