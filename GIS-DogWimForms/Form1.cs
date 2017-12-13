@@ -865,19 +865,17 @@ namespace GIS_DogWimForms
                 "'Симферополь'," +
                 "ipadr_new.adr," +
                 "ipadr_new.pomesh " +
-                "FROM ipadr_new, object " +
-                "WHERE ipadr_new.id = object.id " +
-                "AND object.statushome = 'жилое' " +
-                "AND object.typehome = 'МКД' " +
+                "FROM ipadr_new, object_adress " +
+                "WHERE ipadr_new.ipadr = object_adress.HOUSEGUID_fias " +
+                "and ipadr_new.ipadr <> object_adress.kv " +
                 "AND ipadr_new.pomesh <> '' " +
-                "AND ipadr_new.pomesh REGEXP '^[0-9]+$' " +
-                "AND ipadr_new.pomesh <> '0' " +
+                "AND ipadr_new.pomesh REGEXP '^[1-999999]+$' " +
                 "AND ipadr_new.id NOT IN " +
                 "(" +
                 "SELECT id_ls.id " +
                 "FROM id_ls " +
                 ")" +
-                "ORDER BY ipadr_new.pomesh;");
+                "ORDER BY ipadr_new.adr,ipadr_new.pomesh;");
             myCommand.Prepare();//подготавливает строку
 
             MySqlDataReader MyDataReader;
@@ -885,16 +883,43 @@ namespace GIS_DogWimForms
             int i = 0;
             int y = 1;
             int z = 1;
+            int tempcout = 0;
+            string temp123 = null;
+
             while (MyDataReader.Read())
             {
-                mkd.AddRow(MyDataReader.GetString(0),
-                           MyDataReader.GetString(1),
-                           MyDataReader.GetString(2),
-                           MyDataReader.GetString(3));
+                temp123 = MyDataReader.GetString(0);
+                break;
+            }
 
-                jill.AddRow(MyDataReader.GetString(4),
-                               MyDataReader.GetString(5));
+           while (MyDataReader.Read())
+            {
+                if (temp123 == MyDataReader.GetString(0) & tempcout == 0)
+                {
+                    mkd.AddRow(MyDataReader.GetString(0),
+                         MyDataReader.GetString(1),
+                         MyDataReader.GetString(2),
+                         MyDataReader.GetString(3));
 
+                           jill.AddRow(MyDataReader.GetString(4),
+                                       MyDataReader.GetString(5));
+                    tempcout++;
+                }
+                else if (temp123 != MyDataReader.GetString(0))
+                {
+                    temp123 = MyDataReader.GetString(0);
+                    mkd.AddRow(MyDataReader.GetString(0),
+                    MyDataReader.GetString(1),
+                    MyDataReader.GetString(2),
+                    MyDataReader.GetString(3));
+                    jill.AddRow(MyDataReader.GetString(4),
+                                MyDataReader.GetString(5));
+                }
+                else
+                {
+                    jill.AddRow(MyDataReader.GetString(4),
+                    MyDataReader.GetString(5));
+                }
 
                 i += 29;
                 z++;
@@ -906,12 +931,13 @@ namespace GIS_DogWimForms
 
                     jill.FileSave("c:\\gis\\jill" + y + "k.csv");
                     jill.Rows.Clear();
-
+                    tempcout = 0;
+                    temp123 = MyDataReader.GetString(0);
                     y++;
                 }
             }
             mkd.FileSave("c:\\gis\\MKD-Final.csv");
-            jill.FileSave("c:\\gis\\MKD-Final.csv");
+            jill.FileSave("c:\\gis\\JILL-Final.csv");
 
 
             mkd.Rows.Clear();
@@ -925,7 +951,7 @@ namespace GIS_DogWimForms
 
         private void button11_Click(object sender, EventArgs e)
         {
-
+            // нужно взять реализацию с обьектов, тогда будет изи бризи лемонд сквизи 
         }
     }
 }
