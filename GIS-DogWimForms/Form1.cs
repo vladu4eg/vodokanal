@@ -775,7 +775,7 @@ namespace GIS_DogWimForms
                 "and ipadr_new.pomesh = object_adress.kv " +
                 "and id_gis.`status` = 'Размещен' " +
                 //мкд. нужно убрать, если проверяешь еще и ЖД
-                "and ipadr_new.pomesh <> ''"
+                "and ipadr_new.pomesh <> ''" +
                 "order by LS.l_schet; ");
             myCommand.Prepare();//подготавливает строку
 
@@ -988,13 +988,14 @@ namespace GIS_DogWimForms
                 "'Однотарифный'," +
                 "PY.last_indication," +
                 "'', '', '', ''," +
-                "CASE WHEN PY.`type` = 'Коллективный (общедомовой)' THEN PY.dat_set " +
+                "CASE WHEN PY.`type` <> 'Коллективный (общедомовой)' THEN PY.dat_set " +
                 "else '' end dat_set, " +
                 "CASE WHEN PY.`type` = 'Коллективный (общедомовой)' THEN PY.ldat_testing " +
                 "else '' end ldat_testing, " +
                 "CASE WHEN PY.`type` = 'Коллективный (общедомовой)' THEN PY.dat_plomba " +
                 "else '' end dat_plomba, " +
-                "PY.y," +
+                "CASE WHEN PY.`type` = 'Коллективный (общедомовой)' THEN PY.y " +
+                "else '' end y, " +
                 "'Нет'," +
                 "''," +
                 "'Нет'," +
