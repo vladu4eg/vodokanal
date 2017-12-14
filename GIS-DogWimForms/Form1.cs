@@ -774,6 +774,8 @@ namespace GIS_DogWimForms
                 "and ipadr_new.ipadr = object_adress.HOUSEGUID_fias " +
                 "and ipadr_new.pomesh = object_adress.kv " +
                 "and id_gis.`status` = 'Размещен' " +
+                //мкд. нужно убрать, если проверяешь еще и ЖД
+                "and ipadr_new.pomesh <> ''"
                 "order by LS.l_schet; ");
             myCommand.Prepare();//подготавливает строку
 
@@ -921,7 +923,7 @@ namespace GIS_DogWimForms
                     MyDataReader.GetString(5));
                 }
 
-                i += 29;
+                i += 6;
                 z++;
                 if (z % 1000 == 0)
                 {
@@ -952,6 +954,189 @@ namespace GIS_DogWimForms
         private void button11_Click(object sender, EventArgs e)
         {
             // нужно взять реализацию с обьектов, тогда будет изи бризи лемонд сквизи 
+            Csv py = new Csv();
+            Csv doppy = new Csv();
+
+            string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
+            MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
+            MySql.Data.MySqlClient.MySqlCommand myCommand = new MySql.Data.MySqlClient.MySqlCommand();
+            myConnection.Open();
+            myCommand.Connection = myConnection;
+
+            myCommand.CommandText = string.Format("SELECT PY.id_ls, " +
+                "PY.inv_moner, " +
+                "PY.type, " +
+                "PY.type_name," +
+                "PY.type_name2," +
+                "PY.ulica, " +
+                "CASE " +
+                "WHEN PY.type = 'Индивидуальный' and SUBSTRING(id_ls.id_dom, 1, 1) <> 9  THEN id_ls.id_dom " +
+                "WHEN PY.`type` = 'Коллективный (общедомовой)' THEN id_ls.id_dom " +
+                "ELSE '' END AS adr1, " +
+                "CASE " +
+                "WHEN PY.`type` = 'Индивидуальный' and SUBSTRING(id_ls.id_dom, 1, 1) = 9 THEN id_ls.id_dom " +
+                "WHEN PY.`type` = 'Общий (квартирный)' THEN id_ls.id_dom " +
+                "ELSE '' END AS adr2, " +
+                "''," +
+                "id_ls.ls_gis," +
+                "'Нет'," +
+                "''," +
+                "'Нет'," +
+                "''," +
+                "''," +
+                "'Холодная вода'," +
+                "'Однотарифный'," +
+                "PY.last_indication," +
+                "'', '', '', ''," +
+                "CASE WHEN PY.`type` = 'Коллективный (общедомовой)' THEN PY.dat_set " +
+                "else '' end dat_set, " +
+                "CASE WHEN PY.`type` = 'Коллективный (общедомовой)' THEN PY.ldat_testing " +
+                "else '' end ldat_testing, " +
+                "CASE WHEN PY.`type` = 'Коллективный (общедомовой)' THEN PY.dat_plomba " +
+                "else '' end dat_plomba, " +
+                "PY.y," +
+                "'Нет'," +
+                "''," +
+                "'Нет'," +
+                "''" +
+                "FROM PY, id_ls " +
+                "where PY.id_ls = id_ls.id " +
+                "order by PY.id_ls ");
+            myCommand.Prepare();//подготавливает строку
+
+            MySqlDataReader MyDataReader;
+            MyDataReader = myCommand.ExecuteReader();
+            int i = 0;
+            int y = 1;
+            int z = 1;
+            int tempcout = 0;
+            string temp123 = null;
+
+            while (MyDataReader.Read())
+            {
+                temp123 = MyDataReader.GetString(0);
+                break;
+            }
+
+            while (MyDataReader.Read())
+            {
+                if (temp123 == MyDataReader.GetString(0) & tempcout == 0)
+                {
+                    py.AddRow(MyDataReader.GetString(1),
+                           MyDataReader.GetString(2),
+                           MyDataReader.GetString(3),
+                           MyDataReader.GetString(4),
+                           MyDataReader.GetString(5),
+                           MyDataReader.GetString(6),
+                           MyDataReader.GetString(7),
+                           MyDataReader.GetString(8),
+                           MyDataReader.GetString(9),
+                           MyDataReader.GetString(10),
+                           MyDataReader.GetString(11),
+                           MyDataReader.GetString(12),
+                           MyDataReader.GetString(13),
+                           MyDataReader.GetString(14),
+                           MyDataReader.GetString(15),
+                           MyDataReader.GetString(16),
+                           MyDataReader.GetString(17),
+                           MyDataReader.GetString(18),
+                           MyDataReader.GetString(19),
+                           MyDataReader.GetString(20),
+                           MyDataReader.GetString(21),
+                           MyDataReader.GetString(22),
+                           MyDataReader.GetString(23),
+                           MyDataReader.GetString(24),
+                           MyDataReader.GetString(25),
+                           MyDataReader.GetString(26),
+                           MyDataReader.GetString(27),
+                           MyDataReader.GetString(28),
+                           MyDataReader.GetString(29));
+                            doppy.AddRow("");
+                   /*
+                                       doppy.AddRow(MyDataReader.GetString(5),
+                                                   MyDataReader.GetString(1),
+                                                   MyDataReader.GetString(2),
+                                                   MyDataReader.GetString(3),
+                                                   MyDataReader.GetString(9));
+                                                   */
+                   tempcout++;
+                }
+                else if (temp123 != MyDataReader.GetString(0))
+                {
+                    py.AddRow(MyDataReader.GetString(1),
+                           MyDataReader.GetString(2),
+                           MyDataReader.GetString(3),
+                           MyDataReader.GetString(4),
+                           MyDataReader.GetString(5),
+                           MyDataReader.GetString(6),
+                           MyDataReader.GetString(7),
+                           MyDataReader.GetString(8),
+                           MyDataReader.GetString(9),
+                           MyDataReader.GetString(10),
+                           MyDataReader.GetString(11),
+                           MyDataReader.GetString(12),
+                           MyDataReader.GetString(13),
+                           MyDataReader.GetString(14),
+                           MyDataReader.GetString(15),
+                           MyDataReader.GetString(16),
+                           MyDataReader.GetString(17),
+                           MyDataReader.GetString(18),
+                           MyDataReader.GetString(19),
+                           MyDataReader.GetString(20),
+                           MyDataReader.GetString(21),
+                           MyDataReader.GetString(22),
+                           MyDataReader.GetString(23),
+                           MyDataReader.GetString(24),
+                           MyDataReader.GetString(25),
+                           MyDataReader.GetString(26),
+                           MyDataReader.GetString(27),
+                           MyDataReader.GetString(28),
+                           MyDataReader.GetString(29));
+                    doppy.AddRow("");
+                    /*
+                    doppy.AddRow(MyDataReader.GetString(5),
+                                MyDataReader.GetString(1),
+                                MyDataReader.GetString(2),
+                                MyDataReader.GetString(3),
+                                MyDataReader.GetString(9));
+                                */
+                }
+                else
+                {
+                    doppy.AddRow(MyDataReader.GetString(5),
+                    MyDataReader.GetString(1),
+                    MyDataReader.GetString(2),
+                    MyDataReader.GetString(3),
+                    MyDataReader.GetString(9));
+                }
+
+                i += 30;
+                z++;
+                if (z % 5000 == 0)
+                {
+
+                    py.FileSave("c:\\gis\\PY" + y + "k.csv");
+                    py.Rows.Clear();
+
+                    doppy.FileSave("c:\\gis\\doppy" + y + "k.csv");
+                    doppy.Rows.Clear();
+                    tempcout = 0;
+                    temp123 = MyDataReader.GetString(0);
+                    y++;
+                }
+            }
+            py.FileSave("c:\\gis\\PY-Final.csv");
+            doppy.FileSave("c:\\gis\\DOPPY-Final.csv");
+
+
+            py.Rows.Clear();
+            doppy.Rows.Clear();
+
+            MyDataReader.Close();
+            myConnection.Close();
+
+            MessageBox.Show("Готово! С:\\gis\\");
+
         }
     }
 }
