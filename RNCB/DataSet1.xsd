@@ -1,0 +1,671 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ConnectionString (Settings)" PropertyReference="ApplicationSettings.RNCB.Properties.Settings.GlobalReference.Default.ConnectionString" Provider="System.Data.OracleClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="V_EXT_LICSCHTTableAdapter" GeneratorDataComponentClassName="V_EXT_LICSCHTTableAdapter" Name="V_EXT_LICSCHT" UserDataComponentName="V_EXT_LICSCHTTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectName="ENG.V_EXT_LICSCHT" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ID, MASTER_ID, VVOD_ID, VVOD_NAME, L_SCHET, PERSON_ID, FAMIL_ID, IMEN_ID, OTCH_ID, IDENT_NO, DAT_BIRTH, FAMIL_NAME_R, IMEN_NAME_R, OTCH_NAME_R, FULL_FIO, VIDUL_ID, VIDUL_NAME_SR, ULICA_ID, ULICA_NAME_R, DOM_ID, DOM_NAME, KORP, POCHT_O, KVART, FULL_ADDR, DOC_GIL, KOL_GIL, DOC_LGO, KOL_LGO, PROC_LGO, STKVA_ID, STKVA_NAME_SR, STKVA_NAME_R, STBLAG_ID, STBLAG_NAME_R, RAYON_ID, RAYON_NAME_R, REGION_ID, REGION_NAME_R, OBSL_ID, OBSL_NAME_R, OBSL_TYPE_KOD, OBSL_TYPE, STLSCHT_ID, STLSCHT_NAME_R, DOLG_V, DOLG_K, DOLG_VODOKANAL, DOLG, DAT_LASTOPL, PROC_OPLA, TELEPHONE, DOC_DOP, DOP_NORM_ID, DOP_NORM_NAME, OWNER_ID, OWNER_NAME, DEPART_ID, DEPART_NAME_R FROM ENG.V_EXT_LICSCHT</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="MASTER_ID" DataSetColumn="MASTER_ID" />
+              <Mapping SourceColumn="VVOD_ID" DataSetColumn="VVOD_ID" />
+              <Mapping SourceColumn="VVOD_NAME" DataSetColumn="VVOD_NAME" />
+              <Mapping SourceColumn="L_SCHET" DataSetColumn="L_SCHET" />
+              <Mapping SourceColumn="PERSON_ID" DataSetColumn="PERSON_ID" />
+              <Mapping SourceColumn="FAMIL_ID" DataSetColumn="FAMIL_ID" />
+              <Mapping SourceColumn="IMEN_ID" DataSetColumn="IMEN_ID" />
+              <Mapping SourceColumn="OTCH_ID" DataSetColumn="OTCH_ID" />
+              <Mapping SourceColumn="IDENT_NO" DataSetColumn="IDENT_NO" />
+              <Mapping SourceColumn="DAT_BIRTH" DataSetColumn="DAT_BIRTH" />
+              <Mapping SourceColumn="FAMIL_NAME_R" DataSetColumn="FAMIL_NAME_R" />
+              <Mapping SourceColumn="IMEN_NAME_R" DataSetColumn="IMEN_NAME_R" />
+              <Mapping SourceColumn="OTCH_NAME_R" DataSetColumn="OTCH_NAME_R" />
+              <Mapping SourceColumn="FULL_FIO" DataSetColumn="FULL_FIO" />
+              <Mapping SourceColumn="VIDUL_ID" DataSetColumn="VIDUL_ID" />
+              <Mapping SourceColumn="VIDUL_NAME_SR" DataSetColumn="VIDUL_NAME_SR" />
+              <Mapping SourceColumn="ULICA_ID" DataSetColumn="ULICA_ID" />
+              <Mapping SourceColumn="ULICA_NAME_R" DataSetColumn="ULICA_NAME_R" />
+              <Mapping SourceColumn="DOM_ID" DataSetColumn="DOM_ID" />
+              <Mapping SourceColumn="DOM_NAME" DataSetColumn="DOM_NAME" />
+              <Mapping SourceColumn="KORP" DataSetColumn="KORP" />
+              <Mapping SourceColumn="POCHT_O" DataSetColumn="POCHT_O" />
+              <Mapping SourceColumn="KVART" DataSetColumn="KVART" />
+              <Mapping SourceColumn="FULL_ADDR" DataSetColumn="FULL_ADDR" />
+              <Mapping SourceColumn="DOC_GIL" DataSetColumn="DOC_GIL" />
+              <Mapping SourceColumn="KOL_GIL" DataSetColumn="KOL_GIL" />
+              <Mapping SourceColumn="DOC_LGO" DataSetColumn="DOC_LGO" />
+              <Mapping SourceColumn="KOL_LGO" DataSetColumn="KOL_LGO" />
+              <Mapping SourceColumn="PROC_LGO" DataSetColumn="PROC_LGO" />
+              <Mapping SourceColumn="STKVA_ID" DataSetColumn="STKVA_ID" />
+              <Mapping SourceColumn="STKVA_NAME_SR" DataSetColumn="STKVA_NAME_SR" />
+              <Mapping SourceColumn="STKVA_NAME_R" DataSetColumn="STKVA_NAME_R" />
+              <Mapping SourceColumn="STBLAG_ID" DataSetColumn="STBLAG_ID" />
+              <Mapping SourceColumn="STBLAG_NAME_R" DataSetColumn="STBLAG_NAME_R" />
+              <Mapping SourceColumn="RAYON_ID" DataSetColumn="RAYON_ID" />
+              <Mapping SourceColumn="RAYON_NAME_R" DataSetColumn="RAYON_NAME_R" />
+              <Mapping SourceColumn="REGION_ID" DataSetColumn="REGION_ID" />
+              <Mapping SourceColumn="REGION_NAME_R" DataSetColumn="REGION_NAME_R" />
+              <Mapping SourceColumn="OBSL_ID" DataSetColumn="OBSL_ID" />
+              <Mapping SourceColumn="OBSL_NAME_R" DataSetColumn="OBSL_NAME_R" />
+              <Mapping SourceColumn="OBSL_TYPE_KOD" DataSetColumn="OBSL_TYPE_KOD" />
+              <Mapping SourceColumn="OBSL_TYPE" DataSetColumn="OBSL_TYPE" />
+              <Mapping SourceColumn="STLSCHT_ID" DataSetColumn="STLSCHT_ID" />
+              <Mapping SourceColumn="STLSCHT_NAME_R" DataSetColumn="STLSCHT_NAME_R" />
+              <Mapping SourceColumn="DOLG_V" DataSetColumn="DOLG_V" />
+              <Mapping SourceColumn="DOLG_K" DataSetColumn="DOLG_K" />
+              <Mapping SourceColumn="DOLG_VODOKANAL" DataSetColumn="DOLG_VODOKANAL" />
+              <Mapping SourceColumn="DOLG" DataSetColumn="DOLG" />
+              <Mapping SourceColumn="DAT_LASTOPL" DataSetColumn="DAT_LASTOPL" />
+              <Mapping SourceColumn="PROC_OPLA" DataSetColumn="PROC_OPLA" />
+              <Mapping SourceColumn="TELEPHONE" DataSetColumn="TELEPHONE" />
+              <Mapping SourceColumn="DOC_DOP" DataSetColumn="DOC_DOP" />
+              <Mapping SourceColumn="DOP_NORM_ID" DataSetColumn="DOP_NORM_ID" />
+              <Mapping SourceColumn="DOP_NORM_NAME" DataSetColumn="DOP_NORM_NAME" />
+              <Mapping SourceColumn="OWNER_ID" DataSetColumn="OWNER_ID" />
+              <Mapping SourceColumn="OWNER_NAME" DataSetColumn="OWNER_NAME" />
+              <Mapping SourceColumn="DEPART_ID" DataSetColumn="DEPART_ID" />
+              <Mapping SourceColumn="DEPART_NAME_R" DataSetColumn="DEPART_NAME_R" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="V_EXT_LICSCHT$RUTableAdapter" GeneratorDataComponentClassName="V_EXT_LICSCHT_RUTableAdapter" Name="V_EXT_LICSCHT$RU" UserDataComponentName="V_EXT_LICSCHT$RUTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectName="ENG.V_EXT_LICSCHT$RU" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ID, MASTER_ID, VVOD_ID, VVOD_NAME, L_SCHET, PERSON_ID, FAMIL_ID, IMEN_ID, OTCH_ID, IDENT_NO, DAT_BIRTH, FAMIL_NAME_R, IMEN_NAME_R, OTCH_NAME_R, FULL_FIO, VIDUL_ID, VIDUL_NAME_SR, ULICA_ID, ULICA_NAME_R, DOM_ID, DOM_NAME, KORP, POCHT_O, KVART, FULL_ADDR, DOC_GIL, KOL_GIL, DOC_LGO, KOL_LGO, PROC_LGO, STKVA_ID, STKVA_NAME_SR, STKVA_NAME_R, STBLAG_ID, STBLAG_NAME_R, RAYON_ID, RAYON_NAME_R, REGION_ID, REGION_NAME_R, OBSL_ID, OBSL_NAME_R, OBSL_TYPE_KOD, OBSL_TYPE, STLSCHT_ID, STLSCHT_NAME_R, DOLG_V, DOLG_K, DOLG_VODOKANAL, DOLG, DAT_LASTOPL, PROC_OPLA, TELEPHONE, DOC_DOP, DOP_NORM_ID, DOP_NORM_NAME, OWNER_ID, OWNER_NAME, DEPART_ID, DEPART_NAME_R FROM ENG.V_EXT_LICSCHT$RU</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="MASTER_ID" DataSetColumn="MASTER_ID" />
+              <Mapping SourceColumn="VVOD_ID" DataSetColumn="VVOD_ID" />
+              <Mapping SourceColumn="VVOD_NAME" DataSetColumn="VVOD_NAME" />
+              <Mapping SourceColumn="L_SCHET" DataSetColumn="L_SCHET" />
+              <Mapping SourceColumn="PERSON_ID" DataSetColumn="PERSON_ID" />
+              <Mapping SourceColumn="FAMIL_ID" DataSetColumn="FAMIL_ID" />
+              <Mapping SourceColumn="IMEN_ID" DataSetColumn="IMEN_ID" />
+              <Mapping SourceColumn="OTCH_ID" DataSetColumn="OTCH_ID" />
+              <Mapping SourceColumn="IDENT_NO" DataSetColumn="IDENT_NO" />
+              <Mapping SourceColumn="DAT_BIRTH" DataSetColumn="DAT_BIRTH" />
+              <Mapping SourceColumn="FAMIL_NAME_R" DataSetColumn="FAMIL_NAME_R" />
+              <Mapping SourceColumn="IMEN_NAME_R" DataSetColumn="IMEN_NAME_R" />
+              <Mapping SourceColumn="OTCH_NAME_R" DataSetColumn="OTCH_NAME_R" />
+              <Mapping SourceColumn="FULL_FIO" DataSetColumn="FULL_FIO" />
+              <Mapping SourceColumn="VIDUL_ID" DataSetColumn="VIDUL_ID" />
+              <Mapping SourceColumn="VIDUL_NAME_SR" DataSetColumn="VIDUL_NAME_SR" />
+              <Mapping SourceColumn="ULICA_ID" DataSetColumn="ULICA_ID" />
+              <Mapping SourceColumn="ULICA_NAME_R" DataSetColumn="ULICA_NAME_R" />
+              <Mapping SourceColumn="DOM_ID" DataSetColumn="DOM_ID" />
+              <Mapping SourceColumn="DOM_NAME" DataSetColumn="DOM_NAME" />
+              <Mapping SourceColumn="KORP" DataSetColumn="KORP" />
+              <Mapping SourceColumn="POCHT_O" DataSetColumn="POCHT_O" />
+              <Mapping SourceColumn="KVART" DataSetColumn="KVART" />
+              <Mapping SourceColumn="FULL_ADDR" DataSetColumn="FULL_ADDR" />
+              <Mapping SourceColumn="DOC_GIL" DataSetColumn="DOC_GIL" />
+              <Mapping SourceColumn="KOL_GIL" DataSetColumn="KOL_GIL" />
+              <Mapping SourceColumn="DOC_LGO" DataSetColumn="DOC_LGO" />
+              <Mapping SourceColumn="KOL_LGO" DataSetColumn="KOL_LGO" />
+              <Mapping SourceColumn="PROC_LGO" DataSetColumn="PROC_LGO" />
+              <Mapping SourceColumn="STKVA_ID" DataSetColumn="STKVA_ID" />
+              <Mapping SourceColumn="STKVA_NAME_SR" DataSetColumn="STKVA_NAME_SR" />
+              <Mapping SourceColumn="STKVA_NAME_R" DataSetColumn="STKVA_NAME_R" />
+              <Mapping SourceColumn="STBLAG_ID" DataSetColumn="STBLAG_ID" />
+              <Mapping SourceColumn="STBLAG_NAME_R" DataSetColumn="STBLAG_NAME_R" />
+              <Mapping SourceColumn="RAYON_ID" DataSetColumn="RAYON_ID" />
+              <Mapping SourceColumn="RAYON_NAME_R" DataSetColumn="RAYON_NAME_R" />
+              <Mapping SourceColumn="REGION_ID" DataSetColumn="REGION_ID" />
+              <Mapping SourceColumn="REGION_NAME_R" DataSetColumn="REGION_NAME_R" />
+              <Mapping SourceColumn="OBSL_ID" DataSetColumn="OBSL_ID" />
+              <Mapping SourceColumn="OBSL_NAME_R" DataSetColumn="OBSL_NAME_R" />
+              <Mapping SourceColumn="OBSL_TYPE_KOD" DataSetColumn="OBSL_TYPE_KOD" />
+              <Mapping SourceColumn="OBSL_TYPE" DataSetColumn="OBSL_TYPE" />
+              <Mapping SourceColumn="STLSCHT_ID" DataSetColumn="STLSCHT_ID" />
+              <Mapping SourceColumn="STLSCHT_NAME_R" DataSetColumn="STLSCHT_NAME_R" />
+              <Mapping SourceColumn="DOLG_V" DataSetColumn="DOLG_V" />
+              <Mapping SourceColumn="DOLG_K" DataSetColumn="DOLG_K" />
+              <Mapping SourceColumn="DOLG_VODOKANAL" DataSetColumn="DOLG_VODOKANAL" />
+              <Mapping SourceColumn="DOLG" DataSetColumn="DOLG" />
+              <Mapping SourceColumn="DAT_LASTOPL" DataSetColumn="DAT_LASTOPL" />
+              <Mapping SourceColumn="PROC_OPLA" DataSetColumn="PROC_OPLA" />
+              <Mapping SourceColumn="TELEPHONE" DataSetColumn="TELEPHONE" />
+              <Mapping SourceColumn="DOC_DOP" DataSetColumn="DOC_DOP" />
+              <Mapping SourceColumn="DOP_NORM_ID" DataSetColumn="DOP_NORM_ID" />
+              <Mapping SourceColumn="DOP_NORM_NAME" DataSetColumn="DOP_NORM_NAME" />
+              <Mapping SourceColumn="OWNER_ID" DataSetColumn="OWNER_ID" />
+              <Mapping SourceColumn="OWNER_NAME" DataSetColumn="OWNER_NAME" />
+              <Mapping SourceColumn="DEPART_ID" DataSetColumn="DEPART_ID" />
+              <Mapping SourceColumn="DEPART_NAME_R" DataSetColumn="DEPART_NAME_R" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="V_EXT_LICSCHT" msprop:Generator_TableClassName="V_EXT_LICSCHTDataTable" msprop:Generator_TableVarName="tableV_EXT_LICSCHT" msprop:Generator_TablePropName="V_EXT_LICSCHT" msprop:Generator_RowDeletingName="V_EXT_LICSCHTRowDeleting" msprop:Generator_RowChangingName="V_EXT_LICSCHTRowChanging" msprop:Generator_RowEvHandlerName="V_EXT_LICSCHTRowChangeEventHandler" msprop:Generator_RowDeletedName="V_EXT_LICSCHTRowDeleted" msprop:Generator_UserTableName="V_EXT_LICSCHT" msprop:Generator_RowChangedName="V_EXT_LICSCHTRowChanged" msprop:Generator_RowEvArgName="V_EXT_LICSCHTRowChangeEvent" msprop:Generator_RowClassName="V_EXT_LICSCHTRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:decimal" />
+              <xs:element name="MASTER_ID" msprop:Generator_ColumnVarNameInTable="columnMASTER_ID" msprop:Generator_ColumnPropNameInRow="MASTER_ID" msprop:Generator_ColumnPropNameInTable="MASTER_IDColumn" msprop:Generator_UserColumnName="MASTER_ID" type="xs:decimal" minOccurs="0" />
+              <xs:element name="VVOD_ID" msprop:Generator_ColumnVarNameInTable="columnVVOD_ID" msprop:Generator_ColumnPropNameInRow="VVOD_ID" msprop:Generator_ColumnPropNameInTable="VVOD_IDColumn" msprop:Generator_UserColumnName="VVOD_ID" type="xs:decimal" />
+              <xs:element name="VVOD_NAME" msprop:Generator_ColumnVarNameInTable="columnVVOD_NAME" msprop:Generator_ColumnPropNameInRow="VVOD_NAME" msprop:Generator_ColumnPropNameInTable="VVOD_NAMEColumn" msprop:Generator_UserColumnName="VVOD_NAME" type="xs:decimal" />
+              <xs:element name="L_SCHET" msprop:Generator_ColumnVarNameInTable="columnL_SCHET" msprop:Generator_ColumnPropNameInRow="L_SCHET" msprop:Generator_ColumnPropNameInTable="L_SCHETColumn" msprop:Generator_UserColumnName="L_SCHET">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="18" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PERSON_ID" msprop:Generator_ColumnVarNameInTable="columnPERSON_ID" msprop:Generator_ColumnPropNameInRow="PERSON_ID" msprop:Generator_ColumnPropNameInTable="PERSON_IDColumn" msprop:Generator_UserColumnName="PERSON_ID" type="xs:decimal" />
+              <xs:element name="FAMIL_ID" msprop:Generator_ColumnVarNameInTable="columnFAMIL_ID" msprop:Generator_ColumnPropNameInRow="FAMIL_ID" msprop:Generator_ColumnPropNameInTable="FAMIL_IDColumn" msprop:Generator_UserColumnName="FAMIL_ID" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IMEN_ID" msprop:Generator_ColumnVarNameInTable="columnIMEN_ID" msprop:Generator_ColumnPropNameInRow="IMEN_ID" msprop:Generator_ColumnPropNameInTable="IMEN_IDColumn" msprop:Generator_UserColumnName="IMEN_ID" type="xs:decimal" minOccurs="0" />
+              <xs:element name="OTCH_ID" msprop:Generator_ColumnVarNameInTable="columnOTCH_ID" msprop:Generator_ColumnPropNameInRow="OTCH_ID" msprop:Generator_ColumnPropNameInTable="OTCH_IDColumn" msprop:Generator_UserColumnName="OTCH_ID" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IDENT_NO" msprop:Generator_ColumnVarNameInTable="columnIDENT_NO" msprop:Generator_ColumnPropNameInRow="IDENT_NO" msprop:Generator_ColumnPropNameInTable="IDENT_NOColumn" msprop:Generator_UserColumnName="IDENT_NO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="11" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DAT_BIRTH" msprop:Generator_ColumnVarNameInTable="columnDAT_BIRTH" msprop:Generator_ColumnPropNameInRow="DAT_BIRTH" msprop:Generator_ColumnPropNameInTable="DAT_BIRTHColumn" msprop:Generator_UserColumnName="DAT_BIRTH" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="FAMIL_NAME_R" msprop:Generator_ColumnVarNameInTable="columnFAMIL_NAME_R" msprop:Generator_ColumnPropNameInRow="FAMIL_NAME_R" msprop:Generator_ColumnPropNameInTable="FAMIL_NAME_RColumn" msprop:Generator_UserColumnName="FAMIL_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IMEN_NAME_R" msprop:Generator_ColumnVarNameInTable="columnIMEN_NAME_R" msprop:Generator_ColumnPropNameInRow="IMEN_NAME_R" msprop:Generator_ColumnPropNameInTable="IMEN_NAME_RColumn" msprop:Generator_UserColumnName="IMEN_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OTCH_NAME_R" msprop:Generator_ColumnVarNameInTable="columnOTCH_NAME_R" msprop:Generator_ColumnPropNameInRow="OTCH_NAME_R" msprop:Generator_ColumnPropNameInTable="OTCH_NAME_RColumn" msprop:Generator_UserColumnName="OTCH_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FULL_FIO" msprop:Generator_ColumnVarNameInTable="columnFULL_FIO" msprop:Generator_ColumnPropNameInRow="FULL_FIO" msprop:Generator_ColumnPropNameInTable="FULL_FIOColumn" msprop:Generator_UserColumnName="FULL_FIO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="122" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="VIDUL_ID" msprop:Generator_ColumnVarNameInTable="columnVIDUL_ID" msprop:Generator_ColumnPropNameInRow="VIDUL_ID" msprop:Generator_ColumnPropNameInTable="VIDUL_IDColumn" msprop:Generator_UserColumnName="VIDUL_ID">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="VIDUL_NAME_SR" msprop:Generator_ColumnVarNameInTable="columnVIDUL_NAME_SR" msprop:Generator_ColumnPropNameInRow="VIDUL_NAME_SR" msprop:Generator_ColumnPropNameInTable="VIDUL_NAME_SRColumn" msprop:Generator_UserColumnName="VIDUL_NAME_SR" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="7" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ULICA_ID" msprop:Generator_ColumnVarNameInTable="columnULICA_ID" msprop:Generator_ColumnPropNameInRow="ULICA_ID" msprop:Generator_ColumnPropNameInTable="ULICA_IDColumn" msprop:Generator_UserColumnName="ULICA_ID" type="xs:decimal" />
+              <xs:element name="ULICA_NAME_R" msprop:Generator_ColumnVarNameInTable="columnULICA_NAME_R" msprop:Generator_ColumnPropNameInRow="ULICA_NAME_R" msprop:Generator_ColumnPropNameInTable="ULICA_NAME_RColumn" msprop:Generator_UserColumnName="ULICA_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOM_ID" msprop:Generator_ColumnVarNameInTable="columnDOM_ID" msprop:Generator_ColumnPropNameInRow="DOM_ID" msprop:Generator_ColumnPropNameInTable="DOM_IDColumn" msprop:Generator_UserColumnName="DOM_ID" type="xs:decimal" />
+              <xs:element name="DOM_NAME" msprop:Generator_ColumnVarNameInTable="columnDOM_NAME" msprop:Generator_ColumnPropNameInRow="DOM_NAME" msprop:Generator_ColumnPropNameInTable="DOM_NAMEColumn" msprop:Generator_UserColumnName="DOM_NAME">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="9" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="KORP" msprop:Generator_ColumnVarNameInTable="columnKORP" msprop:Generator_ColumnPropNameInRow="KORP" msprop:Generator_ColumnPropNameInTable="KORPColumn" msprop:Generator_UserColumnName="KORP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="POCHT_O" msprop:Generator_ColumnVarNameInTable="columnPOCHT_O" msprop:Generator_ColumnPropNameInRow="POCHT_O" msprop:Generator_ColumnPropNameInTable="POCHT_OColumn" msprop:Generator_UserColumnName="POCHT_O" type="xs:decimal" minOccurs="0" />
+              <xs:element name="KVART" msprop:Generator_ColumnVarNameInTable="columnKVART" msprop:Generator_ColumnPropNameInRow="KVART" msprop:Generator_ColumnPropNameInTable="KVARTColumn" msprop:Generator_UserColumnName="KVART">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FULL_ADDR" msprop:Generator_ColumnVarNameInTable="columnFULL_ADDR" msprop:Generator_ColumnPropNameInRow="FULL_ADDR" msprop:Generator_ColumnPropNameInTable="FULL_ADDRColumn" msprop:Generator_UserColumnName="FULL_ADDR" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="81" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOC_GIL" msprop:Generator_ColumnVarNameInTable="columnDOC_GIL" msprop:Generator_ColumnPropNameInRow="DOC_GIL" msprop:Generator_ColumnPropNameInTable="DOC_GILColumn" msprop:Generator_UserColumnName="DOC_GIL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="KOL_GIL" msprop:Generator_ColumnVarNameInTable="columnKOL_GIL" msprop:Generator_ColumnPropNameInRow="KOL_GIL" msprop:Generator_ColumnPropNameInTable="KOL_GILColumn" msprop:Generator_UserColumnName="KOL_GIL" type="xs:decimal" />
+              <xs:element name="DOC_LGO" msprop:Generator_ColumnVarNameInTable="columnDOC_LGO" msprop:Generator_ColumnPropNameInRow="DOC_LGO" msprop:Generator_ColumnPropNameInTable="DOC_LGOColumn" msprop:Generator_UserColumnName="DOC_LGO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="KOL_LGO" msprop:Generator_ColumnVarNameInTable="columnKOL_LGO" msprop:Generator_ColumnPropNameInRow="KOL_LGO" msprop:Generator_ColumnPropNameInTable="KOL_LGOColumn" msprop:Generator_UserColumnName="KOL_LGO" type="xs:decimal" />
+              <xs:element name="PROC_LGO" msprop:Generator_ColumnVarNameInTable="columnPROC_LGO" msprop:Generator_ColumnPropNameInRow="PROC_LGO" msprop:Generator_ColumnPropNameInTable="PROC_LGOColumn" msprop:Generator_UserColumnName="PROC_LGO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="STKVA_ID" msprop:Generator_ColumnVarNameInTable="columnSTKVA_ID" msprop:Generator_ColumnPropNameInRow="STKVA_ID" msprop:Generator_ColumnPropNameInTable="STKVA_IDColumn" msprop:Generator_UserColumnName="STKVA_ID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STKVA_NAME_SR" msprop:Generator_ColumnVarNameInTable="columnSTKVA_NAME_SR" msprop:Generator_ColumnPropNameInRow="STKVA_NAME_SR" msprop:Generator_ColumnPropNameInTable="STKVA_NAME_SRColumn" msprop:Generator_UserColumnName="STKVA_NAME_SR" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="7" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STKVA_NAME_R" msprop:Generator_ColumnVarNameInTable="columnSTKVA_NAME_R" msprop:Generator_ColumnPropNameInRow="STKVA_NAME_R" msprop:Generator_ColumnPropNameInTable="STKVA_NAME_RColumn" msprop:Generator_UserColumnName="STKVA_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STBLAG_ID" msprop:Generator_ColumnVarNameInTable="columnSTBLAG_ID" msprop:Generator_ColumnPropNameInRow="STBLAG_ID" msprop:Generator_ColumnPropNameInTable="STBLAG_IDColumn" msprop:Generator_UserColumnName="STBLAG_ID">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STBLAG_NAME_R" msprop:Generator_ColumnVarNameInTable="columnSTBLAG_NAME_R" msprop:Generator_ColumnPropNameInRow="STBLAG_NAME_R" msprop:Generator_ColumnPropNameInTable="STBLAG_NAME_RColumn" msprop:Generator_UserColumnName="STBLAG_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="140" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RAYON_ID" msprop:Generator_ColumnVarNameInTable="columnRAYON_ID" msprop:Generator_ColumnPropNameInRow="RAYON_ID" msprop:Generator_ColumnPropNameInTable="RAYON_IDColumn" msprop:Generator_UserColumnName="RAYON_ID">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RAYON_NAME_R" msprop:Generator_ColumnVarNameInTable="columnRAYON_NAME_R" msprop:Generator_ColumnPropNameInRow="RAYON_NAME_R" msprop:Generator_ColumnPropNameInTable="RAYON_NAME_RColumn" msprop:Generator_UserColumnName="RAYON_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="REGION_ID" msprop:Generator_ColumnVarNameInTable="columnREGION_ID" msprop:Generator_ColumnPropNameInRow="REGION_ID" msprop:Generator_ColumnPropNameInTable="REGION_IDColumn" msprop:Generator_UserColumnName="REGION_ID" type="xs:decimal" minOccurs="0" />
+              <xs:element name="REGION_NAME_R" msprop:Generator_ColumnVarNameInTable="columnREGION_NAME_R" msprop:Generator_ColumnPropNameInRow="REGION_NAME_R" msprop:Generator_ColumnPropNameInTable="REGION_NAME_RColumn" msprop:Generator_UserColumnName="REGION_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OBSL_ID" msprop:Generator_ColumnVarNameInTable="columnOBSL_ID" msprop:Generator_ColumnPropNameInRow="OBSL_ID" msprop:Generator_ColumnPropNameInTable="OBSL_IDColumn" msprop:Generator_UserColumnName="OBSL_ID" type="xs:decimal" />
+              <xs:element name="OBSL_NAME_R" msprop:Generator_ColumnVarNameInTable="columnOBSL_NAME_R" msprop:Generator_ColumnPropNameInRow="OBSL_NAME_R" msprop:Generator_ColumnPropNameInTable="OBSL_NAME_RColumn" msprop:Generator_UserColumnName="OBSL_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="80" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OBSL_TYPE_KOD" msprop:Generator_ColumnVarNameInTable="columnOBSL_TYPE_KOD" msprop:Generator_ColumnPropNameInRow="OBSL_TYPE_KOD" msprop:Generator_ColumnPropNameInTable="OBSL_TYPE_KODColumn" msprop:Generator_UserColumnName="OBSL_TYPE_KOD">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OBSL_TYPE" msprop:Generator_ColumnVarNameInTable="columnOBSL_TYPE" msprop:Generator_ColumnPropNameInRow="OBSL_TYPE" msprop:Generator_ColumnPropNameInTable="OBSL_TYPEColumn" msprop:Generator_UserColumnName="OBSL_TYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STLSCHT_ID" msprop:Generator_ColumnVarNameInTable="columnSTLSCHT_ID" msprop:Generator_ColumnPropNameInRow="STLSCHT_ID" msprop:Generator_ColumnPropNameInTable="STLSCHT_IDColumn" msprop:Generator_UserColumnName="STLSCHT_ID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STLSCHT_NAME_R" msprop:Generator_ColumnVarNameInTable="columnSTLSCHT_NAME_R" msprop:Generator_ColumnPropNameInRow="STLSCHT_NAME_R" msprop:Generator_ColumnPropNameInTable="STLSCHT_NAME_RColumn" msprop:Generator_UserColumnName="STLSCHT_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOLG_V" msprop:Generator_ColumnVarNameInTable="columnDOLG_V" msprop:Generator_ColumnPropNameInRow="DOLG_V" msprop:Generator_ColumnPropNameInTable="DOLG_VColumn" msprop:Generator_UserColumnName="DOLG_V" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DOLG_K" msprop:Generator_ColumnVarNameInTable="columnDOLG_K" msprop:Generator_ColumnPropNameInRow="DOLG_K" msprop:Generator_ColumnPropNameInTable="DOLG_KColumn" msprop:Generator_UserColumnName="DOLG_K" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DOLG_VODOKANAL" msprop:Generator_ColumnVarNameInTable="columnDOLG_VODOKANAL" msprop:Generator_ColumnPropNameInRow="DOLG_VODOKANAL" msprop:Generator_ColumnPropNameInTable="DOLG_VODOKANALColumn" msprop:Generator_UserColumnName="DOLG_VODOKANAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DOLG" msprop:Generator_ColumnVarNameInTable="columnDOLG" msprop:Generator_ColumnPropNameInRow="DOLG" msprop:Generator_ColumnPropNameInTable="DOLGColumn" msprop:Generator_UserColumnName="DOLG" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DAT_LASTOPL" msprop:Generator_ColumnVarNameInTable="columnDAT_LASTOPL" msprop:Generator_ColumnPropNameInRow="DAT_LASTOPL" msprop:Generator_ColumnPropNameInTable="DAT_LASTOPLColumn" msprop:Generator_UserColumnName="DAT_LASTOPL" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PROC_OPLA" msprop:Generator_ColumnVarNameInTable="columnPROC_OPLA" msprop:Generator_ColumnPropNameInRow="PROC_OPLA" msprop:Generator_ColumnPropNameInTable="PROC_OPLAColumn" msprop:Generator_UserColumnName="PROC_OPLA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TELEPHONE" msprop:Generator_ColumnVarNameInTable="columnTELEPHONE" msprop:Generator_ColumnPropNameInRow="TELEPHONE" msprop:Generator_ColumnPropNameInTable="TELEPHONEColumn" msprop:Generator_UserColumnName="TELEPHONE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOC_DOP" msprop:Generator_ColumnVarNameInTable="columnDOC_DOP" msprop:Generator_ColumnPropNameInRow="DOC_DOP" msprop:Generator_ColumnPropNameInTable="DOC_DOPColumn" msprop:Generator_UserColumnName="DOC_DOP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DOP_NORM_ID" msprop:Generator_ColumnVarNameInTable="columnDOP_NORM_ID" msprop:Generator_ColumnPropNameInRow="DOP_NORM_ID" msprop:Generator_ColumnPropNameInTable="DOP_NORM_IDColumn" msprop:Generator_UserColumnName="DOP_NORM_ID">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOP_NORM_NAME" msprop:Generator_ColumnVarNameInTable="columnDOP_NORM_NAME" msprop:Generator_ColumnPropNameInRow="DOP_NORM_NAME" msprop:Generator_ColumnPropNameInTable="DOP_NORM_NAMEColumn" msprop:Generator_UserColumnName="DOP_NORM_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OWNER_ID" msprop:Generator_ColumnVarNameInTable="columnOWNER_ID" msprop:Generator_ColumnPropNameInRow="OWNER_ID" msprop:Generator_ColumnPropNameInTable="OWNER_IDColumn" msprop:Generator_UserColumnName="OWNER_ID" type="xs:decimal" />
+              <xs:element name="OWNER_NAME" msprop:Generator_ColumnVarNameInTable="columnOWNER_NAME" msprop:Generator_ColumnPropNameInRow="OWNER_NAME" msprop:Generator_ColumnPropNameInTable="OWNER_NAMEColumn" msprop:Generator_UserColumnName="OWNER_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DEPART_ID" msprop:Generator_ColumnVarNameInTable="columnDEPART_ID" msprop:Generator_ColumnPropNameInRow="DEPART_ID" msprop:Generator_ColumnPropNameInTable="DEPART_IDColumn" msprop:Generator_UserColumnName="DEPART_ID" type="xs:decimal" />
+              <xs:element name="DEPART_NAME_R" msprop:Generator_ColumnVarNameInTable="columnDEPART_NAME_R" msprop:Generator_ColumnPropNameInRow="DEPART_NAME_R" msprop:Generator_ColumnPropNameInTable="DEPART_NAME_RColumn" msprop:Generator_UserColumnName="DEPART_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="80" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="V_EXT_LICSCHT_x0024_RU" msprop:Generator_TableClassName="_V_EXT_LICSCHT_RUDataTable" msprop:Generator_TableVarName="_tableV_EXT_LICSCHT_RU" msprop:Generator_TablePropName="_V_EXT_LICSCHT_RU" msprop:Generator_RowDeletingName="_V_EXT_LICSCHT_RURowDeleting" msprop:Generator_RowChangingName="_V_EXT_LICSCHT_RURowChanging" msprop:Generator_RowEvHandlerName="_V_EXT_LICSCHT_RURowChangeEventHandler" msprop:Generator_RowDeletedName="_V_EXT_LICSCHT_RURowDeleted" msprop:Generator_UserTableName="V_EXT_LICSCHT$RU" msprop:Generator_RowChangedName="_V_EXT_LICSCHT_RURowChanged" msprop:Generator_RowEvArgName="_V_EXT_LICSCHT_RURowChangeEvent" msprop:Generator_RowClassName="_V_EXT_LICSCHT_RURow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:decimal" />
+              <xs:element name="MASTER_ID" msprop:Generator_ColumnVarNameInTable="columnMASTER_ID" msprop:Generator_ColumnPropNameInRow="MASTER_ID" msprop:Generator_ColumnPropNameInTable="MASTER_IDColumn" msprop:Generator_UserColumnName="MASTER_ID" type="xs:decimal" minOccurs="0" />
+              <xs:element name="VVOD_ID" msprop:Generator_ColumnVarNameInTable="columnVVOD_ID" msprop:Generator_ColumnPropNameInRow="VVOD_ID" msprop:Generator_ColumnPropNameInTable="VVOD_IDColumn" msprop:Generator_UserColumnName="VVOD_ID" type="xs:decimal" />
+              <xs:element name="VVOD_NAME" msprop:Generator_ColumnVarNameInTable="columnVVOD_NAME" msprop:Generator_ColumnPropNameInRow="VVOD_NAME" msprop:Generator_ColumnPropNameInTable="VVOD_NAMEColumn" msprop:Generator_UserColumnName="VVOD_NAME" type="xs:decimal" />
+              <xs:element name="L_SCHET" msprop:Generator_ColumnVarNameInTable="columnL_SCHET" msprop:Generator_ColumnPropNameInRow="L_SCHET" msprop:Generator_ColumnPropNameInTable="L_SCHETColumn" msprop:Generator_UserColumnName="L_SCHET">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="18" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PERSON_ID" msprop:Generator_ColumnVarNameInTable="columnPERSON_ID" msprop:Generator_ColumnPropNameInRow="PERSON_ID" msprop:Generator_ColumnPropNameInTable="PERSON_IDColumn" msprop:Generator_UserColumnName="PERSON_ID" type="xs:decimal" />
+              <xs:element name="FAMIL_ID" msprop:Generator_ColumnVarNameInTable="columnFAMIL_ID" msprop:Generator_ColumnPropNameInRow="FAMIL_ID" msprop:Generator_ColumnPropNameInTable="FAMIL_IDColumn" msprop:Generator_UserColumnName="FAMIL_ID" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IMEN_ID" msprop:Generator_ColumnVarNameInTable="columnIMEN_ID" msprop:Generator_ColumnPropNameInRow="IMEN_ID" msprop:Generator_ColumnPropNameInTable="IMEN_IDColumn" msprop:Generator_UserColumnName="IMEN_ID" type="xs:decimal" minOccurs="0" />
+              <xs:element name="OTCH_ID" msprop:Generator_ColumnVarNameInTable="columnOTCH_ID" msprop:Generator_ColumnPropNameInRow="OTCH_ID" msprop:Generator_ColumnPropNameInTable="OTCH_IDColumn" msprop:Generator_UserColumnName="OTCH_ID" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IDENT_NO" msprop:Generator_ColumnVarNameInTable="columnIDENT_NO" msprop:Generator_ColumnPropNameInRow="IDENT_NO" msprop:Generator_ColumnPropNameInTable="IDENT_NOColumn" msprop:Generator_UserColumnName="IDENT_NO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="11" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DAT_BIRTH" msprop:Generator_ColumnVarNameInTable="columnDAT_BIRTH" msprop:Generator_ColumnPropNameInRow="DAT_BIRTH" msprop:Generator_ColumnPropNameInTable="DAT_BIRTHColumn" msprop:Generator_UserColumnName="DAT_BIRTH" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="FAMIL_NAME_R" msprop:Generator_ColumnVarNameInTable="columnFAMIL_NAME_R" msprop:Generator_ColumnPropNameInRow="FAMIL_NAME_R" msprop:Generator_ColumnPropNameInTable="FAMIL_NAME_RColumn" msprop:Generator_UserColumnName="FAMIL_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IMEN_NAME_R" msprop:Generator_ColumnVarNameInTable="columnIMEN_NAME_R" msprop:Generator_ColumnPropNameInRow="IMEN_NAME_R" msprop:Generator_ColumnPropNameInTable="IMEN_NAME_RColumn" msprop:Generator_UserColumnName="IMEN_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OTCH_NAME_R" msprop:Generator_ColumnVarNameInTable="columnOTCH_NAME_R" msprop:Generator_ColumnPropNameInRow="OTCH_NAME_R" msprop:Generator_ColumnPropNameInTable="OTCH_NAME_RColumn" msprop:Generator_UserColumnName="OTCH_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FULL_FIO" msprop:Generator_ColumnVarNameInTable="columnFULL_FIO" msprop:Generator_ColumnPropNameInRow="FULL_FIO" msprop:Generator_ColumnPropNameInTable="FULL_FIOColumn" msprop:Generator_UserColumnName="FULL_FIO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="122" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="VIDUL_ID" msprop:Generator_ColumnVarNameInTable="columnVIDUL_ID" msprop:Generator_ColumnPropNameInRow="VIDUL_ID" msprop:Generator_ColumnPropNameInTable="VIDUL_IDColumn" msprop:Generator_UserColumnName="VIDUL_ID">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="VIDUL_NAME_SR" msprop:Generator_ColumnVarNameInTable="columnVIDUL_NAME_SR" msprop:Generator_ColumnPropNameInRow="VIDUL_NAME_SR" msprop:Generator_ColumnPropNameInTable="VIDUL_NAME_SRColumn" msprop:Generator_UserColumnName="VIDUL_NAME_SR" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="7" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ULICA_ID" msprop:Generator_ColumnVarNameInTable="columnULICA_ID" msprop:Generator_ColumnPropNameInRow="ULICA_ID" msprop:Generator_ColumnPropNameInTable="ULICA_IDColumn" msprop:Generator_UserColumnName="ULICA_ID" type="xs:decimal" />
+              <xs:element name="ULICA_NAME_R" msprop:Generator_ColumnVarNameInTable="columnULICA_NAME_R" msprop:Generator_ColumnPropNameInRow="ULICA_NAME_R" msprop:Generator_ColumnPropNameInTable="ULICA_NAME_RColumn" msprop:Generator_UserColumnName="ULICA_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOM_ID" msprop:Generator_ColumnVarNameInTable="columnDOM_ID" msprop:Generator_ColumnPropNameInRow="DOM_ID" msprop:Generator_ColumnPropNameInTable="DOM_IDColumn" msprop:Generator_UserColumnName="DOM_ID" type="xs:decimal" />
+              <xs:element name="DOM_NAME" msprop:Generator_ColumnVarNameInTable="columnDOM_NAME" msprop:Generator_ColumnPropNameInRow="DOM_NAME" msprop:Generator_ColumnPropNameInTable="DOM_NAMEColumn" msprop:Generator_UserColumnName="DOM_NAME">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="9" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="KORP" msprop:Generator_ColumnVarNameInTable="columnKORP" msprop:Generator_ColumnPropNameInRow="KORP" msprop:Generator_ColumnPropNameInTable="KORPColumn" msprop:Generator_UserColumnName="KORP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="POCHT_O" msprop:Generator_ColumnVarNameInTable="columnPOCHT_O" msprop:Generator_ColumnPropNameInRow="POCHT_O" msprop:Generator_ColumnPropNameInTable="POCHT_OColumn" msprop:Generator_UserColumnName="POCHT_O" type="xs:decimal" minOccurs="0" />
+              <xs:element name="KVART" msprop:Generator_ColumnVarNameInTable="columnKVART" msprop:Generator_ColumnPropNameInRow="KVART" msprop:Generator_ColumnPropNameInTable="KVARTColumn" msprop:Generator_UserColumnName="KVART">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FULL_ADDR" msprop:Generator_ColumnVarNameInTable="columnFULL_ADDR" msprop:Generator_ColumnPropNameInRow="FULL_ADDR" msprop:Generator_ColumnPropNameInTable="FULL_ADDRColumn" msprop:Generator_UserColumnName="FULL_ADDR" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="81" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOC_GIL" msprop:Generator_ColumnVarNameInTable="columnDOC_GIL" msprop:Generator_ColumnPropNameInRow="DOC_GIL" msprop:Generator_ColumnPropNameInTable="DOC_GILColumn" msprop:Generator_UserColumnName="DOC_GIL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="KOL_GIL" msprop:Generator_ColumnVarNameInTable="columnKOL_GIL" msprop:Generator_ColumnPropNameInRow="KOL_GIL" msprop:Generator_ColumnPropNameInTable="KOL_GILColumn" msprop:Generator_UserColumnName="KOL_GIL" type="xs:decimal" />
+              <xs:element name="DOC_LGO" msprop:Generator_ColumnVarNameInTable="columnDOC_LGO" msprop:Generator_ColumnPropNameInRow="DOC_LGO" msprop:Generator_ColumnPropNameInTable="DOC_LGOColumn" msprop:Generator_UserColumnName="DOC_LGO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="KOL_LGO" msprop:Generator_ColumnVarNameInTable="columnKOL_LGO" msprop:Generator_ColumnPropNameInRow="KOL_LGO" msprop:Generator_ColumnPropNameInTable="KOL_LGOColumn" msprop:Generator_UserColumnName="KOL_LGO" type="xs:decimal" />
+              <xs:element name="PROC_LGO" msprop:Generator_ColumnVarNameInTable="columnPROC_LGO" msprop:Generator_ColumnPropNameInRow="PROC_LGO" msprop:Generator_ColumnPropNameInTable="PROC_LGOColumn" msprop:Generator_UserColumnName="PROC_LGO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="STKVA_ID" msprop:Generator_ColumnVarNameInTable="columnSTKVA_ID" msprop:Generator_ColumnPropNameInRow="STKVA_ID" msprop:Generator_ColumnPropNameInTable="STKVA_IDColumn" msprop:Generator_UserColumnName="STKVA_ID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STKVA_NAME_SR" msprop:Generator_ColumnVarNameInTable="columnSTKVA_NAME_SR" msprop:Generator_ColumnPropNameInRow="STKVA_NAME_SR" msprop:Generator_ColumnPropNameInTable="STKVA_NAME_SRColumn" msprop:Generator_UserColumnName="STKVA_NAME_SR" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="7" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STKVA_NAME_R" msprop:Generator_ColumnVarNameInTable="columnSTKVA_NAME_R" msprop:Generator_ColumnPropNameInRow="STKVA_NAME_R" msprop:Generator_ColumnPropNameInTable="STKVA_NAME_RColumn" msprop:Generator_UserColumnName="STKVA_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STBLAG_ID" msprop:Generator_ColumnVarNameInTable="columnSTBLAG_ID" msprop:Generator_ColumnPropNameInRow="STBLAG_ID" msprop:Generator_ColumnPropNameInTable="STBLAG_IDColumn" msprop:Generator_UserColumnName="STBLAG_ID">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STBLAG_NAME_R" msprop:Generator_ColumnVarNameInTable="columnSTBLAG_NAME_R" msprop:Generator_ColumnPropNameInRow="STBLAG_NAME_R" msprop:Generator_ColumnPropNameInTable="STBLAG_NAME_RColumn" msprop:Generator_UserColumnName="STBLAG_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="140" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RAYON_ID" msprop:Generator_ColumnVarNameInTable="columnRAYON_ID" msprop:Generator_ColumnPropNameInRow="RAYON_ID" msprop:Generator_ColumnPropNameInTable="RAYON_IDColumn" msprop:Generator_UserColumnName="RAYON_ID">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RAYON_NAME_R" msprop:Generator_ColumnVarNameInTable="columnRAYON_NAME_R" msprop:Generator_ColumnPropNameInRow="RAYON_NAME_R" msprop:Generator_ColumnPropNameInTable="RAYON_NAME_RColumn" msprop:Generator_UserColumnName="RAYON_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="REGION_ID" msprop:Generator_ColumnVarNameInTable="columnREGION_ID" msprop:Generator_ColumnPropNameInRow="REGION_ID" msprop:Generator_ColumnPropNameInTable="REGION_IDColumn" msprop:Generator_UserColumnName="REGION_ID" type="xs:decimal" minOccurs="0" />
+              <xs:element name="REGION_NAME_R" msprop:Generator_ColumnVarNameInTable="columnREGION_NAME_R" msprop:Generator_ColumnPropNameInRow="REGION_NAME_R" msprop:Generator_ColumnPropNameInTable="REGION_NAME_RColumn" msprop:Generator_UserColumnName="REGION_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OBSL_ID" msprop:Generator_ColumnVarNameInTable="columnOBSL_ID" msprop:Generator_ColumnPropNameInRow="OBSL_ID" msprop:Generator_ColumnPropNameInTable="OBSL_IDColumn" msprop:Generator_UserColumnName="OBSL_ID" type="xs:decimal" />
+              <xs:element name="OBSL_NAME_R" msprop:Generator_ColumnVarNameInTable="columnOBSL_NAME_R" msprop:Generator_ColumnPropNameInRow="OBSL_NAME_R" msprop:Generator_ColumnPropNameInTable="OBSL_NAME_RColumn" msprop:Generator_UserColumnName="OBSL_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="80" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OBSL_TYPE_KOD" msprop:Generator_ColumnVarNameInTable="columnOBSL_TYPE_KOD" msprop:Generator_ColumnPropNameInRow="OBSL_TYPE_KOD" msprop:Generator_ColumnPropNameInTable="OBSL_TYPE_KODColumn" msprop:Generator_UserColumnName="OBSL_TYPE_KOD">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OBSL_TYPE" msprop:Generator_ColumnVarNameInTable="columnOBSL_TYPE" msprop:Generator_ColumnPropNameInRow="OBSL_TYPE" msprop:Generator_ColumnPropNameInTable="OBSL_TYPEColumn" msprop:Generator_UserColumnName="OBSL_TYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STLSCHT_ID" msprop:Generator_ColumnVarNameInTable="columnSTLSCHT_ID" msprop:Generator_ColumnPropNameInRow="STLSCHT_ID" msprop:Generator_ColumnPropNameInTable="STLSCHT_IDColumn" msprop:Generator_UserColumnName="STLSCHT_ID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STLSCHT_NAME_R" msprop:Generator_ColumnVarNameInTable="columnSTLSCHT_NAME_R" msprop:Generator_ColumnPropNameInRow="STLSCHT_NAME_R" msprop:Generator_ColumnPropNameInTable="STLSCHT_NAME_RColumn" msprop:Generator_UserColumnName="STLSCHT_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOLG_V" msprop:Generator_ColumnVarNameInTable="columnDOLG_V" msprop:Generator_ColumnPropNameInRow="DOLG_V" msprop:Generator_ColumnPropNameInTable="DOLG_VColumn" msprop:Generator_UserColumnName="DOLG_V" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DOLG_K" msprop:Generator_ColumnVarNameInTable="columnDOLG_K" msprop:Generator_ColumnPropNameInRow="DOLG_K" msprop:Generator_ColumnPropNameInTable="DOLG_KColumn" msprop:Generator_UserColumnName="DOLG_K" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DOLG_VODOKANAL" msprop:Generator_ColumnVarNameInTable="columnDOLG_VODOKANAL" msprop:Generator_ColumnPropNameInRow="DOLG_VODOKANAL" msprop:Generator_ColumnPropNameInTable="DOLG_VODOKANALColumn" msprop:Generator_UserColumnName="DOLG_VODOKANAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DOLG" msprop:Generator_ColumnVarNameInTable="columnDOLG" msprop:Generator_ColumnPropNameInRow="DOLG" msprop:Generator_ColumnPropNameInTable="DOLGColumn" msprop:Generator_UserColumnName="DOLG" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DAT_LASTOPL" msprop:Generator_ColumnVarNameInTable="columnDAT_LASTOPL" msprop:Generator_ColumnPropNameInRow="DAT_LASTOPL" msprop:Generator_ColumnPropNameInTable="DAT_LASTOPLColumn" msprop:Generator_UserColumnName="DAT_LASTOPL" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PROC_OPLA" msprop:Generator_ColumnVarNameInTable="columnPROC_OPLA" msprop:Generator_ColumnPropNameInRow="PROC_OPLA" msprop:Generator_ColumnPropNameInTable="PROC_OPLAColumn" msprop:Generator_UserColumnName="PROC_OPLA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TELEPHONE" msprop:Generator_ColumnVarNameInTable="columnTELEPHONE" msprop:Generator_ColumnPropNameInRow="TELEPHONE" msprop:Generator_ColumnPropNameInTable="TELEPHONEColumn" msprop:Generator_UserColumnName="TELEPHONE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOC_DOP" msprop:Generator_ColumnVarNameInTable="columnDOC_DOP" msprop:Generator_ColumnPropNameInRow="DOC_DOP" msprop:Generator_ColumnPropNameInTable="DOC_DOPColumn" msprop:Generator_UserColumnName="DOC_DOP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DOP_NORM_ID" msprop:Generator_ColumnVarNameInTable="columnDOP_NORM_ID" msprop:Generator_ColumnPropNameInRow="DOP_NORM_ID" msprop:Generator_ColumnPropNameInTable="DOP_NORM_IDColumn" msprop:Generator_UserColumnName="DOP_NORM_ID">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOP_NORM_NAME" msprop:Generator_ColumnVarNameInTable="columnDOP_NORM_NAME" msprop:Generator_ColumnPropNameInRow="DOP_NORM_NAME" msprop:Generator_ColumnPropNameInTable="DOP_NORM_NAMEColumn" msprop:Generator_UserColumnName="DOP_NORM_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OWNER_ID" msprop:Generator_ColumnVarNameInTable="columnOWNER_ID" msprop:Generator_ColumnPropNameInRow="OWNER_ID" msprop:Generator_ColumnPropNameInTable="OWNER_IDColumn" msprop:Generator_UserColumnName="OWNER_ID" type="xs:decimal" />
+              <xs:element name="OWNER_NAME" msprop:Generator_ColumnVarNameInTable="columnOWNER_NAME" msprop:Generator_ColumnPropNameInRow="OWNER_NAME" msprop:Generator_ColumnPropNameInTable="OWNER_NAMEColumn" msprop:Generator_UserColumnName="OWNER_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DEPART_ID" msprop:Generator_ColumnVarNameInTable="columnDEPART_ID" msprop:Generator_ColumnPropNameInRow="DEPART_ID" msprop:Generator_ColumnPropNameInTable="DEPART_IDColumn" msprop:Generator_UserColumnName="DEPART_ID" type="xs:decimal" />
+              <xs:element name="DEPART_NAME_R" msprop:Generator_ColumnVarNameInTable="columnDEPART_NAME_R" msprop:Generator_ColumnPropNameInRow="DEPART_NAME_R" msprop:Generator_ColumnPropNameInTable="DEPART_NAME_RColumn" msprop:Generator_UserColumnName="DEPART_NAME_R" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="80" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

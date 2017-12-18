@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIS-DogWimForms", "GIS-DogWimForms\GIS-DogWimForms.csproj", "{7A7B8C6A-B57C-481D-AED0-B6FE8006B065}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GisDogV2", "GisDogV2\GisDogV2.csproj", "{8D6D0ACA-CBB1-4B1D-8A8D-9D2D713BC990}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Create1k", "Create1k\Create1k.csproj", "{6FC0E556-8594-426E-9679-55FDE276CFB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RNCB", "RNCB\RNCB.csproj", "{EC8FC639-53B9-4ACB-A81D-01B3865C46F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,18 @@ Global
 		{6FC0E556-8594-426E-9679-55FDE276CFB3}.Release|x64.Build.0 = Release|Any CPU
 		{6FC0E556-8594-426E-9679-55FDE276CFB3}.Release|x86.ActiveCfg = Release|Any CPU
 		{6FC0E556-8594-426E-9679-55FDE276CFB3}.Release|x86.Build.0 = Release|Any CPU
+		{EC8FC639-53B9-4ACB-A81D-01B3865C46F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC8FC639-53B9-4ACB-A81D-01B3865C46F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC8FC639-53B9-4ACB-A81D-01B3865C46F7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EC8FC639-53B9-4ACB-A81D-01B3865C46F7}.Debug|x64.Build.0 = Debug|Any CPU
+		{EC8FC639-53B9-4ACB-A81D-01B3865C46F7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EC8FC639-53B9-4ACB-A81D-01B3865C46F7}.Debug|x86.Build.0 = Debug|Any CPU
+		{EC8FC639-53B9-4ACB-A81D-01B3865C46F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC8FC639-53B9-4ACB-A81D-01B3865C46F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC8FC639-53B9-4ACB-A81D-01B3865C46F7}.Release|x64.ActiveCfg = Release|Any CPU
+		{EC8FC639-53B9-4ACB-A81D-01B3865C46F7}.Release|x64.Build.0 = Release|Any CPU
+		{EC8FC639-53B9-4ACB-A81D-01B3865C46F7}.Release|x86.ActiveCfg = Release|Any CPU
+		{EC8FC639-53B9-4ACB-A81D-01B3865C46F7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
