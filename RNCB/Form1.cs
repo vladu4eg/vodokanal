@@ -28,7 +28,7 @@ namespace RNCB
             MySqlDataReader MyDataReader;
 
 
-            OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=dBASE IV;Data Source=D:\\Alex\\РНКБ\\exp_db1");
+            OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=dBASE IV;Data Source=D:\\Alex\\РНКБ\\exp_db_gis");
             OracleCommand cmd = new OracleCommand();
 
             
@@ -46,7 +46,7 @@ namespace RNCB
             dbf.Prepare();
             dbf.ExecuteNonQuery();
 
-            myCommand.CommandText = string.Format("TRUNCATE TABLE rncb");
+          myCommand.CommandText = string.Format("TRUNCATE TABLE rncb");
             myCommand.Prepare();//подготавливает строку
             myCommand.ExecuteNonQuery();//выполняет запрос
 
@@ -91,8 +91,7 @@ namespace RNCB
                     myCmd.CommandType = CommandType.Text;
                     myCmd.ExecuteNonQuery();
                 }
-
-            OraDataReader.Dispose();
+            OraDataReader.Close();
             Rows.Clear();
             sCommand.Clear();
 
@@ -106,7 +105,7 @@ namespace RNCB
 
             while (MyDataReader.Read())
             {
-                Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')",
+                Rows.Add(string.Format("INSERT INTO test (PAYERIDENT,FIO,LS,STREET,BUILDING,FLAT,SUM1,SERVICECOD,JKY) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')",
                     MySqlHelper.EscapeString(MyDataReader.GetString(0)),
                     MySqlHelper.EscapeString(MyDataReader.GetString(1)),
                     MySqlHelper.EscapeString(MyDataReader.GetString(2)),
@@ -118,10 +117,10 @@ namespace RNCB
                     MySqlHelper.EscapeString(MyDataReader.GetString(8))));
                 
             }
-            StringBuilder sCommand2 = new StringBuilder("INSERT INTO test (PAYERIDENT,FIO,LS,STREET,BUILDING,FLAT,SUM1,SERVICECOD,JKY) VALUES ");
-
-            sCommand2.Append(string.Join(",", Rows));
-            sCommand2.Append(";");
+            StringBuilder sCommand2 = new StringBuilder();
+            MyDataReader.Close();
+            sCommand2.Append(string.Join(";", Rows));
+            MessageBox.Show(sCommand2.ToString());
             dbf.CommandText = sCommand2.ToString();
             dbf.Prepare();
             dbf.ExecuteNonQuery();
