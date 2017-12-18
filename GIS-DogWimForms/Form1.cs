@@ -869,7 +869,7 @@ namespace GIS_DogWimForms
                 "ipadr_new.pomesh " +
                 "FROM ipadr_new, object_adress " +
                 "WHERE ipadr_new.ipadr = object_adress.HOUSEGUID_fias " +
-                "and ipadr_new.ipadr <> object_adress.kv " +
+                "and ipadr_new.pomesh <> object_adress.kv " +
                 "AND ipadr_new.pomesh <> '' " +
                 "AND ipadr_new.pomesh REGEXP '^[1-999999]+$' " +
                 "AND ipadr_new.id NOT IN " +
@@ -890,13 +890,13 @@ namespace GIS_DogWimForms
 
             while (MyDataReader.Read())
             {
-                temp123 = MyDataReader.GetString(0);
+                temp123 = MyDataReader.GetString(1);
                 break;
             }
 
            while (MyDataReader.Read())
             {
-                if (temp123 == MyDataReader.GetString(0) & tempcout == 0)
+                if (temp123 == MyDataReader.GetString(1) & tempcout == 0)
                 {
                     mkd.AddRow(MyDataReader.GetString(0),
                          MyDataReader.GetString(1),
@@ -907,7 +907,7 @@ namespace GIS_DogWimForms
                                        MyDataReader.GetString(5));
                     tempcout++;
                 }
-                else if (temp123 != MyDataReader.GetString(0))
+                else if (temp123 != MyDataReader.GetString(1))
                 {
                     temp123 = MyDataReader.GetString(0);
                     mkd.AddRow(MyDataReader.GetString(0),
@@ -934,7 +934,7 @@ namespace GIS_DogWimForms
                     jill.FileSave("c:\\gis\\jill" + y + "k.csv");
                     jill.Rows.Clear();
                     tempcout = 0;
-                    temp123 = MyDataReader.GetString(0);
+                    temp123 = MyDataReader.GetString(1);
                     y++;
                 }
             }
