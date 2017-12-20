@@ -42,14 +42,10 @@ namespace GIS_DogWimForms
                 "'Однотарифный'," +
                 "PY.last_indication," +
                 "'', '', '', ''," +
-                "CASE WHEN PY.`type` <> 'Коллективный (общедомовой)' THEN PY.dat_set " +
-                "else '' end dat_set, " +
-                "CASE WHEN PY.`type` = 'Коллективный (общедомовой)' THEN PY.ldat_testing " +
-                "else '' end ldat_testing, " +
-                "CASE WHEN PY.`type` = 'Коллективный (общедомовой)' THEN PY.dat_plomba " +
-                "else '' end dat_plomba, " +
-                "CASE WHEN PY.`type` = 'Коллективный (общедомовой)' THEN PY.y " +
-                "else '' end y, " +
+                "PY.dat_set, " +
+                "PY.ldat_testing, " +
+                "PY.dat_plomba, " +
+                "PY.y, " +
                 "'Нет'," +
                 "''," +
                 "'Нет'," +
