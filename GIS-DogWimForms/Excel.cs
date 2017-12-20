@@ -8,6 +8,7 @@ namespace GIS_DogWimForms
     public class Excel
     {
         public List<List<string>> Rows = new List<List<string>>();
+        public static int count = 0;
 
         public void FileOpen(string path)
         {
@@ -55,6 +56,7 @@ namespace GIS_DogWimForms
                             workSheet.Cell(cellAdress).Value = Rows[row][col];
                         }
                     }
+                    count = 0;
                 }
 
                 wb.SaveAs(path);
@@ -70,12 +72,12 @@ namespace GIS_DogWimForms
         {
             char[] alph = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
-            int count = cell / 26;
             string alphResult = string.Empty;
-
-            if (count > 0)
+            int temp = count / 26;
+            if (cell >= 26)
             {
-                alphResult = alph[count] + alph[count % 26].ToString();
+                alphResult = alph[temp] + alph[count % 26].ToString();
+                count++;
             }
             else
             {

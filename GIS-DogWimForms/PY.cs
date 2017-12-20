@@ -7,7 +7,7 @@ namespace GIS_DogWimForms
     {
         Excel py = new Excel();
         Excel doppy = new Excel();
-        Excel stock = new Excel();
+      //  Excel stock = new Excel();
 
         public void AddPY()
         {
@@ -32,7 +32,7 @@ namespace GIS_DogWimForms
                 "WHEN PY.`type` = 'Общий (квартирный)' THEN id_ls.id_dom " +
                 "ELSE '' END AS adr2, " +
                 "''," +
-                "id_ls.ls_gis," +
+                "id_ls.ls_jky," +
                 "'Нет'," +
                 "''," +
                 "PY.net," +
@@ -107,6 +107,7 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(27),
                            MyDataReader.GetString(28),
                            MyDataReader.GetString(29));
+                    /*
                     if (MyDataReader.GetString(30) == "Сточные бытовые воды")
                     {
                         stock.AddRow(MyDataReader.GetString(5),
@@ -115,6 +116,7 @@ namespace GIS_DogWimForms
                         MyDataReader.GetString(3),
                         MyDataReader.GetString(30));
                     }
+                    */
                     if (MyDataReader.GetString(12) == "Да")
                     {
                         doppy.AddRow(MyDataReader.GetString(5),
@@ -155,6 +157,7 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(27),
                            MyDataReader.GetString(28),
                            MyDataReader.GetString(29));
+                    /*
                     if (MyDataReader.GetString(30) == "Сточные бытовые воды")
                     {
                         stock.AddRow(MyDataReader.GetString(5),
@@ -163,6 +166,7 @@ namespace GIS_DogWimForms
                         MyDataReader.GetString(3),
                         MyDataReader.GetString(30));
                     }
+                    */
                     if (MyDataReader.GetString(12) == "Да")
                     {
                         doppy.AddRow(MyDataReader.GetString(5),
@@ -190,8 +194,8 @@ namespace GIS_DogWimForms
                     doppy.FileSave("c:\\gis\\doppy" + y + "k.xlsx");
                     doppy.Rows.Clear();
 
-                    stock.FileSave("c:\\gis\\stock" + y + "k.xlsx");
-                    stock.Rows.Clear();
+                   // stock.FileSave("c:\\gis\\stock" + y + "k.xlsx");
+                  //  stock.Rows.Clear();
 
                     tempcout = 0;
                     temp123 = MyDataReader.GetString(0);
@@ -200,11 +204,11 @@ namespace GIS_DogWimForms
             }
             py.FileSave("c:\\gis\\PY-Final.xlsx");
             doppy.FileSave("c:\\gis\\DOPPY-Final.xlsx");
-            stock.FileSave("c:\\gis\\STOCK-Final.xlsx");
+           // stock.FileSave("c:\\gis\\STOCK-Final.xlsx");
 
             py.Rows.Clear();
             doppy.Rows.Clear();
-            stock.Rows.Clear();
+           // stock.Rows.Clear();
 
             MyDataReader.Close();
             myConnection.Close();
