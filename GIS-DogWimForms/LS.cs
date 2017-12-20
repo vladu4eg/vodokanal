@@ -1,10 +1,4 @@
-﻿using BotAgent.DataExporter;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 
 namespace GIS_DogWimForms
@@ -13,9 +7,9 @@ namespace GIS_DogWimForms
     {
         public void CreateLS()
         {
-            Csv LS = new Csv();
-            Csv adress = new Csv();
-            Csv dogovor = new Csv();
+            Excel LS = new Excel();
+            Excel adress = new Excel();
+            Excel dogovor = new Excel();
 
             string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=vlad19957";
             MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
@@ -114,21 +108,21 @@ namespace GIS_DogWimForms
                 if (z % 1000 == 0)
                 {
 
-                    LS.FileSave("c:\\gis\\LS" + y + "k.csv");
+                    LS.FileSave("c:\\gis\\LS" + y + "k.xlsx");
                     LS.Rows.Clear();
 
-                    adress.FileSave("c:\\gis\\adress" + y + "k.csv");
+                    adress.FileSave("c:\\gis\\adress" + y + "k.xlsx");
                     adress.Rows.Clear();
 
-                    dogovor.FileSave("c:\\gis\\DOGLS" + y + "k.csv");
+                    dogovor.FileSave("c:\\gis\\DOGLS" + y + "k.xlsx");
                     dogovor.Rows.Clear();
 
                     y++;
                 }
             }
-            dogovor.FileSave("c:\\gis\\DOGLS-Final.csv");
-            adress.FileSave("c:\\gis\\adress-Final.csv");
-            LS.FileSave("c:\\gis\\LS-Final.csv");
+            dogovor.FileSave("c:\\gis\\DOGLS-Final.xlsx");
+            adress.FileSave("c:\\gis\\adress-Final.xlsx");
+            LS.FileSave("c:\\gis\\LS-Final.xlsx");
 
 
             dogovor.Rows.Clear();

@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualBasic.FileIO;
 
-namespace BotAgent.DataExporter
+//namespace BotAgent.DataExporter
+namespace GIS_DogWimForms
 {
     public class Csv
     {

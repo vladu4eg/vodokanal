@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using ClosedXML.Excel;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ClosedXML.Excel;
 
-namespace BotAgent.DataExporter
+namespace GIS_DogWimForms
 {
     public class Excel
     {
@@ -51,6 +51,7 @@ namespace BotAgent.DataExporter
                         }
                         else
                         {
+                            workSheet.Cell(cellAdress).Style.NumberFormat.Format = "@";
                             workSheet.Cell(cellAdress).Value = Rows[row][col];
                         }
                     }

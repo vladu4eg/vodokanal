@@ -1,5 +1,4 @@
-﻿using BotAgent.DataExporter;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 
 namespace GIS_DogWimForms
@@ -8,8 +7,8 @@ namespace GIS_DogWimForms
     {
         public void CreateHome()
         {
-            Csv mkd = new Csv();
-            Csv jill = new Csv();
+            Excel mkd = new Excel();
+            Excel jill = new Excel();
 
             string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
             MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
@@ -84,18 +83,18 @@ namespace GIS_DogWimForms
                 if (z % 1000 == 0)
                 {
 
-                    mkd.FileSave("c:\\gis\\mkd" + y + "k.csv");
+                    mkd.FileSave("c:\\gis\\mkd" + y + "k.xlsx");
                     mkd.Rows.Clear();
 
-                    jill.FileSave("c:\\gis\\jill" + y + "k.csv");
+                    jill.FileSave("c:\\gis\\jill" + y + "k.xlsx");
                     jill.Rows.Clear();
                     tempcout = 0;
                     temp123 = MyDataReader.GetString(1);
                     y++;
                 }
             }
-            mkd.FileSave("c:\\gis\\MKD-Final.csv");
-            jill.FileSave("c:\\gis\\JILL-Final.csv");
+            mkd.FileSave("c:\\gis\\MKD-Final.xlsx");
+            jill.FileSave("c:\\gis\\JILL-Final.xlsx");
 
 
             mkd.Rows.Clear();

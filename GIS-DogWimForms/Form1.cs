@@ -1,19 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.OleDb;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ClosedXML.Excel;
-using System.Threading;
-using System.Globalization;
-using BotAgent.DataExporter;
-using MySql.Data.MySqlClient;
 
 namespace GIS_DogWimForms
 {

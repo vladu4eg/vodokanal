@@ -1,21 +1,15 @@
-﻿using BotAgent.DataExporter;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 
 namespace GIS_DogWimForms
 {
     class Dogovor
     {
-        Csv dogovor = new Csv();
-        Csv object1 = new Csv();
-        Csv vkh = new Csv();
-        Csv kyandkr = new Csv();
-        Csv kr = new Csv();
+        Excel dogovor = new Excel();
+        Excel object1 = new Excel();
+        Excel vkh = new Excel();
+        Excel kyandkr = new Excel();
+        Excel kr = new Excel();
 
         public void CreateDogovor()
         {
@@ -177,29 +171,29 @@ namespace GIS_DogWimForms
                 z++;
                 if (z % 1000 == 0)
                 {
-                    dogovor.FileSave("c:\\gis\\DOG" + y + "k.csv");
+                    dogovor.FileSave("c:\\gis\\DOG" + y + "k.xlsx");
                     dogovor.Rows.Clear();
 
-                    object1.FileSave("c:\\gis\\object" + y + "k.csv");
+                    object1.FileSave("c:\\gis\\object" + y + "k.xlsx");
                     object1.Rows.Clear();
 
-                    vkh.FileSave("c:\\gis\\vkh" + y + "k.csv");
+                    vkh.FileSave("c:\\gis\\vkh" + y + "k.xlsx");
                     vkh.Rows.Clear();
 
-                    kyandkr.FileSave("c:\\gis\\KYandKR" + y + "k.csv");
+                    kyandkr.FileSave("c:\\gis\\KYandKR" + y + "k.xlsx");
                     kyandkr.Rows.Clear();
 
-                    kr.FileSave("c:\\gis\\KR" + y + "k.csv");
+                    kr.FileSave("c:\\gis\\KR" + y + "k.xlsx");
                     kr.Rows.Clear();
 
                     y++;
                 }
             }
-            dogovor.FileSave("c:\\gis\\DOG-Final.csv");
-            object1.FileSave("c:\\gis\\object-Final.csv");
-            vkh.FileSave("c:\\gis\\vkh-Final.csv");
-            kyandkr.FileSave("c:\\gis\\KYandKR-Final.csv");
-            kr.FileSave("c:\\gis\\KR-Final.csv");
+            dogovor.FileSave("c:\\gis\\DOG-Final.xlsx");
+            object1.FileSave("c:\\gis\\object-Final.xlsx");
+            vkh.FileSave("c:\\gis\\vkh-Final.xlsx");
+            kyandkr.FileSave("c:\\gis\\KYandKR-Final.xlsx");
+            kr.FileSave("c:\\gis\\KR-Final.xlsx");
 
             dogovor.Rows.Clear();
             object1.Rows.Clear();
@@ -375,29 +369,29 @@ namespace GIS_DogWimForms
                 z++;
                 if (z % 1000 == 0)
                 {
-                    dogovor.FileSave("c:\\gis\\DOG" + y + "k.csv");
+                    dogovor.FileSave("c:\\gis\\DOG" + y + "k.xlsx");
                     dogovor.Rows.Clear();
 
-                    object1.FileSave("c:\\gis\\object" + y + "k.csv");
+                    object1.FileSave("c:\\gis\\object" + y + "k.xlsx");
                     object1.Rows.Clear();
 
-                    vkh.FileSave("c:\\gis\\vkh" + y + "k.csv");
+                    vkh.FileSave("c:\\gis\\vkh" + y + "k.xlsx");
                     vkh.Rows.Clear();
 
-                    kyandkr.FileSave("c:\\gis\\KYandKR" + y + "k.csv");
+                    kyandkr.FileSave("c:\\gis\\KYandKR" + y + "k.xlsx");
                     kyandkr.Rows.Clear();
 
-                    kr.FileSave("c:\\gis\\KR" + y + "k.csv");
+                    kr.FileSave("c:\\gis\\KR" + y + "k.xlsx");
                     kr.Rows.Clear();
 
                     y++;
                 }
             }
-            dogovor.FileSave("c:\\gis\\DOG-Final.csv");
-            object1.FileSave("c:\\gis\\object-Final.csv");
-            vkh.FileSave("c:\\gis\\vkh-Final.csv");
-            kyandkr.FileSave("c:\\gis\\KYandKR-Final.csv");
-            kr.FileSave("c:\\gis\\KR-Final.csv");
+            dogovor.FileSave("c:\\gis\\DOG-Final.xlsx");
+            object1.FileSave("c:\\gis\\object-Final.xlsx");
+            vkh.FileSave("c:\\gis\\vkh-Final.xlsx");
+            kyandkr.FileSave("c:\\gis\\KYandKR-Final.xlsx");
+            kr.FileSave("c:\\gis\\KR-Final.xlsx");
 
             dogovor.Rows.Clear();
             object1.Rows.Clear();

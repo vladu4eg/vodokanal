@@ -1,17 +1,16 @@
-﻿using BotAgent.DataExporter;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 
 namespace GIS_DogWimForms
 {
     class PY
     {
+        Excel py = new Excel();
+        Excel doppy = new Excel();
+        Excel stock = new Excel();
+
         public void AddPY()
         {
-
-            Csv py = new Csv();
-            Csv doppy = new Csv();
-            Csv stock = new Csv();
             string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
             MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
             MySql.Data.MySqlClient.MySqlCommand myCommand = new MySql.Data.MySqlClient.MySqlCommand();
@@ -161,7 +160,8 @@ namespace GIS_DogWimForms
                         stock.AddRow(MyDataReader.GetString(5),
                         MyDataReader.GetString(1),
                         MyDataReader.GetString(2),
-                        MyDataReader.GetString(3));
+                        MyDataReader.GetString(3),
+                        MyDataReader.GetString(30));
                     }
                     if (MyDataReader.GetString(12) == "Да")
                     {
@@ -184,13 +184,13 @@ namespace GIS_DogWimForms
                 if (z % 5000 == 0)
                 {
 
-                    py.FileSave("c:\\gis\\PY" + y + "k.csv");
+                    py.FileSave("c:\\gis\\PY" + y + "k.xlsx");
                     py.Rows.Clear();
 
-                    doppy.FileSave("c:\\gis\\doppy" + y + "k.csv");
+                    doppy.FileSave("c:\\gis\\doppy" + y + "k.xlsx");
                     doppy.Rows.Clear();
 
-                    stock.FileSave("c:\\gis\\stock" + y + "k.csv");
+                    stock.FileSave("c:\\gis\\stock" + y + "k.xlsx");
                     stock.Rows.Clear();
 
                     tempcout = 0;
@@ -198,9 +198,9 @@ namespace GIS_DogWimForms
                     y++;
                 }
             }
-            py.FileSave("c:\\gis\\PY-Final.csv");
-            doppy.FileSave("c:\\gis\\DOPPY-Final.csv");
-            stock.FileSave("c:\\gis\\STOCK-Final.csv");
+            py.FileSave("c:\\gis\\PY-Final.xlsx");
+            doppy.FileSave("c:\\gis\\DOPPY-Final.xlsx");
+            stock.FileSave("c:\\gis\\STOCK-Final.xlsx");
 
             py.Rows.Clear();
             doppy.Rows.Clear();
