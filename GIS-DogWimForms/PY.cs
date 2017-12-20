@@ -44,15 +44,19 @@ namespace GIS_DogWimForms
                 "'', '', '', ''," +
                 "PY.dat_set, " +
                 "PY.ldat_testing, " +
-                "PY.dat_plomba, " +
-                "PY.y, " +
+                "'', " +
+                "case when PY.y = '1' then concat(PY.y, ' год') " +
+                "when PY.y in ('2','3','4') then concat(PY.y, ' года') " +
+                "else concat(PY.y, ' лет') end let, " +
                 "'Нет'," +
                 "''," +
                 "'Нет'," +
                 "''," +
+                "id_py_main.id_gis, " +
                 "PY.z " +
-                "FROM PY, id_ls " +
+                "FROM PY, id_ls, id_py_main " +
                 "where PY.id_ls = id_ls.id " +
+                "and id_py_main.LS = id_ls.id " +
                 "order by PY.id_ls ");
             myCommand.Prepare();//подготавливает строку
 
@@ -61,7 +65,7 @@ namespace GIS_DogWimForms
             int i = 0;
             int y = 1;
             int z = 1;
-            int tempcout = 0;
+            int counter = 0;
             string temp123 = null;
 
             while (MyDataReader.Read())
@@ -72,7 +76,7 @@ namespace GIS_DogWimForms
 
             while (MyDataReader.Read())
             {
-                if (temp123 == MyDataReader.GetString(0) & tempcout == 0)
+                if (temp123 == MyDataReader.GetString(0) && counter == 0)
                 {
                     py.AddRow(MyDataReader.GetString(1),
                            MyDataReader.GetString(2),
@@ -102,25 +106,9 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(26),
                            MyDataReader.GetString(27),
                            MyDataReader.GetString(28),
-                           MyDataReader.GetString(29));
-                    /*
-                    if (MyDataReader.GetString(30) == "Сточные бытовые воды")
-                    {
-                        stock.AddRow(MyDataReader.GetString(5),
-                        MyDataReader.GetString(1),
-                        MyDataReader.GetString(2),
-                        MyDataReader.GetString(3),
-                        MyDataReader.GetString(30));
-                    }
-                    */
-                    if (MyDataReader.GetString(12) == "Да")
-                    {
-                        doppy.AddRow(MyDataReader.GetString(5),
-                        MyDataReader.GetString(1),
-                        MyDataReader.GetString(2),
-                        MyDataReader.GetString(3));
-                    }
-                    tempcout++;
+                           MyDataReader.GetString(29),
+                           MyDataReader.GetString(30));
+                    counter++;
                 }
                 else if (temp123 != MyDataReader.GetString(0))
                 {
@@ -152,24 +140,8 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(26),
                            MyDataReader.GetString(27),
                            MyDataReader.GetString(28),
-                           MyDataReader.GetString(29));
-                    /*
-                    if (MyDataReader.GetString(30) == "Сточные бытовые воды")
-                    {
-                        stock.AddRow(MyDataReader.GetString(5),
-                        MyDataReader.GetString(1),
-                        MyDataReader.GetString(2),
-                        MyDataReader.GetString(3),
-                        MyDataReader.GetString(30));
-                    }
-                    */
-                    if (MyDataReader.GetString(12) == "Да")
-                    {
-                        doppy.AddRow(MyDataReader.GetString(5),
-                        MyDataReader.GetString(1),
-                        MyDataReader.GetString(2),
-                        MyDataReader.GetString(3));
-                    }
+                           MyDataReader.GetString(29),
+                           MyDataReader.GetString(30));
                 }
                 else
                 {
@@ -193,7 +165,7 @@ namespace GIS_DogWimForms
                    // stock.FileSave("c:\\gis\\stock" + y + "k.xlsx");
                   //  stock.Rows.Clear();
 
-                    tempcout = 0;
+                    counter = 0;
                     temp123 = MyDataReader.GetString(0);
                     y++;
                 }
