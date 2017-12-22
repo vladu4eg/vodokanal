@@ -7,7 +7,6 @@ namespace GIS_DogWimForms
     {
         Excel py = new Excel();
         Excel doppy = new Excel();
-      //  Excel stock = new Excel();
 
         public void AddPY()
         {
@@ -52,11 +51,11 @@ namespace GIS_DogWimForms
                 "''," +
                 "'Нет'," +
                 "''," +
-                "id_py_main.id_gis, " +
+                "'', " +
                 "PY.z " +
-                "FROM PY, id_ls, id_py_main " +
+                "FROM PY, id_ls " +
                 "where PY.id_ls = id_ls.id " +
-                "and id_py_main.LS = id_ls.id " +
+                "and id_ls.id not in (select id_py_main.LS from id_py_main ) " +
                 "order by PY.id_ls ");
             myCommand.Prepare();//подготавливает строку
 
@@ -65,52 +64,11 @@ namespace GIS_DogWimForms
             int i = 0;
             int y = 1;
             int z = 1;
-            int counter = 0;
             string temp123 = null;
 
             while (MyDataReader.Read())
             {
-                temp123 = MyDataReader.GetString(0);
-                break;
-            }
-
-            while (MyDataReader.Read())
-            {
-                if (temp123 == MyDataReader.GetString(0) && counter == 0)
-                {
-                    py.AddRow(MyDataReader.GetString(1),
-                           MyDataReader.GetString(2),
-                           MyDataReader.GetString(3),
-                           MyDataReader.GetString(4),
-                           MyDataReader.GetString(5),
-                           MyDataReader.GetString(6),
-                           MyDataReader.GetString(7),
-                           MyDataReader.GetString(8),
-                           MyDataReader.GetString(9),
-                           MyDataReader.GetString(10),
-                           MyDataReader.GetString(11),
-                           MyDataReader.GetString(12),
-                           MyDataReader.GetString(13),
-                           MyDataReader.GetString(14),
-                           MyDataReader.GetString(15),
-                           MyDataReader.GetString(16),
-                           MyDataReader.GetString(17),
-                           MyDataReader.GetString(18),
-                           MyDataReader.GetString(19),
-                           MyDataReader.GetString(20),
-                           MyDataReader.GetString(21),
-                           MyDataReader.GetString(22),
-                           MyDataReader.GetString(23),
-                           MyDataReader.GetString(24),
-                           MyDataReader.GetString(25),
-                           MyDataReader.GetString(26),
-                           MyDataReader.GetString(27),
-                           MyDataReader.GetString(28),
-                           MyDataReader.GetString(29),
-                           MyDataReader.GetString(30));
-                    counter++;
-                }
-                else if (temp123 != MyDataReader.GetString(0))
+                if (temp123 != MyDataReader.GetString(0))
                 {
                     py.AddRow(MyDataReader.GetString(1),
                            MyDataReader.GetString(2),
@@ -155,28 +113,21 @@ namespace GIS_DogWimForms
                 z++;
                 if (z % 5000 == 0)
                 {
-
                     py.FileSave("c:\\gis\\PY" + y + "k.xlsx");
                     py.Rows.Clear();
 
                     doppy.FileSave("c:\\gis\\doppy" + y + "k.xlsx");
                     doppy.Rows.Clear();
 
-                   // stock.FileSave("c:\\gis\\stock" + y + "k.xlsx");
-                  //  stock.Rows.Clear();
-
-                    counter = 0;
-                    temp123 = MyDataReader.GetString(0);
                     y++;
                 }
+               // temp123 = MyDataReader.GetString(0);
             }
             py.FileSave("c:\\gis\\PY-Final.xlsx");
             doppy.FileSave("c:\\gis\\DOPPY-Final.xlsx");
-           // stock.FileSave("c:\\gis\\STOCK-Final.xlsx");
 
             py.Rows.Clear();
             doppy.Rows.Clear();
-           // stock.Rows.Clear();
 
             MyDataReader.Close();
             myConnection.Close();

@@ -40,18 +40,11 @@ namespace GIS_DogWimForms
             int i = 0;
             int y = 1;
             int z = 1;
-            int tempcout = 0;
             string temp123 = null;
 
             while (MyDataReader.Read())
             {
-                temp123 = MyDataReader.GetString(1);
-                break;
-            }
-
-            while (MyDataReader.Read())
-            {
-                if (temp123 == MyDataReader.GetString(1) & tempcout == 0)
+                if (temp123 != MyDataReader.GetString(1))
                 {
                     mkd.AddRow(MyDataReader.GetString(0),
                          MyDataReader.GetString(1),
@@ -60,22 +53,11 @@ namespace GIS_DogWimForms
 
                     jill.AddRow(MyDataReader.GetString(4),
                                 MyDataReader.GetString(5));
-                    tempcout++;
-                }
-                else if (temp123 != MyDataReader.GetString(1))
-                {
-                    temp123 = MyDataReader.GetString(0);
-                    mkd.AddRow(MyDataReader.GetString(0),
-                    MyDataReader.GetString(1),
-                    MyDataReader.GetString(2),
-                    MyDataReader.GetString(3));
-                    jill.AddRow(MyDataReader.GetString(4),
-                                MyDataReader.GetString(5));
                 }
                 else
                 {
                     jill.AddRow(MyDataReader.GetString(4),
-                    MyDataReader.GetString(5));
+                                MyDataReader.GetString(5));
                 }
 
                 i += 6;
@@ -88,10 +70,9 @@ namespace GIS_DogWimForms
 
                     jill.FileSave("c:\\gis\\jill" + y + "k.xlsx");
                     jill.Rows.Clear();
-                    tempcout = 0;
-                    temp123 = MyDataReader.GetString(1);
                     y++;
                 }
+                temp123 = MyDataReader.GetString(1);
             }
             mkd.FileSave("c:\\gis\\MKD-Final.xlsx");
             jill.FileSave("c:\\gis\\JILL-Final.xlsx");
