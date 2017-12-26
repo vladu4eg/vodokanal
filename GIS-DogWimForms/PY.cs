@@ -161,7 +161,7 @@ namespace GIS_DogWimForms
                 "'Нет'," +
                 "''," +
                 "PY.net," +
-                "''," +
+                "CASE when PY.net = 'да' then 'На входе/на подающем трубопроводе' else '' end double, " +
                 "''," +
                 "PY.voda," +
                 "'Однотарифный'," +
