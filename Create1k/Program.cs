@@ -38,7 +38,7 @@ namespace Create1k
 
             string s = DateTime.Now.ToString("yyyyMMdd_9103006160.DBF");
 
-            OleDbCommand dbf = new OleDbCommand(string.Format("CREATE TABLE ["+s+"] (PAYERIDENT VARCHAR(11), FIO VARCHAR(50), LS VARCHAR(11), STREET VARCHAR(25), BUILDING VARCHAR(10), FLAT VARCHAR(10), SUM1 VARCHAR(10), SERVICECOD VARCHAR(2), JKY VARCHAR(20))"), conn);
+            OleDbCommand dbf = new OleDbCommand(string.Format("CREATE TABLE ["+s+ "] (JKY VARCHAR(20),PAYERIDENT VARCHAR(11)r , FIO VARCHAR(50), LS VARCHAR(11), STREET VARCHAR(25), BUILDING VARCHAR(10), FLAT VARCHAR(10), SUM1 VARCHAR(10), SERVICECOD VARCHAR(2))"), conn);
 
             dbf.Prepare();
             dbf.ExecuteNonQuery();
@@ -96,13 +96,13 @@ namespace Create1k
             myCommand.Prepare();//подготавливает строку
             myCommand.ExecuteNonQuery();//выполняет запрос
 
-            myCommand.CommandText = string.Format("select PAYERIDENT,FIO,LS,STREET,BUILDING,FLAT,SUM1,SERVICECOD,JKY from rncb");
+            myCommand.CommandText = string.Format("select JKY,PAYERIDENT,FIO,LS,STREET,BUILDING,FLAT,SUM1,SERVICECOD from rncb");
             myCommand.Prepare();//подготавливает строку
             MyDataReader = myCommand.ExecuteReader();
 
             while (MyDataReader.Read())
             {
-                dbf.CommandText = string.Format("INSERT INTO [" + s + "]  (PAYERIDENT,FIO,LS,STREET,BUILDING,FLAT,SUM1,SERVICECOD,JKY) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')",
+                dbf.CommandText = string.Format("INSERT INTO [" + s + "]  (JKY,PAYERIDENT,FIO,LS,STREET,BUILDING,FLAT,SUM1,SERVICECOD) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')",
                     MySqlHelper.EscapeString(MyDataReader.GetString(0)),
                     MySqlHelper.EscapeString(MyDataReader.GetString(1)),
                     MySqlHelper.EscapeString(MyDataReader.GetString(2)),
