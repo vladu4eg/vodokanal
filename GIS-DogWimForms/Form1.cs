@@ -44,6 +44,7 @@ namespace GIS_DogWimForms
         private void btnPokaz_Click(object sender, EventArgs e)
         {
             Pokaz pokaz = new Pokaz();
+            pokaz.AddPokaz();
 
         }
 
@@ -51,6 +52,12 @@ namespace GIS_DogWimForms
         {
             Kvit kvit = new Kvit();
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            PY py = new PY();
+            py.PyFIX();
         }
     }
 }

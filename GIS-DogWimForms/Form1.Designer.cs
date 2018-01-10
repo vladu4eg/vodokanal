@@ -35,6 +35,7 @@
             this.btnPY = new System.Windows.Forms.Button();
             this.btnPokaz = new System.Windows.Forms.Button();
             this.btnKvit = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnProjectDogovor
@@ -106,11 +107,22 @@
             this.btnKvit.UseVisualStyleBackColor = true;
             this.btnKvit.Click += new System.EventHandler(this.btnKvit_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(344, 65);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(95, 47);
+            this.button1.TabIndex = 27;
+            this.button1.Text = "Фиксики для ПУ";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(650, 119);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnKvit);
             this.Controls.Add(this.btnPokaz);
             this.Controls.Add(this.btnPY);
@@ -136,6 +148,7 @@
         private System.Windows.Forms.Button btnPY;
         private System.Windows.Forms.Button btnPokaz;
         private System.Windows.Forms.Button btnKvit;
+        private System.Windows.Forms.Button button1;
     }
 }
 

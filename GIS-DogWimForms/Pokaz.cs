@@ -7,12 +7,14 @@ namespace GIS_DogWimForms
     {
         Excel ipy = new Excel();
         Excel odpy = new Excel();
+        MySqlDataReader MyDataReader;
+
+        string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
 
         public void AddPokaz()
         {
-            string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
-            MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
-            MySql.Data.MySqlClient.MySqlCommand myCommand = new MySql.Data.MySqlClient.MySqlCommand();
+            MySqlConnection myConnection = new MySqlConnection(Connect);
+            MySqlCommand myCommand = new MySqlCommand();
             myConnection.Open();
             myCommand.Connection = myConnection;
 
@@ -21,7 +23,7 @@ namespace GIS_DogWimForms
                 "'Холодная вода'," +
                 "PY.last_indication," +
                 "'', ''," +
-                "PY.ldat_indication," +
+                "PY.ldate_indication," +
                 "PY.type " +
                 "FROM PY, id_py_main " +
                 "where PY.inv = id_py_main.nomer " +
@@ -30,16 +32,16 @@ namespace GIS_DogWimForms
                 "order by PY.inv, PY.id_ls ");
 
             myCommand.Prepare();//подготавливает строку
-
-            MySqlDataReader MyDataReader;
             MyDataReader = myCommand.ExecuteReader();
+
             int y1 = 1;
             int y2 = 1;
             int z1 = 1;
             int z2 = 1;
+
             while (MyDataReader.Read())
             {
-                if (MyDataReader.GetString(8) == "Индивидуальный")
+                if (MyDataReader.GetString(7) == "Индивидуальный")
                 {
                     ipy.AddRow(MyDataReader.GetString(0),
                                MyDataReader.GetString(1),
@@ -47,8 +49,7 @@ namespace GIS_DogWimForms
                                MyDataReader.GetString(3),
                                MyDataReader.GetString(4),
                                MyDataReader.GetString(5),
-                               MyDataReader.GetString(6),
-                               MyDataReader.GetString(7));
+                               MyDataReader.GetString(6));
                     z1++;
                 }
                 else
@@ -63,19 +64,16 @@ namespace GIS_DogWimForms
                     MyDataReader.GetString(7));
                     z2++;
                 }
-                
                 if (z1 % 20000 == 0)
                 {
                     ipy.FileSave("c:\\gis\\ipy" + y1 + "k.xlsx");
                     ipy.Rows.Clear();
-
                     y1++;
                 }
                 if (z2 % 20000 == 0)
                 {
                     odpy.FileSave("c:\\gis\\odpy" + y2 + "k.xlsx");
                     odpy.Rows.Clear();
-
                     y2++;
                 }
             }

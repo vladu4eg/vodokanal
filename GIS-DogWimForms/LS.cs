@@ -5,15 +5,18 @@ namespace GIS_DogWimForms
 {
     class LS
     {
+        Excel Ls = new Excel();
+        Excel adress = new Excel();
+        Excel dogovor = new Excel();
+        MySqlDataReader MyDataReader;
+
+        string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=vlad19957";
+
         public void CreateLS()
         {
-            Excel LS = new Excel();
-            Excel adress = new Excel();
-            Excel dogovor = new Excel();
+            MySqlConnection myConnection = new MySqlConnection(Connect);
+            MySqlCommand myCommand = new MySqlCommand();
 
-            string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=vlad19957";
-            MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
-            MySql.Data.MySqlClient.MySqlCommand myCommand = new MySql.Data.MySqlClient.MySqlCommand();
             myConnection.Open();
             myCommand.Connection = myConnection;
 
@@ -63,14 +66,14 @@ namespace GIS_DogWimForms
                 "order by LS.l_schet; ");
             myCommand.Prepare();//подготавливает строку
 
-            MySqlDataReader MyDataReader;
             MyDataReader = myCommand.ExecuteReader();
-            int i = 0;
+
             int y = 1;
             int z = 1;
+
             while (MyDataReader.Read())
             {
-                LS.AddRow(MyDataReader.GetString(0),
+                Ls.AddRow(MyDataReader.GetString(0),
                            MyDataReader.GetString(1),
                            MyDataReader.GetString(2),
                            MyDataReader.GetString(3),
@@ -102,13 +105,11 @@ namespace GIS_DogWimForms
                                 MyDataReader.GetString(27),
                                 MyDataReader.GetString(28));
 
-                i += 29;
                 z++;
                 if (z % 1000 == 0)
                 {
-
-                    LS.FileSave("c:\\gis\\LS" + y + "k.xlsx");
-                    LS.Rows.Clear();
+                    Ls.FileSave("c:\\gis\\LS" + y + "k.xlsx");
+                    Ls.Rows.Clear();
 
                     adress.FileSave("c:\\gis\\adress" + y + "k.xlsx");
                     adress.Rows.Clear();
@@ -121,11 +122,10 @@ namespace GIS_DogWimForms
             }
             dogovor.FileSave("c:\\gis\\DOGLS-Final.xlsx");
             adress.FileSave("c:\\gis\\adress-Final.xlsx");
-            LS.FileSave("c:\\gis\\LS-Final.xlsx");
-
+            Ls.FileSave("c:\\gis\\LS-Final.xlsx");
 
             dogovor.Rows.Clear();
-            LS.Rows.Clear();
+            Ls.Rows.Clear();
             adress.Rows.Clear();
 
             MyDataReader.Close();

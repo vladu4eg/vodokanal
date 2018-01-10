@@ -10,15 +10,14 @@ namespace GIS_DogWimForms
         Excel vkh = new Excel();
         Excel kyandkr = new Excel();
         Excel kr = new Excel();
+        MySqlDataReader MyDataReader;
+
+        string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
 
         public void CreateDogovor()
         {
-
-
-            string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
             MySqlConnection myConnection = new MySqlConnection(Connect);
             MySqlCommand myCommand = new MySqlCommand();
-
             myConnection.Open();
             myCommand.Connection = myConnection;
 
@@ -92,11 +91,11 @@ namespace GIS_DogWimForms
 
             myCommand.Prepare();//подготавливает строку
 
-            MySqlDataReader MyDataReader;
             MyDataReader = myCommand.ExecuteReader();
-            int i = 0;
+
             int y = 1;
             int z = 1;
+
             while (MyDataReader.Read())
             {
                 dogovor.AddRow(MyDataReader.GetString(0),
@@ -169,7 +168,6 @@ namespace GIS_DogWimForms
                 MyDataReader.GetString(65),
                 MyDataReader.GetString(66));
 
-                i += 67;
                 z++;
                 if (z % 1000 == 0)
                 {
@@ -211,10 +209,9 @@ namespace GIS_DogWimForms
 
         public void ProjectDogovor()
         {
+            MySqlConnection myConnection = new MySqlConnection(Connect);
+            MySqlCommand myCommand = new MySqlCommand();
 
-            string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
-            MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
-            MySql.Data.MySqlClient.MySqlCommand myCommand = new MySql.Data.MySqlClient.MySqlCommand();
             myConnection.Open();
             myCommand.Connection = myConnection;
 
@@ -283,9 +280,9 @@ namespace GIS_DogWimForms
                 "JOIN import_with ON id_gis.id = import_with.A " +
 
                 "where id_gis.status IN ('Проект','Размещен')");
+
             myCommand.Prepare();
 
-            MySqlDataReader MyDataReader;
             MyDataReader = myCommand.ExecuteReader();
             int y = 1;
             int z = 1;
@@ -327,7 +324,7 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(33),
                            MyDataReader.GetString(34),
                            MyDataReader.GetString(35));
-               
+
                 object1.AddRow(MyDataReader.GetString(37),
                                MyDataReader.GetString(38),
                                MyDataReader.GetString(39),
@@ -390,8 +387,7 @@ namespace GIS_DogWimForms
                     MyDataReader.GetString(65),
                     MyDataReader.GetString(66));
                 }
-
-                    z++;
+                z++;
                 if (z % 1000 == 0)
                 {
                     dogovor.FileSave("c:\\gis\\DOG" + y + "k.xlsx");
