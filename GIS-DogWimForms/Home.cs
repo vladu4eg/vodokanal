@@ -5,14 +5,16 @@ namespace GIS_DogWimForms
 {
     class Home
     {
+        Excel mkd = new Excel();
+        Excel jill = new Excel();
+        MySqlDataReader MyDataReader;
+
+        string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
+
         public void CreateHome()
         {
-            Excel mkd = new Excel();
-            Excel jill = new Excel();
-
-            string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
-            MySql.Data.MySqlClient.MySqlConnection myConnection = new MySql.Data.MySqlClient.MySqlConnection(Connect);
-            MySql.Data.MySqlClient.MySqlCommand myCommand = new MySql.Data.MySqlClient.MySqlCommand();
+            MySqlConnection myConnection = new MySqlConnection(Connect);
+            MySqlCommand myCommand = new MySqlCommand();
             myConnection.Open();
             myCommand.Connection = myConnection;
 
@@ -33,11 +35,11 @@ namespace GIS_DogWimForms
                 "FROM id_ls " +
                 ")" +
                 "ORDER BY ipadr_new.adr,ipadr_new.pomesh;");
+
             myCommand.Prepare();//подготавливает строку
 
-            MySqlDataReader MyDataReader;
             MyDataReader = myCommand.ExecuteReader();
-            int i = 0;
+
             int y = 1;
             int z = 1;
             string temp123 = null;
@@ -59,8 +61,6 @@ namespace GIS_DogWimForms
                     jill.AddRow(MyDataReader.GetString(4),
                                 MyDataReader.GetString(5));
                 }
-
-                i += 6;
                 z++;
                 if (z % 1000 == 0)
                 {
@@ -76,7 +76,6 @@ namespace GIS_DogWimForms
             }
             mkd.FileSave("c:\\gis\\MKD-Final.xlsx");
             jill.FileSave("c:\\gis\\JILL-Final.xlsx");
-
 
             mkd.Rows.Clear();
             jill.Rows.Clear();
