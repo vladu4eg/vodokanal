@@ -38,7 +38,7 @@ namespace Create1k
 
             string s = DateTime.Now.ToString("yyyyMMdd_9103006160.DBF");
 
-            OleDbCommand dbf = new OleDbCommand(string.Format("CREATE TABLE ["+s+ "] (JKY VARCHAR(20),PAYERIDENT VARCHAR(11)r , FIO VARCHAR(50), LS VARCHAR(11), STREET VARCHAR(25), BUILDING VARCHAR(10), FLAT VARCHAR(10), SUM1 VARCHAR(10), SERVICECOD VARCHAR(2))"), conn);
+            OleDbCommand dbf = new OleDbCommand(string.Format("CREATE TABLE ["+s+ "] (JKY VARCHAR(20),PAYERIDENT VARCHAR(11), FIO VARCHAR(50), LS VARCHAR(11), STREET VARCHAR(25), BUILDING VARCHAR(10), FLAT VARCHAR(10), SUM1 VARCHAR(10), SERVICECOD VARCHAR(2))"), conn);
 
             dbf.Prepare();
             dbf.ExecuteNonQuery();

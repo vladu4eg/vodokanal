@@ -33,6 +33,8 @@
             this.btnNewLS = new System.Windows.Forms.Button();
             this.btnHome = new System.Windows.Forms.Button();
             this.btnPY = new System.Windows.Forms.Button();
+            this.btnPokaz = new System.Windows.Forms.Button();
+            this.btnKvit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnProjectDogovor
@@ -84,18 +86,43 @@
             this.btnPY.UseVisualStyleBackColor = true;
             this.btnPY.Click += new System.EventHandler(this.button11_Click);
             // 
+            // btnPokaz
+            // 
+            this.btnPokaz.Location = new System.Drawing.Point(445, 12);
+            this.btnPokaz.Name = "btnPokaz";
+            this.btnPokaz.Size = new System.Drawing.Size(95, 47);
+            this.btnPokaz.TabIndex = 25;
+            this.btnPokaz.Text = "Показания";
+            this.btnPokaz.UseVisualStyleBackColor = true;
+            this.btnPokaz.Click += new System.EventHandler(this.btnPokaz_Click);
+            // 
+            // btnKvit
+            // 
+            this.btnKvit.Location = new System.Drawing.Point(546, 12);
+            this.btnKvit.Name = "btnKvit";
+            this.btnKvit.Size = new System.Drawing.Size(95, 47);
+            this.btnKvit.TabIndex = 26;
+            this.btnKvit.Text = "Квитанции";
+            this.btnKvit.UseVisualStyleBackColor = true;
+            this.btnKvit.Click += new System.EventHandler(this.btnKvit_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(443, 129);
+            this.ClientSize = new System.Drawing.Size(650, 119);
+            this.Controls.Add(this.btnKvit);
+            this.Controls.Add(this.btnPokaz);
             this.Controls.Add(this.btnPY);
             this.Controls.Add(this.btnHome);
             this.Controls.Add(this.btnNewLS);
             this.Controls.Add(this.btnNewDogovor);
             this.Controls.Add(this.btnProjectDogovor);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.ResumeLayout(false);
 
@@ -107,6 +134,8 @@
         private System.Windows.Forms.Button btnNewLS;
         private System.Windows.Forms.Button btnHome;
         private System.Windows.Forms.Button btnPY;
+        private System.Windows.Forms.Button btnPokaz;
+        private System.Windows.Forms.Button btnKvit;
     }
 }
 

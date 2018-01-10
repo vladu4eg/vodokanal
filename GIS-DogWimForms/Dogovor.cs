@@ -54,7 +54,7 @@ namespace GIS_DogWimForms
                 "'РСО'," +
                 "'В разрезе договора'," +
                 "'Нет'," +
-                "id_gis.id_gis," +
+                "''," +
                 "''," +
                 "import_with.*," +
                 "''," +
@@ -80,13 +80,15 @@ namespace GIS_DogWimForms
                 "'Соответствие показателей качества холодной воды требованиям законодательства Российской Федерации'," +
                 "'', '', ''," +
                 "'Соответствует' " +
-                //
-                "FROM id_gis " +
-                "JOIN ipadr_new ON id_gis.id = ipadr_new.id " +
-                "JOIN import_lischt ON id_gis.id = import_lischt.A " +
-                "JOIN import_with ON id_gis.id = import_with.A " +
-
-                "where id_gis.status = 'Проект'");
+                "FROM import_lischt " +
+                "JOIN ipadr_new ON import_lischt.A = ipadr_new.id " +
+                "JOIN import_with ON import_lischt.A = import_with.A " +
+                "where import_lischt.A NOT IN " +
+                "(" +
+                    "SELECT id_gis.id " +
+                    "FROM id_gis " +
+                    "WHERE id_gis.status in ('Проект','Размещен') " +
+                ")");
 
             myCommand.Prepare();//подготавливает строку
 
@@ -248,9 +250,9 @@ namespace GIS_DogWimForms
                 "'РСО'," +
                 "'В разрезе договора'," +
                 "'Нет'," +
+                "id_gis.id_gis," +
                 "''," +
-                "''," +
-                "import_with.*," +
+                "import_with.A,import_with.B,import_with.C,import_with.DATA1,import_with.DATA2, " +
                 "''," +
                 "ipadr_new.id," +
                 "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then 'МКД' else '' end pomeshen," +
@@ -273,24 +275,18 @@ namespace GIS_DogWimForms
                 "import_with.C," +
                 "'Соответствие показателей качества холодной воды требованиям законодательства Российской Федерации'," +
                 "'', '', ''," +
-                "'Соответствует' " +
-                "FROM import_lischt " +
-                "JOIN ipadr_new ON import_lischt.A = ipadr_new.id " +
-                "JOIN import_with ON import_lischt.A = import_with.A " +
-                // "where (id_gis.status = 'Размещен' or id_gis.status = 'Проект') " +
-                //поиск проектов. НЕ ЗАБУДЬ УДАЛИТЬ!!!!!!
-                "where import_lischt.A NOT IN " +
-                "(" +
-                    "SELECT distinct import_lischt.A " +
-                    "FROM import_lischt, id_gis " +
-                    "WHERE import_lischt.A = id_gis.id " +
-                    "AND id_gis.status in ('Проект','Размещен') " +
-                ")");
+                "'Соответствует', " +
+                "import_with.D,import_with.E " +
+                "FROM id_gis " +
+                "JOIN ipadr_new ON id_gis.id = ipadr_new.id " +
+                "JOIN import_lischt ON id_gis.id = import_lischt.A " +
+                "JOIN import_with ON id_gis.id = import_with.A " +
+
+                "where id_gis.status IN ('Проект','Размещен')");
             myCommand.Prepare();
 
             MySqlDataReader MyDataReader;
             MyDataReader = myCommand.ExecuteReader();
-            int i = 0;
             int y = 1;
             int z = 1;
             while (MyDataReader.Read())
@@ -331,7 +327,7 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(33),
                            MyDataReader.GetString(34),
                            MyDataReader.GetString(35));
-
+               
                 object1.AddRow(MyDataReader.GetString(37),
                                MyDataReader.GetString(38),
                                MyDataReader.GetString(39),
@@ -365,8 +361,37 @@ namespace GIS_DogWimForms
                 MyDataReader.GetString(65),
                 MyDataReader.GetString(66));
 
-                i += 67;
-                z++;
+                if (MyDataReader.GetString(67) == "Отведение сточных вод")
+                {
+                    object1.AddRow(MyDataReader.GetString(37),
+                    MyDataReader.GetString(67),
+                    MyDataReader.GetString(68),
+                    MyDataReader.GetString(40),
+                    MyDataReader.GetString(41));
+
+                    kyandkr.AddRow(MyDataReader.GetString(48),
+                    MyDataReader.GetString(49),
+                    MyDataReader.GetString(50),
+                    MyDataReader.GetString(51),
+                    "Отведение сточных вод",
+                    "Сточные воды",
+                    MyDataReader.GetString(54),
+                    MyDataReader.GetString(55));
+
+                    kr.AddRow(MyDataReader.GetString(56),
+                    MyDataReader.GetString(57),
+                    MyDataReader.GetString(58),
+                    MyDataReader.GetString(59),
+                    "Отведение сточных вод",
+                    "Сточные воды",
+                    "",
+                    MyDataReader.GetString(63),
+                    MyDataReader.GetString(64),
+                    MyDataReader.GetString(65),
+                    MyDataReader.GetString(66));
+                }
+
+                    z++;
                 if (z % 1000 == 0)
                 {
                     dogovor.FileSave("c:\\gis\\DOG" + y + "k.xlsx");
