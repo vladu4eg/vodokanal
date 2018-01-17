@@ -12,15 +12,14 @@ namespace GIS_DogWimForms
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Dogovor createDogovor = new Dogovor();
-            createDogovor.ProjectDogovor();
-            
+            Dogovor dogovor = new Dogovor();
+            dogovor.ProjectDogovor();
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Dogovor createDogovor = new Dogovor();
-            createDogovor.CreateDogovor();
+            Dogovor dogovor = new Dogovor();
+            dogovor.CreateDogovor();
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -45,19 +44,35 @@ namespace GIS_DogWimForms
         {
             Pokaz pokaz = new Pokaz();
             pokaz.AddPokaz();
-
         }
 
         private void btnKvit_Click(object sender, EventArgs e)
         {
             Kvit kvit = new Kvit();
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             PY py = new PY();
             py.PyFIX();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            Update update = new Update();
+            update.UpdateAll();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUpdAdressOnly_Click(object sender, EventArgs e)
+        {
+            Update update = new Update();
+            update.UpdateClearAdress();
+            update.UpdateAdress();
         }
     }
 }

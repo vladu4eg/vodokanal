@@ -26,7 +26,7 @@ namespace GIS_DogWimForms
                 "import_lischt.NUM_DOG_C," +
                 "import_lischt.DAT_DOG_D," +
                 "import_lischt.DAT_VST_E," +
-                "import_lischt.F," +
+                "''," +
                 "import_lischt.G," +
                 "import_lischt.H," +
                 "import_lischt.FAMIL_NAME_R," +
@@ -55,7 +55,7 @@ namespace GIS_DogWimForms
                 "'Нет'," +
                 "''," +
                 "''," +
-                "import_with.*," +
+                "import_with.A,import_with.B,import_with.C,import_with.DATA1,import_with.DATA2, " +
                 "''," +
                 "ipadr_new.id," +
                 "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then 'МКД' else '' end pomeshen," +
@@ -78,7 +78,8 @@ namespace GIS_DogWimForms
                 "import_with.C," +
                 "'Соответствие показателей качества холодной воды требованиям законодательства Российской Федерации'," +
                 "'', '', ''," +
-                "'Соответствует' " +
+                "'Соответствует', " +
+                "import_with.D,import_with.E " +
                 "FROM import_lischt " +
                 "JOIN ipadr_new ON import_lischt.A = ipadr_new.id " +
                 "JOIN import_with ON import_lischt.A = import_with.A " +
@@ -168,6 +169,36 @@ namespace GIS_DogWimForms
                 MyDataReader.GetString(65),
                 MyDataReader.GetString(66));
 
+                if (MyDataReader.GetString(67) == "Отведение сточных вод")
+                {
+                    object1.AddRow(MyDataReader.GetString(37),
+                    MyDataReader.GetString(67),
+                    MyDataReader.GetString(68),
+                    MyDataReader.GetString(40),
+                    MyDataReader.GetString(41));
+
+                    kyandkr.AddRow(MyDataReader.GetString(48),
+                    MyDataReader.GetString(49),
+                    MyDataReader.GetString(50),
+                    MyDataReader.GetString(51),
+                    "Отведение сточных вод",
+                    "Сточные воды",
+                    MyDataReader.GetString(54),
+                    MyDataReader.GetString(55));
+
+                    kr.AddRow(MyDataReader.GetString(56),
+                    MyDataReader.GetString(57),
+                    MyDataReader.GetString(58),
+                    MyDataReader.GetString(59),
+                    "Отведение сточных вод",
+                    "Сточные воды",
+                    "",
+                    MyDataReader.GetString(63),
+                    MyDataReader.GetString(64),
+                    MyDataReader.GetString(65),
+                    MyDataReader.GetString(66));
+                }
+
                 z++;
                 if (z % 1000 == 0)
                 {
@@ -220,7 +251,7 @@ namespace GIS_DogWimForms
                 "import_lischt.NUM_DOG_C," +
                 "import_lischt.DAT_DOG_D," +
                 "import_lischt.DAT_VST_E," +
-                "import_lischt.F," +
+                "''," +
                 "import_lischt.G," +
                 "import_lischt.H," +
                 "import_lischt.FAMIL_NAME_R," +
@@ -278,8 +309,7 @@ namespace GIS_DogWimForms
                 "JOIN ipadr_new ON id_gis.id = ipadr_new.id " +
                 "JOIN import_lischt ON id_gis.id = import_lischt.A " +
                 "JOIN import_with ON id_gis.id = import_with.A " +
-
-                "where id_gis.status IN ('Проект','Размещен')");
+                "where id_gis.status = 'Проект' ");
 
             myCommand.Prepare();
 
@@ -387,6 +417,7 @@ namespace GIS_DogWimForms
                     MyDataReader.GetString(65),
                     MyDataReader.GetString(66));
                 }
+
                 z++;
                 if (z % 1000 == 0)
                 {

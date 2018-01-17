@@ -62,7 +62,7 @@ namespace GIS_DogWimForms
                 "and ipadr_new.ipadr = object_adress.HOUSEGUID_fias " +
                 "and ipadr_new.pomesh = object_adress.kv " +
                 "and id_gis.`status` = 'Размещен' " +
-                "and ipadr_new.pomesh <> '' " +                 //мкд. нужно убрать <>, если проверяешь еще и ЖД
+                //"and ipadr_new.pomesh <> '' " +                 //мкд. нужно убрать <>, если проверяешь еще и ЖД
                 "order by LS.l_schet; ");
             myCommand.Prepare();//подготавливает строку
 

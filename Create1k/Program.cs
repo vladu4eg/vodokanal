@@ -38,7 +38,7 @@ namespace Create1k
 
             string s = DateTime.Now.ToString("yyyyMMdd_9103006160.DBF");
 
-            OleDbCommand dbf = new OleDbCommand(string.Format("CREATE TABLE ["+s+ "] (JKY VARCHAR(20),PAYERIDENT VARCHAR(11), FIO VARCHAR(50), LS VARCHAR(11), STREET VARCHAR(25), BUILDING VARCHAR(10), FLAT VARCHAR(10), SUM1 VARCHAR(10), SERVICECOD VARCHAR(2))"), conn);
+            OleDbCommand dbf = new OleDbCommand(string.Format("CREATE TABLE ["+s+ "] (JKY VARCHAR(20),PAYERIDENT VARCHAR(11), FIO VARCHAR(50), LS VARCHAR(11), STREET VARCHAR(25), BUILDING VARCHAR(10), FLAT VARCHAR(10), SUM1 NUMERIC(10,2), SERVICECOD VARCHAR(2))"), conn);
 
             dbf.Prepare();
             dbf.ExecuteNonQuery();
@@ -70,15 +70,15 @@ namespace Create1k
             while (OraDataReader.Read())
             {
                 Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')",
-                    MySqlHelper.EscapeString(OraDataReader.GetString(0)),
-                    MySqlHelper.EscapeString(OraDataReader.GetString(1)),
-                    MySqlHelper.EscapeString(OraDataReader.GetString(2)),
-                    MySqlHelper.EscapeString(OraDataReader.GetString(3)),
-                    MySqlHelper.EscapeString(OraDataReader.GetString(4)),
-                    MySqlHelper.EscapeString(OraDataReader.GetString(5)),
-                    MySqlHelper.EscapeString(OraDataReader.GetString(6)),
-                    MySqlHelper.EscapeString(OraDataReader.GetString(7)),
-                    MySqlHelper.EscapeString(OraDataReader.GetString(8))));
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(0).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(1).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(2).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(3).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(4).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(5).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(6).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(7).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(8).ToString())));
             }
             sCommand.Append(string.Join(",", Rows));
             sCommand.Append(";");

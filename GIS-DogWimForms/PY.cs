@@ -25,8 +25,8 @@ namespace GIS_DogWimForms
                 "PY.type_name2," +
                 "PY.ulica, " +
                 "CASE " +
-                "WHEN PY.type = 'Индивидуальный' and SUBSTRING(id_ls.id_dom, 1, 1) <> 9  THEN object_adress.id_dom " +
-                "WHEN PY.`type` = 'Коллективный (общедомовой)' THEN object_adress.id_dom " +
+                "WHEN PY.type = 'Индивидуальный' and SUBSTRING(id_ls.id_dom, 1, 1) <> 9  THEN id_ls.id_dom " +
+                "WHEN PY.`type` = 'Коллективный (общедомовой)' THEN id_ls.id_dom " +
                 "ELSE '' END AS adr1, " +
                 "CASE " +
                 "WHEN PY.`type` = 'Индивидуальный' and SUBSTRING(id_ls.id_dom, 1, 1) = 9 THEN id_ls.id_dom " +
@@ -58,7 +58,7 @@ namespace GIS_DogWimForms
                 "FROM PY, id_ls " +
                 "where PY.id_ls = id_ls.id " +
                 "and PY.inv not in (select id_py_main.nomer from id_py_main) " +
-                "and object_adress.id_kvt = id_ls.id_dom " +
+                "and trim(PY.inv) not in ('*','-') " +
                 "order by PY.inv,PY.id_ls ");
 
             myCommand.Prepare();//подготавливает строку
