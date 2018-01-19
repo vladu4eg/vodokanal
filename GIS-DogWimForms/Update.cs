@@ -332,6 +332,5 @@ namespace GIS_DogWimForms
             myCommand.ExecuteNonQuery();//выполняет запрос
             myConnection.Close();
         }
-
     }
 }
