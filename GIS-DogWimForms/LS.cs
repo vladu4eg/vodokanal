@@ -82,11 +82,14 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(6),
                            MyDataReader.GetString(7),
                            MyDataReader.GetString(8),
+                           "", "", "", "", "",
+                           /*
                            MyDataReader.GetString(9),
                            MyDataReader.GetString(10),
                            MyDataReader.GetString(11),
                            MyDataReader.GetString(12),
                            MyDataReader.GetString(13),
+                           */
                            MyDataReader.GetString(14),
                            MyDataReader.GetString(15),
                            MyDataReader.GetString(16),
