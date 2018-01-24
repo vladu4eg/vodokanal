@@ -5,6 +5,7 @@ namespace GIS_DogWimForms
 {
     public partial class Form1 : Form
     {
+        // класс protect содержит только две переменные PasswordOracle и PasswordMysql.
         public Form1()
         {
             InitializeComponent();
@@ -73,6 +74,13 @@ namespace GIS_DogWimForms
             Update update = new Update();
             update.UpdateClearAdress();
             update.UpdateAdress();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Update update = new Update();
+            update.UpdateClearPD();
+            update.UpdatePD();
         }
     }
 }

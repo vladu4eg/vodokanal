@@ -23,8 +23,8 @@ namespace GIS_DogWimForms
 
         StringBuilder sCommand = new StringBuilder("INSERT INTO import_lischt VALUES ");
 
-        string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=vlad19957";
-        string connectionString = "DATA SOURCE=SERVER;PASSWORD=ithba19957;USER ID=User057";
+        string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password="+ Protect.PasswordMysql);
+        string connectionString = string.Format("DATA SOURCE=SERVER;PASSWORD=" + Protect.PasswordOracleAndUser);
         
         public void UpdateAll()
         {
@@ -40,18 +40,6 @@ namespace GIS_DogWimForms
 
             stopwatch.Stop();
             MessageBox.Show("Готово! " + stopwatch.Elapsed);
-        }
-        public void UpdateClearAll()
-        {
-            MySqlConnection myConnection = new MySqlConnection(Connect);
-            MySqlCommand myCommand = new MySqlCommand();
-            myConnection.Open();
-            myCommand.Connection = myConnection;
-
-            myCommand.CommandText = string.Format("TRUNCATE TABLE import_lischt;TRUNCATE TABLE import_vkh;TRUNCATE TABLE import_with;TRUNCATE TABLE ipadr_new;TRUNCATE TABLE PY;TRUNCATE TABLE LS;");
-            myCommand.Prepare();//подготавливает строку
-            myCommand.ExecuteNonQuery();//выполняет запрос
-            myConnection.Close();
         }
         public void UpdateImport_LS()
         {
@@ -320,6 +308,68 @@ namespace GIS_DogWimForms
 
             myConnection.Close();
         }
+        public void UpdatePD()
+        {
+            path = @"D:\Vladislav\GIS JKH\sql\PD.sql";
+            StreamReader sr = new StreamReader(path, Encoding.GetEncoding(1251));
+            temp = sr.ReadToEnd();
+
+            ConnectionToOracle = new OracleConnection(connectionString);
+            ConnectionToOracle.Open();
+            cmd.Connection = ConnectionToOracle;
+
+            MySqlConnection myConnection = new MySqlConnection(Connect);
+            MySqlCommand myCommand = new MySqlCommand();
+            myConnection.Open();
+            myCommand.Connection = myConnection;
+
+            cmd.CommandText = string.Format(temp.ToString());
+
+            cmd.Prepare();//подготавливает строку
+            OraDataReader = cmd.ExecuteReader();
+
+            while (OraDataReader.Read())
+            {
+                Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}')",
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(0).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(1).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(2).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(3).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(4).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(5).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(6).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(7).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(8).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(9).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(10).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(11).ToString())));
+            }
+            sCommand.Append(string.Join(",", Rows));
+            sCommand.Append(";");
+
+            using (MySqlCommand myCmd = new MySqlCommand(sCommand.ToString(), myConnection))
+            {
+                myCmd.CommandType = CommandType.Text;
+                myCmd.ExecuteNonQuery();
+            }
+            OraDataReader.Close();
+            Rows.Clear();
+            sCommand.Clear();
+        }
+
+        //clear
+        public void UpdateClearAll()
+        {
+            MySqlConnection myConnection = new MySqlConnection(Connect);
+            MySqlCommand myCommand = new MySqlCommand();
+            myConnection.Open();
+            myCommand.Connection = myConnection;
+
+            myCommand.CommandText = string.Format("TRUNCATE TABLE import_lischt;TRUNCATE TABLE import_vkh;TRUNCATE TABLE import_with;TRUNCATE TABLE ipadr_new;TRUNCATE TABLE PY;TRUNCATE TABLE LS;");
+            myCommand.Prepare();//подготавливает строку
+            myCommand.ExecuteNonQuery();//выполняет запрос
+            myConnection.Close();
+        }
         public void UpdateClearAdress()
         {
             MySqlConnection myConnection = new MySqlConnection(Connect);
@@ -328,6 +378,18 @@ namespace GIS_DogWimForms
             myCommand.Connection = myConnection;
 
             myCommand.CommandText = string.Format("TRUNCATE TABLE ipadr_new;");
+            myCommand.Prepare();//подготавливает строку
+            myCommand.ExecuteNonQuery();//выполняет запрос
+            myConnection.Close();
+        }
+        public void UpdateClearPD()
+        {
+            MySqlConnection myConnection = new MySqlConnection(Connect);
+            MySqlCommand myCommand = new MySqlCommand();
+            myConnection.Open();
+            myCommand.Connection = myConnection;
+
+            myCommand.CommandText = string.Format("TRUNCATE TABLE PD;");
             myCommand.Prepare();//подготавливает строку
             myCommand.ExecuteNonQuery();//выполняет запрос
             myConnection.Close();

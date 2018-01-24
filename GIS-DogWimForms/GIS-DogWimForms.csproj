@@ -132,8 +132,8 @@
     <Compile Include="Pokaz.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protect.cs" />
     <Compile Include="PY.cs" />
-    <Compile Include="SafeGetString.cs" />
     <Compile Include="Update.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
