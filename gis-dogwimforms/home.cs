@@ -9,7 +9,7 @@ namespace GIS_DogWimForms
         Excel jill = new Excel();
         MySqlDataReader MyDataReader;
 
-        string Connect = "Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 240;Password=vlad19957";
+        string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=" + Protect.PasswordMysql);
 
         public void CreateHome()
         {

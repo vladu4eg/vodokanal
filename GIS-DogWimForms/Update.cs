@@ -101,6 +101,7 @@ namespace GIS_DogWimForms
             OraDataReader.Close();
             Rows.Clear();
             sCommand.Clear();
+            myConnection.Close();
         }
         public void UpdateImport_with()
         {
@@ -143,7 +144,7 @@ namespace GIS_DogWimForms
             OraDataReader.Close();
             Rows.Clear();
             sCommand.Clear();
-
+            myConnection.Close();
         }
         public void UpdateImport_vkh()
         {
@@ -188,6 +189,7 @@ namespace GIS_DogWimForms
             OraDataReader.Close();
             Rows.Clear();
             sCommand.Clear();
+            myConnection.Close();
         }
         public void UpdateLS()
         {
@@ -239,6 +241,7 @@ namespace GIS_DogWimForms
             OraDataReader.Close();
             Rows.Clear();
             sCommand.Clear();
+            myConnection.Close();
         }
         public void UpdatePY()
         {
@@ -290,6 +293,7 @@ namespace GIS_DogWimForms
             OraDataReader.Close();
             Rows.Clear();
             sCommand.Clear();
+            myConnection.Close();
         }
         public void UpdateAdress()
         {
@@ -327,7 +331,7 @@ namespace GIS_DogWimForms
 
             cmd.Prepare();//подготавливает строку
             OraDataReader = cmd.ExecuteReader();
-
+            sCommand = new StringBuilder("INSERT INTO PD VALUES ");
             while (OraDataReader.Read())
             {
                 Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}')",
@@ -355,6 +359,7 @@ namespace GIS_DogWimForms
             OraDataReader.Close();
             Rows.Clear();
             sCommand.Clear();
+            myConnection.Close();
         }
 
         //clear

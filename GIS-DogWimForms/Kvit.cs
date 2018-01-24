@@ -24,9 +24,7 @@ namespace GIS_DogWimForms
             myCommand.Connection = myConnection;
 
             myCommand.CommandText = string.Format("");
-
             myCommand.Prepare();//подготавливает строку
-
             MyDataReader = myCommand.ExecuteReader();
 
             int y = 1;
