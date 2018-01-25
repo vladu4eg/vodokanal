@@ -184,7 +184,7 @@ namespace GIS_DogWimForms
                     "Сточные воды",
                     MyDataReader.GetString(54),
                     MyDataReader.GetString(55));
-
+                    /* нет показателей качества для какаш )
                     kr.AddRow(MyDataReader.GetString(56),
                     MyDataReader.GetString(57),
                     MyDataReader.GetString(58),
@@ -196,6 +196,7 @@ namespace GIS_DogWimForms
                     MyDataReader.GetString(64),
                     MyDataReader.GetString(65),
                     MyDataReader.GetString(66));
+                    */
                 }
 
                 z++;
