@@ -10,10 +10,16 @@ namespace GIS_DogWimForms
         Excel dogovor = new Excel();
         MySqlDataReader MyDataReader;
 
+        string checkMKD;
         string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=" + Protect.PasswordMysql);
 
-        public void CreateLS()
+        public void CreateLS(bool chk)
         {
+            if (chk)
+                checkMKD = "and ipadr_new.pomesh <> '' ";
+            else
+                checkMKD = "";
+
             MySqlConnection myConnection = new MySqlConnection(Connect);
             MySqlCommand myCommand = new MySqlCommand();
 
@@ -53,16 +59,15 @@ namespace GIS_DogWimForms
                 "from LS, ipadr_new, object_adress,id_gis " +
                 "where LS.l_schet NOT IN " +
                 "(" +
-                "SELECT distinct LS.l_schet " +
-                "FROM LS, id_ls " +
-                "WHERE LS.l_schet = id_ls.id " +
+                "SELECT id_ls.id " +
+                "FROM id_ls " +
                 ") " +
                 "and LS.l_schet = ipadr_new.id " +
                 "and LS.l_schet = id_gis.id " +
                 "and ipadr_new.ipadr = object_adress.HOUSEGUID_fias " +
                 "and ipadr_new.pomesh = object_adress.kv " +
                 "and id_gis.`status` = 'Размещен' " +
-                //"and ipadr_new.pomesh <> '' " +                 //мкд. нужно убрать <>, если проверяешь еще и ЖД
+                 checkMKD +                 //мкд или нет
                 "order by LS.l_schet; ");
             myCommand.Prepare();//подготавливает строку
 
@@ -83,7 +88,7 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(7),
                            MyDataReader.GetString(8),
                            "", "", "", "", "",
-                           /*
+                           /* и правда. Нахуй нужны эти комменты. Лучше потом ванговать. 
                            MyDataReader.GetString(9),
                            MyDataReader.GetString(10),
                            MyDataReader.GetString(11),

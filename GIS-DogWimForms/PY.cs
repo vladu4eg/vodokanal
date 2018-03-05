@@ -10,7 +10,7 @@ namespace GIS_DogWimForms
         MySqlDataReader MyDataReader;
 
         string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=" + Protect.PasswordMysql);
-        public void AddPY()
+        public void AddIPY()
         {
             MySqlConnection myConnection = new MySqlConnection(Connect);
             MySqlCommand myCommand = new MySqlCommand();
@@ -56,7 +56,9 @@ namespace GIS_DogWimForms
                 "PY.z " +
                 "FROM PY, id_ls " +
                 "where PY.id_ls = id_ls.id " +
+                "and PY.status = 'прибор учета' " +
                 "and PY.inv not in (select id_py_main.nomer from id_py_main) " +
+                "and PY.ndat_testing > date_format(DATE_ADD(now(), INTERVAL 2 month), '%Y-%m-%d') " +
                 "and trim(PY.inv) not in ('*','-') " +
                 "order by PY.inv,PY.id_ls ");
 

@@ -5,7 +5,6 @@ namespace GIS_DogWimForms
 {
     public partial class Form1 : Form
     {
-        // класс protect содержит только две переменные PasswordOracle и PasswordMysql.
         public Form1()
         {
             InitializeComponent();
@@ -13,14 +12,14 @@ namespace GIS_DogWimForms
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Dogovor dogovor = new Dogovor();
-            dogovor.ProjectDogovor();
+            Dogovor createDogovor = new Dogovor();
+            createDogovor.CreateDogovor();
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Dogovor dogovor = new Dogovor();
-            dogovor.CreateDogovor();
+            Dogovor createDogovor = new Dogovor();
+            createDogovor.ProjectDogovor();
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -39,48 +38,6 @@ namespace GIS_DogWimForms
         {
             PY py = new PY();
             py.AddPY();
-        }
-
-        private void btnPokaz_Click(object sender, EventArgs e)
-        {
-            Pokaz pokaz = new Pokaz();
-            pokaz.AddPokaz();
-        }
-
-        private void btnKvit_Click(object sender, EventArgs e)
-        {
-            Kvit kvit = new Kvit();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            PY py = new PY();
-            py.PyFIX();
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            Update update = new Update();
-            update.UpdateAll();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnUpdAdressOnly_Click(object sender, EventArgs e)
-        {
-            Update update = new Update();
-            update.UpdateClearAdress();
-            update.UpdateAdress();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Update update = new Update();
-            update.UpdateClearPD();
-            update.UpdatePD();
         }
     }
 }

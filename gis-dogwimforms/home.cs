@@ -27,8 +27,8 @@ namespace GIS_DogWimForms
                 "FROM ipadr_new, object_adress " +
                 "WHERE ipadr_new.ipadr = object_adress.HOUSEGUID_fias " +
                 "and ipadr_new.pomesh <> object_adress.kv " +
-                "AND ipadr_new.pomesh <> '' " +
-                "AND ipadr_new.pomesh REGEXP '^[1-999999]+$' " +
+                "AND ipadr_new.pomesh <> '0' " +
+                "AND ipadr_new.pomesh REGEXP '^[[:digit:]]+$' " +
                 "AND ipadr_new.id NOT IN " +
                 "(" +
                 "SELECT id_ls.id " +

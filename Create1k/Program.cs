@@ -14,7 +14,7 @@ namespace Create1k
         static void Main(string[] args)
         {
             OracleConnection ConnectionToOracle;
-            string connectionString = "DATA SOURCE=SERVER;PASSWORD=ithba19957;USER ID=User057";
+            string connectionString = "DATA SOURCE=SERVER;PASSWORD=65535;USER ID=User037";
 
             MySqlConnection myConnection = new MySqlConnection("Database = vlad_m; Data Source = 192.168.27.79; User Id = vlad_m; charset=cp1251;default command timeout = 999; Password=vlad19957");
             MySqlCommand myCommand = new MySqlCommand();
@@ -24,7 +24,7 @@ namespace Create1k
             MySqlDataReader MyDataReader;
 
 
-            OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=dBASE 5.0;Data Source=D:\\Alex\\РНКБ\\exp_db_gis");
+            OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=dBASE 5.0;Data Source=D:\\Alex\\RNCB\\exp_db_gis");
             OracleCommand cmd = new OracleCommand();
 
 
@@ -38,7 +38,7 @@ namespace Create1k
 
             string s = DateTime.Now.ToString("yyyyMMdd_9103006160.DBF");
 
-            OleDbCommand dbf = new OleDbCommand(string.Format("CREATE TABLE ["+s+ "] (JKY VARCHAR(20),PAYERIDENT VARCHAR(11), FIO VARCHAR(50), LS VARCHAR(11), STREET VARCHAR(25), BUILDING VARCHAR(10), FLAT VARCHAR(10), SUM1 NUMERIC(10,2), SERVICECOD VARCHAR(2))"), conn);
+            OleDbCommand dbf = new OleDbCommand(string.Format("CREATE TABLE ["+s+ "] (ELS VARCHAR(20),PAYERIDENT VARCHAR(11), FIO VARCHAR(50), LS VARCHAR(11), STREET VARCHAR(25), BUILDING VARCHAR(10), FLAT VARCHAR(10), SUM1 NUMERIC(10,2), SERVICECOD VARCHAR(2))"), conn);
 
             dbf.Prepare();
             dbf.ExecuteNonQuery();
@@ -102,7 +102,7 @@ namespace Create1k
 
             while (MyDataReader.Read())
             {
-                dbf.CommandText = string.Format("INSERT INTO [" + s + "]  (JKY,PAYERIDENT,FIO,LS,STREET,BUILDING,FLAT,SUM1,SERVICECOD) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')",
+                dbf.CommandText = string.Format("INSERT INTO [" + s + "]  (ELS,PAYERIDENT,FIO,LS,STREET,BUILDING,FLAT,SUM1,SERVICECOD) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')",
                     MySqlHelper.EscapeString(MyDataReader.GetString(0)),
                     MySqlHelper.EscapeString(MyDataReader.GetString(1)),
                     MySqlHelper.EscapeString(MyDataReader.GetString(2)),
@@ -116,8 +116,7 @@ namespace Create1k
                 dbf.ExecuteNonQuery();
             }
             MyDataReader.Close();
-
-
+            
             MyDataReader.Close();
             OraDataReader.Close();
             conn.Close();

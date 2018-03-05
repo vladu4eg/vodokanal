@@ -50,6 +50,7 @@ namespace GIS_DogWimForms
                 "import_lischt.`НЕТ2`," +
                 "'Нормативный правовой акт'," +
                 "'РСО'," +
+                "'Да'," +
                 "'В разрезе договора'," +
                 "'Нет'," +
                 "''," +
@@ -133,7 +134,8 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(32),
                            MyDataReader.GetString(33),
                            MyDataReader.GetString(34),
-                           MyDataReader.GetString(35));
+                           MyDataReader.GetString(35),
+                           MyDataReader.GetString(36));
 
                 object1.AddRow(MyDataReader.GetString(37),
                                MyDataReader.GetString(38),
@@ -276,10 +278,10 @@ namespace GIS_DogWimForms
                 "import_lischt.`НЕТ2`," +
                 "'Нормативный правовой акт'," +
                 "'РСО'," +
+                "'Да'," +
                 "'В разрезе договора'," +
                 "'Нет'," +
                 "id_gis.id_gis," +
-                "''," +
                 "import_with.A,import_with.B,import_with.C,import_with.DATA1,import_with.DATA2, " +
                 "''," +
                 "ipadr_new.id," +
@@ -353,7 +355,8 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(32),
                            MyDataReader.GetString(33),
                            MyDataReader.GetString(34),
-                           MyDataReader.GetString(35));
+                           MyDataReader.GetString(35),
+                           MyDataReader.GetString(36));
 
                 object1.AddRow(MyDataReader.GetString(37),
                                MyDataReader.GetString(38),
@@ -377,16 +380,16 @@ namespace GIS_DogWimForms
                 MyDataReader.GetString(55));
 
                 kr.AddRow(MyDataReader.GetString(56),
-                MyDataReader.GetString(57),
-                MyDataReader.GetString(58),
-                MyDataReader.GetString(59),
-                MyDataReader.GetString(60),
-                MyDataReader.GetString(61),
-                MyDataReader.GetString(62),
-                MyDataReader.GetString(63),
-                MyDataReader.GetString(64),
-                MyDataReader.GetString(65),
-                MyDataReader.GetString(66));
+MyDataReader.GetString(57),
+MyDataReader.GetString(58),
+MyDataReader.GetString(59),
+MyDataReader.GetString(60),
+MyDataReader.GetString(61),
+MyDataReader.GetString(62),
+MyDataReader.GetString(63),
+MyDataReader.GetString(64),
+MyDataReader.GetString(65),
+MyDataReader.GetString(66));
 
                 if (MyDataReader.GetString(67) == "Отведение сточных вод")
                 {
@@ -404,7 +407,7 @@ namespace GIS_DogWimForms
                     "Сточные воды",
                     MyDataReader.GetString(54),
                     MyDataReader.GetString(55));
-
+                    /*
                     kr.AddRow(MyDataReader.GetString(56),
                     MyDataReader.GetString(57),
                     MyDataReader.GetString(58),
@@ -416,6 +419,7 @@ namespace GIS_DogWimForms
                     MyDataReader.GetString(64),
                     MyDataReader.GetString(65),
                     MyDataReader.GetString(66));
+                    */
                 }
 
                 z++;
