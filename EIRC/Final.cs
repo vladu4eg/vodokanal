@@ -16,7 +16,7 @@ namespace EIRC
         MySqlDataReader MyDataReader;
         List<string> owner = new List<string>();
         StringBuilder sCommand = new StringBuilder();
-        string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=" + Protect.PasswordMysql);
+        string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 99999;Password=" + Protect.PasswordMysql);
 
         public void CreateUpdate()
         {
@@ -25,7 +25,7 @@ namespace EIRC
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("select EIRC_PY.* from EIRC_PY,EIRC_main where EIRC_main.id = EIRC_PY.id order by EIRC_PY.id");
+            myCommand.CommandText = string.Format("select EIRC_PY.* from EIRC_PY,EIRC_main where EIRC_main.id = EIRC_PY.id and EIRC_main.summ_for_pay > 0  order by EIRC_PY.id");
             MySqlDataAdapter adapter = new MySqlDataAdapter(myCommand.CommandText, myConnection);
             adapter.Fill(datSet, "Item");
             foreach (DataRow row in datSet.Tables["Item"].Rows)
@@ -89,10 +89,11 @@ namespace EIRC
                     temp = lstPY[z + 0];
                 }
                 y++;
+
             }
             myCommand.CommandText = sCommand.ToString();
             myCommand.Prepare();
-            myCommand.ExecuteNonQuery();
+            myCommand.ExecuteNonQueryAsync();
 
             kvit.Rows.Clear();
             myConnection.Close();
@@ -120,13 +121,13 @@ namespace EIRC
             
             sCommand = new StringBuilder("INSERT INTO EIRC_Print VALUES ");
 
-            while (MyDataReader.Read() && z != 22222)
+            while (MyDataReader.Read() && z != 22222+65000)
             {
                 owner.Add(string.Format("('{0}','{1}','{2}','{3}')",
                     MySqlHelper.EscapeString(MyDataReader.GetValue(0).ToString()),
                     MySqlHelper.EscapeString(MyDataReader.GetValue(1).ToString()),
                     MySqlHelper.EscapeString(MyDataReader.GetValue(4).ToString()),
-                    MySqlHelper.EscapeString(MyDataReader.GetValue(31).ToString())));
+                    MySqlHelper.EscapeString(MyDataReader.GetValue(32).ToString())));
 
                 kvit.AddRow(MyDataReader.GetString(1),
                            MyDataReader.GetString(2),
@@ -143,8 +144,8 @@ namespace EIRC
                            MyDataReader.GetString(13),
                            MyDataReader.GetString(14),
                            MyDataReader.GetString(15),
+                           MyDataReader.GetString(16),
                            "МКД",
-                           MyDataReader.GetString(17),
                            MyDataReader.GetString(18),
                            MyDataReader.GetString(19),
                            MyDataReader.GetString(20),
@@ -219,8 +220,7 @@ MyDataReader.GetString(88),
 MyDataReader.GetString(89),
 MyDataReader.GetString(90),
 MyDataReader.GetString(91),
-MyDataReader.GetString(92),
-MyDataReader.GetString(93));
+MyDataReader.GetString(92));
                 z++;
             }
             kvit.FileSave(string.Format("c:\\eirc\\eirc" + DateTime.Now.ToString("ddMMyyyy") + ".xlsx"));

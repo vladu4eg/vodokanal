@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,11 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("");
+            string path = @"D:\Vladislav\GIS JKH\sql\mysql_pd.sql";
+            StreamReader sr = new StreamReader(path, Encoding.GetEncoding(1251));
+            string temp = sr.ReadToEnd();
+
+            myCommand.CommandText = string.Format(temp.ToString());
             myCommand.Prepare();//подготавливает строку
             MyDataReader = myCommand.ExecuteReader();
 
@@ -48,42 +53,35 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(13),
                            MyDataReader.GetString(14),
                            MyDataReader.GetString(15),
-                           MyDataReader.GetString(16),
-                           MyDataReader.GetString(17),
-                           MyDataReader.GetString(18),
-                           MyDataReader.GetString(19),
-                           MyDataReader.GetString(20),
-                           MyDataReader.GetString(21),
-                           MyDataReader.GetString(22),
-                           MyDataReader.GetString(23),
-                           MyDataReader.GetString(24),
-                           MyDataReader.GetString(25),
-                           MyDataReader.GetString(26),
-                           MyDataReader.GetString(27),
-                           MyDataReader.GetString(28),
-                           MyDataReader.GetString(29),
-                           MyDataReader.GetString(30),
-                           MyDataReader.GetString(31),
-                           MyDataReader.GetString(32),
-                           MyDataReader.GetString(33),
-                           MyDataReader.GetString(34),
-                           MyDataReader.GetString(35));
+                           MyDataReader.GetString(16));
+                razdel3_6.AddRow(MyDataReader.GetString(17),
+                MyDataReader.GetString(18),
+                MyDataReader.GetString(26), MyDataReader.GetString(27), "","",
+                MyDataReader.GetString(19),
+                "", "", "", "","", MyDataReader.GetString(33), MyDataReader.GetString(29), "", MyDataReader.GetString(31), "", "", "", "", "", "", "", "", "", "", "","",
+                MyDataReader.GetString(22));
 
-                razdel3_6.AddRow(MyDataReader.GetString(37),
-                               MyDataReader.GetString(38),
-                               MyDataReader.GetString(39),
-                               MyDataReader.GetString(40),
-                               MyDataReader.GetString(41));
+                if (MyDataReader.GetString(20) != "")
+                {
+                    razdel3_6.AddRow(MyDataReader.GetString(17),
+                    MyDataReader.GetString(20),
+                    "Норматив", MyDataReader.GetString(28), "", "",
+                    MyDataReader.GetString(21),
+                    "", "", "", "", "", MyDataReader.GetString(34), MyDataReader.GetString(30), "", MyDataReader.GetString(32), "", "", "", "", "", "", "", "", "", "", "", "",
+                    MyDataReader.GetString(23));
+                }
+                
 
+               /*
                 dpd.AddRow(MyDataReader.GetString(43),
                 MyDataReader.GetString(44),
                 MyDataReader.GetString(45),
                 MyDataReader.GetString(46),
                 MyDataReader.GetString(47));
-                
+                */
 
                 z++;
-                if (z % 1000 == 0)
+                if (z % 5000 == 0)
                 {
                     razdel1_2.FileSave("c:\\gis\\razdel1_2" + y + "k.xlsx");
                     razdel1_2.Rows.Clear();
@@ -91,19 +89,19 @@ namespace GIS_DogWimForms
                     razdel3_6.FileSave("c:\\gis\\razdel3_6" + y + "k.xlsx");
                     razdel3_6.Rows.Clear();
 
-                    dpd.FileSave("c:\\gis\\dpd" + y + "k.xlsx");
-                    dpd.Rows.Clear();
+                   // dpd.FileSave("c:\\gis\\dpd" + y + "k.xlsx");
+                   // dpd.Rows.Clear();
 
                     y++;
                 }
             }
             razdel1_2.FileSave("c:\\gis\\RAZ1-Final.xlsx");
             razdel3_6.FileSave("c:\\gis\\RAZ3-Final.xlsx");
-            dpd.FileSave("c:\\gis\\DPD-Final.xlsx");
+          //  dpd.FileSave("c:\\gis\\DPD-Final.xlsx");
 
             razdel1_2.Rows.Clear();
             razdel3_6.Rows.Clear();
-            dpd.Rows.Clear();
+           // dpd.Rows.Clear();
 
             MyDataReader.Close();
             myConnection.Close();

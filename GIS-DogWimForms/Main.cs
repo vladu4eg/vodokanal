@@ -60,6 +60,7 @@ namespace GIS_DogWimForms
         private void btnKvit_Click(object sender, EventArgs e)
         {
             Kvit kvit = new Kvit();
+            kvit.CreatKvit();
         }
 
         private void button1_Click(object sender, EventArgs e)

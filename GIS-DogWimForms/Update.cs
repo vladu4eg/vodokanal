@@ -339,7 +339,7 @@ namespace GIS_DogWimForms
             sCommand = new StringBuilder("INSERT INTO PD VALUES ");
             while (OraDataReader.Read())
             {
-                Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}')",
+                Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}','{22}')",
                     MySqlHelper.EscapeString(OraDataReader.GetValue(0).ToString()),
                     MySqlHelper.EscapeString(OraDataReader.GetValue(1).ToString()),
                     MySqlHelper.EscapeString(OraDataReader.GetValue(2).ToString()),
@@ -350,7 +350,19 @@ namespace GIS_DogWimForms
                     MySqlHelper.EscapeString(OraDataReader.GetValue(7).ToString()),
                     MySqlHelper.EscapeString(OraDataReader.GetValue(8).ToString()),
                     MySqlHelper.EscapeString(OraDataReader.GetValue(9).ToString()),
-                    MySqlHelper.EscapeString(OraDataReader.GetValue(10).ToString())));
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(10).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(11).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(12).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(13).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(14).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(15).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(16).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(17).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(18).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(19).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(20).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(21).ToString()),
+                    MySqlHelper.EscapeString(OraDataReader.GetValue(22).ToString())));
             }
             sCommand.Append(string.Join(",", Rows));
             sCommand.Append(";");
@@ -398,7 +410,7 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("TRUNCATE TABLE PD;");
+            myCommand.CommandText = string.Format("TRUNCATE TABLE EIRC_main;");
             myCommand.Prepare();//подготавливает строку
             myCommand.ExecuteNonQuery();//выполняет запрос
             myConnection.Close();

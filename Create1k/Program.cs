@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Oracle.ManagedDataAccess.Client;
 using MySql.Data.MySqlClient;
 using System.Data.OleDb;
 using System.Data;
@@ -13,26 +12,14 @@ namespace Create1k
 
         static void Main(string[] args)
         {
-            OracleConnection ConnectionToOracle;
-            string connectionString = "DATA SOURCE=SERVER;PASSWORD=65535;USER ID=User037";
-
             MySqlConnection myConnection = new MySqlConnection("Database = vlad_m; Data Source = 192.168.27.79; User Id = vlad_m; charset=cp1251;default command timeout = 999; Password=vlad19957");
             MySqlCommand myCommand = new MySqlCommand();
 
-
-            OracleDataReader OraDataReader;
             MySqlDataReader MyDataReader;
 
-
             OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=dBASE 5.0;Data Source=D:\\Alex\\RNCB\\exp_db_gis");
-            OracleCommand cmd = new OracleCommand();
-
-
-            ConnectionToOracle = new OracleConnection(connectionString);
             myCommand.Connection = myConnection;
 
-
-            ConnectionToOracle.Open();
             myConnection.Open();
             conn.Open();
 
@@ -42,55 +29,6 @@ namespace Create1k
 
             dbf.Prepare();
             dbf.ExecuteNonQuery();
-
-            myCommand.CommandText = string.Format("TRUNCATE TABLE rncb");
-            myCommand.Prepare();//подготавливает строку
-            myCommand.ExecuteNonQuery();//выполняет запрос
-
-            cmd.Connection = ConnectionToOracle;
-            cmd.CommandText = string.Format("select vls.L_SCHET," +
-                "       ' '," +
-                "       vls.L_SCHET," +
-                "       substr(trim(vls.VIDUL_NAME_SR) || ' ' || vls.ULICA_NAME_R, 1, 25)," +
-                "       trim(vls.DOM_NAME)," +
-                "       vls.KVART FLAT," +
-                "       to_char(vls.DOLG, '99999999.99')," +
-                "       '01', " +
-                "       ' ' " +
-                "  from v_ext_licscht vls " +
-                " where vls.stlscht_id like eng.consts.lkOpenLS " +
-                "and vls.STKVA_ID not like '__N' " +
-                "order by vls.L_SCHET ");
-
-            cmd.Prepare();//подготавливает строку
-            OraDataReader = cmd.ExecuteReader();
-
-            StringBuilder sCommand = new StringBuilder("INSERT INTO rncb (PAYERIDENT,FIO,LS,STREET,BUILDING,FLAT,SUM1,SERVICECOD,JKY) VALUES ");
-            List<string> Rows = new List<string>();
-            while (OraDataReader.Read())
-            {
-                Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')",
-                    MySqlHelper.EscapeString(OraDataReader.GetValue(0).ToString()),
-                    MySqlHelper.EscapeString(OraDataReader.GetValue(1).ToString()),
-                    MySqlHelper.EscapeString(OraDataReader.GetValue(2).ToString()),
-                    MySqlHelper.EscapeString(OraDataReader.GetValue(3).ToString()),
-                    MySqlHelper.EscapeString(OraDataReader.GetValue(4).ToString()),
-                    MySqlHelper.EscapeString(OraDataReader.GetValue(5).ToString()),
-                    MySqlHelper.EscapeString(OraDataReader.GetValue(6).ToString()),
-                    MySqlHelper.EscapeString(OraDataReader.GetValue(7).ToString()),
-                    MySqlHelper.EscapeString(OraDataReader.GetValue(8).ToString())));
-            }
-            sCommand.Append(string.Join(",", Rows));
-            sCommand.Append(";");
-
-            using (MySqlCommand myCmd = new MySqlCommand(sCommand.ToString(), myConnection))
-            {
-                myCmd.CommandType = CommandType.Text;
-                myCmd.ExecuteNonQuery();
-            }
-            OraDataReader.Close();
-            Rows.Clear();
-            sCommand.Clear();
 
             myCommand.CommandText = string.Format("UPDATE rncb,id_ls set rncb.jky = id_ls.ls_jky where rncb.ls = id_ls.id");
             myCommand.Prepare();//подготавливает строку
@@ -118,10 +56,7 @@ namespace Create1k
             MyDataReader.Close();
             
             MyDataReader.Close();
-            OraDataReader.Close();
             conn.Close();
-            ConnectionToOracle.Close();
-
         }
     }
 }

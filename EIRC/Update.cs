@@ -85,7 +85,7 @@ namespace EIRC
         }
         public void UpdatePY()
         {
-            path = @"D:\Vladislav\ierc\sql\PY.sql";
+            path = @"D:\Vladislav\ierc\sql\py.sql";
             StreamReader sr = new StreamReader(path, Encoding.GetEncoding(1251));
             temp = sr.ReadToEnd();
 
