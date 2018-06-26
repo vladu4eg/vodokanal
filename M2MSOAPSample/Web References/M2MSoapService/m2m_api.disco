@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://www.mcommunicator.ru/m2m/m2m_api.asmx?wsdl" docRef="http://www.mcommunicator.ru/m2m/m2m_api.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://www.mcommunicator.ru/m2m/m2m_api.asmx" xmlns:q1="http://mcommunicator.ru/M2M" binding="q1:MTS_x005F_x0020_Communicator_x005F_x0020_M2M_x005F_x0020_XML_x005F_x0020_APISoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://www.mcommunicator.ru/m2m/m2m_api.asmx" xmlns:q2="http://mcommunicator.ru/M2M" binding="q2:MTS_x005F_x0020_Communicator_x005F_x0020_M2M_x005F_x0020_XML_x005F_x0020_APISoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

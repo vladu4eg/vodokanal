@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://www.mcommunicator.ru/m2m/m2m_api.asmx?disco" filename="m2m_api.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://www.mcommunicator.ru/m2m/m2m_api.asmx?wsdl" filename="m2m_api.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>
