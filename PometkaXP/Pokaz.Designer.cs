@@ -35,6 +35,7 @@
             // 
             // listView1
             // 
+            this.listView1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView1.Location = new System.Drawing.Point(12, 12);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(1234, 474);
@@ -44,6 +45,7 @@
             // 
             // listView2
             // 
+            this.listView2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView2.Location = new System.Drawing.Point(12, 493);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(1234, 108);

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.txtLogin = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,15 +42,15 @@
             this.txtProxyServer = new System.Windows.Forms.TextBox();
             this.chbUseProxy = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labSend = new System.Windows.Forms.Label();
+            this.labTime = new System.Windows.Forms.Label();
+            this.labImport = new System.Windows.Forms.Label();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnGener = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.label9 = new System.Windows.Forms.Label();
+            this.labCheckDostavka = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -76,9 +77,9 @@
             this.label1.Location = new System.Drawing.Point(8, 19);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 17);
+            this.label1.Size = new System.Drawing.Size(47, 17);
             this.label1.TabIndex = 4;
-            this.label1.Text = "login";
+            this.label1.Text = "Логин";
             // 
             // label2
             // 
@@ -86,9 +87,9 @@
             this.label2.Location = new System.Drawing.Point(5, 49);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 17);
+            this.label2.Size = new System.Drawing.Size(57, 17);
             this.label2.TabIndex = 5;
-            this.label2.Text = "password";
+            this.label2.Text = "Пароль";
             // 
             // btnSend
             // 
@@ -118,9 +119,9 @@
             this.label7.Location = new System.Drawing.Point(40, 119);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 17);
+            this.label7.Size = new System.Drawing.Size(56, 17);
             this.label7.TabIndex = 15;
-            this.label7.Text = "server";
+            this.label7.Text = "Сервер";
             // 
             // label8
             // 
@@ -128,9 +129,9 @@
             this.label8.Location = new System.Drawing.Point(40, 151);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(33, 17);
+            this.label8.Size = new System.Drawing.Size(41, 17);
             this.label8.TabIndex = 17;
-            this.label8.Text = "port";
+            this.label8.Text = "Порт";
             // 
             // txtProxyPort
             // 
@@ -174,23 +175,23 @@
             this.chbUseProxy.Location = new System.Drawing.Point(7, 87);
             this.chbUseProxy.Margin = new System.Windows.Forms.Padding(4);
             this.chbUseProxy.Name = "chbUseProxy";
-            this.chbUseProxy.Size = new System.Drawing.Size(91, 21);
+            this.chbUseProxy.Size = new System.Drawing.Size(78, 21);
             this.chbUseProxy.TabIndex = 14;
-            this.chbUseProxy.Text = "use proxy";
+            this.chbUseProxy.Text = "Прокси";
             this.chbUseProxy.UseVisualStyleBackColor = true;
             this.chbUseProxy.CheckedChanged += new System.EventHandler(this.chbUseProxy_CheckedChanged);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.labCheckDostavka);
+            this.groupBox1.Controls.Add(this.labSend);
             this.groupBox1.Controls.Add(this.btnGet);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.labTime);
+            this.groupBox1.Controls.Add(this.labImport);
             this.groupBox1.Controls.Add(this.checkBox3);
             this.groupBox1.Controls.Add(this.checkBox2);
             this.groupBox1.Controls.Add(this.checkBox1);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnGener);
             this.groupBox1.Controls.Add(this.btnSend);
             this.groupBox1.Location = new System.Drawing.Point(16, 202);
             this.groupBox1.Name = "groupBox1";
@@ -200,31 +201,34 @@
             this.groupBox1.Text = "Импорт";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter_1);
             // 
-            // label6
+            // labSend
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(150, 40);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(0, 17);
-            this.label6.TabIndex = 16;
+            this.labSend.AutoSize = true;
+            this.labSend.Location = new System.Drawing.Point(3, 190);
+            this.labSend.Name = "labSend";
+            this.labSend.Size = new System.Drawing.Size(93, 17);
+            this.labSend.TabIndex = 18;
+            this.labSend.Text = "Отправлено:";
+            this.labSend.Click += new System.EventHandler(this.label9_Click);
             // 
-            // label3
+            // labTime
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 173);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(128, 17);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "Время обработки:";
+            this.labTime.AutoSize = true;
+            this.labTime.Location = new System.Drawing.Point(3, 173);
+            this.labTime.Name = "labTime";
+            this.labTime.Size = new System.Drawing.Size(128, 17);
+            this.labTime.TabIndex = 15;
+            this.labTime.Text = "Время обработки:";
+            this.labTime.Click += new System.EventHandler(this.label3_Click);
             // 
-            // label4
+            // labImport
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(150, 18);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(112, 17);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Cформировано:";
+            this.labImport.AutoSize = true;
+            this.labImport.Location = new System.Drawing.Point(150, 18);
+            this.labImport.Name = "labImport";
+            this.labImport.Size = new System.Drawing.Size(112, 17);
+            this.labImport.TabIndex = 14;
+            this.labImport.Text = "Cформировано:";
             // 
             // checkBox3
             // 
@@ -256,25 +260,24 @@
             this.checkBox1.Text = "Долг";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnGener
             // 
-            this.button1.Location = new System.Drawing.Point(6, 121);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 49);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Сформировать СМС";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnGener.Location = new System.Drawing.Point(6, 121);
+            this.btnGener.Name = "btnGener";
+            this.btnGener.Size = new System.Drawing.Size(119, 49);
+            this.btnGener.TabIndex = 9;
+            this.btnGener.Text = "Сформировать СМС";
+            this.btnGener.UseVisualStyleBackColor = true;
+            this.btnGener.Click += new System.EventHandler(this.btnGener_Click);
             // 
-            // label9
+            // labCheckDostavka
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 190);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(93, 17);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "Отправлено:";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
+            this.labCheckDostavka.AutoSize = true;
+            this.labCheckDostavka.Location = new System.Drawing.Point(306, 18);
+            this.labCheckDostavka.Name = "labCheckDostavka";
+            this.labCheckDostavka.Size = new System.Drawing.Size(92, 17);
+            this.labCheckDostavka.TabIndex = 21;
+            this.labCheckDostavka.Text = "Доставлено:";
             // 
             // mainForm
             // 
@@ -283,6 +286,8 @@
             this.ClientSize = new System.Drawing.Size(444, 437);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "mainForm";
             this.Text = "Рассылка СМС";
@@ -310,15 +315,15 @@
         private System.Windows.Forms.TextBox txtProxyServer;
         private System.Windows.Forms.CheckBox chbUseProxy;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labTime;
+        private System.Windows.Forms.Label labImport;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnGener;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label labSend;
+        private System.Windows.Forms.Label labCheckDostavka;
     }
 }
 

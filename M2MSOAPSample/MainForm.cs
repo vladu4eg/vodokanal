@@ -31,14 +31,14 @@ namespace M2MSOAPSample
         private void btnSend_Click(object sender, EventArgs e)
         {
             stopwatch.Start();
-            label6.Text = " ";
-            label9.Text = " ";
+            labTime.Text = "Время отправки СМС:";
+            labSend.Text = "Отправлено:";
             int count_sms = 1;
             try
             {
                 myConnection.Open();
                 myCommand.Connection = myConnection;
-                myCommand.CommandText = string.Format("select plan_test.licscht,plan_test.phone,plan_test.sms from plan_test " +
+                myCommand.CommandText = string.Format("select plan_test.licscht,plan_test.phone,plan_test.sms,plan_test.id from plan_test " +
                     "where delivery = 0 " +
                     "and sms_id = 0 " +
                     "and length(phone) = 11 " +
@@ -52,120 +52,127 @@ namespace M2MSOAPSample
                     //Послать сообщение
                     msg = client.SendMessage(MyDataReader.GetString(1), MyDataReader.GetString(2), "Vodokanal", txtLogin.Text, GetMd5Hash(txtPassword.Text));
                     //Сформировать запрос 
-                    sCommand.Append(string.Format("update plan set sms_id=" + msg + " where licscht='{0}' and phone='{1}' and date_format(sendDate,'%Y-%m')=date_format(now(),'%Y-%m') and sms_id=0; ",
-                                                   MyDataReader.GetString(0), MyDataReader.GetString(1)));
-                    label9.Text = Convert.ToString(string.Format("Отправлено: {0}",count_sms++));
+                    sCommand.Append(string.Format("update plan_test set sms_id=" + msg + " where licscht='{0}' and phone='{1}' and id='{2}' date_format(sendDate,'%Y-%m')=date_format(now(),'%Y-%m') and sms_id=0; ",
+                                                   MyDataReader.GetString(0), MyDataReader.GetString(1), MyDataReader.GetString(3)));   //сравниваю по тексту... вдруг на один номер несколько смс и я могу присвоить айди не той СМСки.
+                    labSend.Text = Convert.ToString(string.Format("Отправлено: {0}", count_sms++));                                      //это была глупая идея... лучше сравнивать по внутр айди смс
                 }
                 MyDataReader.Close();
                 //Подготавливаем и выполняем
                 myCommand.CommandText = sCommand.ToString();
                 myCommand.Prepare();
                 myCommand.ExecuteNonQuery();
-                
-                myConnection.Close();
-                sCommand.Clear();
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(string.Format(ex.Message));
             }
             stopwatch.Stop();
-            label3.Text = string.Format("Время отправки СМС: " + stopwatch.Elapsed);
+            MyDataReader.Close();
+            myConnection.Close();
+            sCommand.Clear();
+            labTime.Text = string.Format("Время отправки СМС: " + stopwatch.Elapsed);
             stopwatch.Reset();
         }
 
         private void btnGet_Click(object sender, EventArgs e)
         {
             stopwatch.Start();
-            label6.Text = " ";
+            labCheckDostavka.Text = "Доставлено:";
+
+            int countStatus0 = 0;
+            int countStatus1 = 0;
+            int countStatus2 = 0;
+
+            StringBuilder sb = new StringBuilder();
             try
             {
                 myConnection.Open();
                 myCommand.Connection = myConnection;
-                myCommand.CommandText = string.Format("select plan_test.licscht,plan_test.phone,plan_test.sms from plan_test " +
+                myCommand.CommandText = string.Format("select plan_test.licscht,plan_test.phone,plan_test.sms_id from plan_test " +
                     "where delivery = 0 " +
-                    "and sms_id = 0 " +
+                    "and sms_id <> 0 " +
                     "and length(phone) = 11 " +
                     "and date_format(sendDate, '%Y-%m') = date_format(now(), '%Y-%m'); ");
                 myCommand.Prepare();//подготавливает строку
                 MyDataReader = myCommand.ExecuteReader();
 
-                long id = -1;
                 int status = 0;
                 while (MyDataReader.Read())
                 {
-                    if (long.TryParse(MyDataReader.GetString(1), out id))
+                    //Прокси для вызова методов сервиса
+                    MTSCommunicatorM2MXMLAPI client = GetSoapService();
+                    //Получить статус доставки для сообщения
+                    DeliveryInfo[] info = client.GetMessageStatus(Convert.ToInt64(MyDataReader.GetString(2)), txtLogin.Text, GetMd5Hash(txtPassword.Text));
+
+                    for (int i = 0; i < info.Length; i++)
                     {
-                        //Прокси для вызова методов сервиса
-                        MTSCommunicatorM2MXMLAPI client = GetSoapService();
-                        //Получить статус доставки для сообщения
-                        DeliveryInfo[] info = client.GetMessageStatus(id, txtLogin.Text, GetMd5Hash(txtPassword.Text));
-                        StringBuilder sb = new StringBuilder();
-                        for (int i = 0; i < info.Length; i++)
+                        switch (info[i].DeliveryStatus.ToString())
                         {
-                            switch (info[i].DeliveryStatus.ToString())
-                            {
-                                case "Pending":
-                                case "Sending":
-                                case "Sent":
-                                case "NotSent":
-                                    status = 0;
-                                    break;
+                            case "Pending":
+                            case "Sending":
+                            case "Sent":
+                            case "NotSent":
+                                status = 0;
+                                countStatus0++;
+                                break;
 
-                                case "Delivered":
-                                    status = 1;
-                                    break;
-                                case "NotDelivered":
-                                case "TimedOut":
-                                case "Error":
-                                    status = 2;
-                                    break;
+                            case "Delivered":
+                                status = 1;
+                                countStatus1++;
+                                break;
+                            case "NotDelivered":
+                            case "TimedOut":
+                            case "Error":
+                                status = 2;
+                                countStatus2++;
+                                break;
 
-                                default:
-                                    break;
-                            }
-                            sb.AppendFormat("update plan set delivery='{0}', delivery_type='{1}', reciveDate='{2}' where sms_id='{3}'; ", 
-                                status,  info[i].DeliveryStatus, info[i].DeliveryDate, info[i].Msid);
+                            default:
+                                break;
                         }
-
+                        sb.AppendFormat("update plan set delivery='{0}', delivery_type='{1}', reciveDate='{2}' where sms_id='{3}'; ",
+                            status, info[i].DeliveryStatus, info[i].DeliveryDate, info[i].Msid);
                     }
-                    else
-                        MessageBox.Show("Can't parse id: '{0}'", MyDataReader.GetString(1));
                 }
-                MyDataReader.Close();
-
-                myCommand.CommandText = sCommand.ToString();
-                myCommand.Prepare();
-                myCommand.ExecuteNonQuery();
-
-                myConnection.Close();
-                sCommand.Clear();
-
+                labCheckDostavka.Text = string.Format("Доставлено:\n" +
+                                        "В ожидании: {0}\n" +
+                                        "Получено: {1}\n" +
+                                        "Ошибка: {2}\n" +
+                                        "Всего: {3}\n", countStatus0, countStatus1, countStatus2, (countStatus0 + countStatus1 + countStatus2));
             }
             catch (Exception ex)
             {
                 MessageBox.Show(string.Format(ex.Message));
             }
+            MyDataReader.Close();
+
+            myCommand.CommandText = sb.ToString();
+            myCommand.Prepare();
+            myCommand.ExecuteNonQuery();
+
+            myConnection.Close();
+            sCommand.Clear();
 
             stopwatch.Stop();
-            label3.Text = string.Format("Время проверки доставки: " + stopwatch.Elapsed);
+            labTime.Text = string.Format("Время проверки доставки: " + stopwatch.Elapsed);
             stopwatch.Reset();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnGener_Click(object sender, EventArgs e)
         {
-            stopwatch.Start();
 
-            label6.Text = " ";
-            label3.Text = " ";
+            labImport.Text = "Сформировано:";
+            labTime.Text = "Время обработки:";
             openFileDialog1.Filter = "CSV files (*.csv)|*.csv";
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
+            stopwatch.Start();
             Import import = new Import();
-            label6.Text = import.ImportBD(openFileDialog1.FileName, openFileDialog1.SafeFileName, checkBox1.Checked, checkBox2.Checked, checkBox3.Checked);
+            labImport.Text = import.ImportBD(openFileDialog1.FileName, openFileDialog1.SafeFileName, checkBox1.Checked, checkBox2.Checked, checkBox3.Checked);
 
             stopwatch.Stop();
-            label3.Text = string.Format("Время обработки: " + stopwatch.Elapsed);
+            labTime.Text = string.Format("Время обработки: " + stopwatch.Elapsed);
             stopwatch.Reset();
         }
 
@@ -227,6 +234,16 @@ namespace M2MSOAPSample
         }
 
         private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }
