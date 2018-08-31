@@ -18,7 +18,7 @@ namespace M2MSOAPSample
         int countGP = 0;
         int countPokaz = 0;
 
-        StringBuilder sCommand = new StringBuilder("INSERT INTO plan_test (sendDate,licscht,phone,sms,msg_type,dolg) VALUES ");
+        StringBuilder sCommand = new StringBuilder("INSERT INTO plan (sendDate,licscht,phone,sms,msg_type,dolg) VALUES ");
         static string Connect = string.Format("Database=ignas;Data Source=192.168.27.79;User Id=iguser;charset=cp1251;default command timeout = 999;SslMode=none;Password=  " + Protect.PasswordMysql);
         MySqlConnection myConnection = new MySqlConnection(Connect);
         MySqlCommand myCommand = new MySqlCommand();
@@ -27,7 +27,6 @@ namespace M2MSOAPSample
         {
             try
             {
-
                 importFile.FileOpen(path);
 
                 myConnection.Open();
@@ -51,10 +50,39 @@ namespace M2MSOAPSample
             }
 
             return string.Format("Сформировано:\n" +
-                                "СМС с долгом: {0} \n" +
-                                "СМС с ГП: {1} \n" +
-                                "СМС с показаниями: {2} \n" +
-                                "Всего: {3}", countDolg, countGP, countPokaz,(countDolg+countGP+countPokaz));
+                                 "СМС с долгом: {0} \n" +
+                                 "СМС с ГП: {1} \n" +
+                                 "СМС с показ..: {2} \n" +
+                                 "Всего: {3}", countDolg, countGP, countPokaz,(countDolg+countGP+countPokaz));
+        }
+
+        public void ImportOplat(string path)
+        {
+            try
+            {
+                importFile.FileOpen(path);
+                sCommand.Clear();
+                myConnection.Open();
+                myCommand.Connection = myConnection;
+                importFile.Rows.RemoveAt(0);
+
+                for (int i = 0; i < importFile.Rows.Count(); i++)
+                {
+                    sCommand.Append(string.Format("update plan set opl = '{0}' where date_format(sendDate, '%y.%m') = '{1}' and licscht = '{2}' and msg_type = 2; ",
+                         importFile.Rows[i][2].ToString(), DateTime.Today.AddMonths(-1).ToString("yy.MM"), importFile.Rows[i][1].ToString()));
+                }
+
+                myCommand.CommandText = sCommand.ToString();
+                myCommand.Prepare();
+                myCommand.ExecuteNonQuery();
+
+                Rows.Clear();
+                sCommand.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void ImportSMS(bool checkDolg = false, bool checkGP = false, bool checkPokaz = false)
@@ -69,7 +97,7 @@ namespace M2MSOAPSample
                             MySqlHelper.EscapeString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
                             MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
                             MySqlHelper.EscapeString(importFile.Rows[i][3].ToString()),
-                            MySqlHelper.EscapeString(string.Format("На {0} по Л/С {1} долг {2} руб. Тариф - 57,67 руб.",
+                            MySqlHelper.EscapeString(string.Format("На {0} по Л/С {1} долг {2} руб. Тариф - 61,49 руб.",
                                         DateTime.Now.ToString("dd.MM.yy"), importFile.Rows[i][0].ToString(), importFile.Rows[i][2].ToString())),
                             MySqlHelper.EscapeString(importFile.Rows[i][6].ToString()),
                             MySqlHelper.EscapeString(importFile.Rows[i][2].ToString())));
@@ -81,7 +109,7 @@ namespace M2MSOAPSample
                             MySqlHelper.EscapeString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
                             MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
                             MySqlHelper.EscapeString(importFile.Rows[i][3].ToString()),
-                            MySqlHelper.EscapeString(string.Format("До {0} сдать водомер на поверку Ялта,ул.Кривошты,27 т.346907", importFile.Rows[i][5].ToString())),
+                            MySqlHelper.EscapeString(string.Format("Поверка водомера до {0} \n79789470440 \nЯлта,ул.Кривошты,27", importFile.Rows[i][5].ToString())),
                             MySqlHelper.EscapeString(importFile.Rows[i][6].ToString()),
                             MySqlHelper.EscapeString("NULL")));
                         countGP++;
@@ -98,7 +126,6 @@ namespace M2MSOAPSample
                         countPokaz++;
                     }
                 }
-
                 sCommand.Append(string.Join(",", Rows));
                 sCommand.Append(";");
 

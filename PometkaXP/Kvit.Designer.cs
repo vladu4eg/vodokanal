@@ -49,6 +49,7 @@
             this.Controls.Add(this.listView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Квитанции";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Kvit";
             this.Load += new System.EventHandler(this.Kvit_Load);
             this.ResumeLayout(false);
