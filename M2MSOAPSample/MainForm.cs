@@ -235,7 +235,7 @@ namespace M2MSOAPSample
                 return;
             stopwatch.Start();
             Import import = new Import();
-            labImport.Text = import.ImportBD(openFileDialog1.FileName, openFileDialog1.SafeFileName, checkBox1.Checked, checkBox2.Checked, checkBox3.Checked);
+            labImport.Text = import.ImportBD(openFileDialog1.FileName, openFileDialog1.SafeFileName, checkBox1.Checked, checkBox2.Checked, checkBox3.Checked, chkOplata.Checked);
 
             stopwatch.Stop();
             labTime.Text = string.Format("Время обработки: " + stopwatch.Elapsed);
@@ -245,16 +245,7 @@ namespace M2MSOAPSample
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "CSV files (*.csv)|*.csv";
-            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
-                return;
-            stopwatch.Start();
-            Import import = new Import();
-            import.ImportOplat(openFileDialog1.FileName);
 
-            stopwatch.Stop();
-            labTime.Text = string.Format("Время обработки: " + stopwatch.Elapsed);
-            stopwatch.Reset();
         }
 
         private MTSCommunicatorM2MXMLAPI GetSoapService()

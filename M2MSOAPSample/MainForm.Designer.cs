@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.txtLogin = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,8 +41,10 @@
             this.txtProxyServer = new System.Windows.Forms.TextBox();
             this.chbUseProxy = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.labCheckDostavka = new System.Windows.Forms.Label();
             this.labSend = new System.Windows.Forms.Label();
+            this.btnCheckSend = new System.Windows.Forms.Button();
             this.labTime = new System.Windows.Forms.Label();
             this.labImport = new System.Windows.Forms.Label();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
@@ -51,9 +52,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.btnGener = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btnCheckSend = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.chkOplata = new System.Windows.Forms.CheckBox();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -99,7 +98,7 @@
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(153, 121);
+            this.btnSend.Location = new System.Drawing.Point(153, 148);
             this.btnSend.Margin = new System.Windows.Forms.Padding(4);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(119, 49);
@@ -152,7 +151,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(448, 216);
+            this.groupBox3.Size = new System.Drawing.Size(462, 216);
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Авторизация";
@@ -189,8 +188,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkOplata);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.labCheckDostavka);
             this.groupBox1.Controls.Add(this.labSend);
             this.groupBox1.Controls.Add(this.btnCheckSend);
@@ -203,11 +202,19 @@
             this.groupBox1.Controls.Add(this.btnSend);
             this.groupBox1.Location = new System.Drawing.Point(16, 237);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(585, 217);
+            this.groupBox1.Size = new System.Drawing.Size(462, 247);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Импорт";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter_1);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(453, 18);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(0, 17);
+            this.label4.TabIndex = 23;
             // 
             // labCheckDostavka
             // 
@@ -222,17 +229,28 @@
             // labSend
             // 
             this.labSend.AutoSize = true;
-            this.labSend.Location = new System.Drawing.Point(3, 190);
+            this.labSend.Location = new System.Drawing.Point(8, 227);
             this.labSend.Name = "labSend";
             this.labSend.Size = new System.Drawing.Size(93, 17);
             this.labSend.TabIndex = 18;
             this.labSend.Text = "Отправлено:";
             this.labSend.Click += new System.EventHandler(this.label9_Click);
             // 
+            // btnCheckSend
+            // 
+            this.btnCheckSend.Location = new System.Drawing.Point(309, 148);
+            this.btnCheckSend.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCheckSend.Name = "btnCheckSend";
+            this.btnCheckSend.Size = new System.Drawing.Size(119, 49);
+            this.btnCheckSend.TabIndex = 2;
+            this.btnCheckSend.Text = "Статус доставки";
+            this.btnCheckSend.UseVisualStyleBackColor = true;
+            this.btnCheckSend.Click += new System.EventHandler(this.btnGet_Click);
+            // 
             // labTime
             // 
             this.labTime.AutoSize = true;
-            this.labTime.Location = new System.Drawing.Point(3, 173);
+            this.labTime.Location = new System.Drawing.Point(8, 200);
             this.labTime.Name = "labTime";
             this.labTime.Size = new System.Drawing.Size(128, 17);
             this.labTime.TabIndex = 15;
@@ -280,7 +298,7 @@
             // 
             // btnGener
             // 
-            this.btnGener.Location = new System.Drawing.Point(6, 121);
+            this.btnGener.Location = new System.Drawing.Point(7, 148);
             this.btnGener.Name = "btnGener";
             this.btnGener.Size = new System.Drawing.Size(119, 49);
             this.btnGener.TabIndex = 9;
@@ -288,45 +306,24 @@
             this.btnGener.UseVisualStyleBackColor = true;
             this.btnGener.Click += new System.EventHandler(this.btnGener_Click);
             // 
-            // btnCheckSend
+            // chkOplata
             // 
-            this.btnCheckSend.Location = new System.Drawing.Point(299, 121);
-            this.btnCheckSend.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCheckSend.Name = "btnCheckSend";
-            this.btnCheckSend.Size = new System.Drawing.Size(119, 49);
-            this.btnCheckSend.TabIndex = 2;
-            this.btnCheckSend.Text = "Статус доставки";
-            this.btnCheckSend.UseVisualStyleBackColor = true;
-            this.btnCheckSend.Click += new System.EventHandler(this.btnGet_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(453, 18);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(0, 17);
-            this.label4.TabIndex = 23;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(446, 121);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 49);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "Импорт оплат";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.chkOplata.AutoSize = true;
+            this.chkOplata.Location = new System.Drawing.Point(7, 121);
+            this.chkOplata.Name = "chkOplata";
+            this.chkOplata.Size = new System.Drawing.Size(82, 21);
+            this.chkOplata.TabIndex = 24;
+            this.chkOplata.Text = "Оплаты";
+            this.chkOplata.UseVisualStyleBackColor = true;
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 472);
+            this.ClientSize = new System.Drawing.Size(495, 496);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "mainForm";
             this.Text = "Рассылка СМС";
@@ -365,7 +362,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCheckSend;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox chkOplata;
     }
 }
 

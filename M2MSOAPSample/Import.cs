@@ -22,24 +22,30 @@ namespace M2MSOAPSample
         static string Connect = string.Format("Database=ignas;Data Source=192.168.27.79;User Id=iguser;charset=cp1251;default command timeout = 999;SslMode=none;Password=  " + Protect.PasswordMysql);
         MySqlConnection myConnection = new MySqlConnection(Connect);
         MySqlCommand myCommand = new MySqlCommand();
+        MySqlDataReader MyDataReader;
 
-        public string ImportBD(string path, string fileName, bool checkDolg = false, bool checkGP = false, bool checkPokaz = false)
+        public string ImportBD(string path, string fileName, bool checkDolg = false, bool checkGP = false, bool checkPokaz = false, bool checkOplata = false)
         {
             try
             {
                 importFile.FileOpen(path);
-
-                myConnection.Open();
-                myCommand.Connection = myConnection;
                 importFile.Rows.RemoveAt(0);
-                if (checkDolg || checkGP || checkPokaz)
+
+                if(checkOplata & checkDolg || checkOplata & checkGP || checkOplata & checkPokaz)
+                {
+                    MessageBox.Show("Нельзя одним файлом проверить все. \nДобро пожаловать в мир с ограничениями :P ");
+                }
+                else if (checkDolg || checkGP || checkPokaz)
                 {
                     ImportSMS(checkDolg, checkGP, checkPokaz);
+                }
+                else if (checkOplata)
+                {
+                    ImportOplat();
                 }
                 else
                     MessageBox.Show("Выберите параметр формирования СМС");
 
-                myConnection.Close();
                 importFile.Rows.Clear();
                 Rows.Clear();
 
@@ -53,24 +59,38 @@ namespace M2MSOAPSample
                                  "СМС с долгом: {0} \n" +
                                  "СМС с ГП: {1} \n" +
                                  "СМС с показ..: {2} \n" +
-                                 "Всего: {3}", countDolg, countGP, countPokaz,(countDolg+countGP+countPokaz));
+                                 "Всего: {3}", countDolg, countGP, countPokaz, (countDolg + countGP + countPokaz));
         }
 
-        public void ImportOplat(string path)
+        public void ImportOplat()
         {
             try
             {
-                importFile.FileOpen(path);
+                List<string> list = new List<string>();
                 sCommand.Clear();
+
                 myConnection.Open();
                 myCommand.Connection = myConnection;
-                importFile.Rows.RemoveAt(0);
+                myCommand.CommandText = string.Format("select plan.licscht from plan where date_format(sendDate, '%y.%m') = '{0}'; ", DateTime.Today.AddMonths(-1).ToString("yy.MM"));
+                myCommand.Prepare();
+
+                MyDataReader = myCommand.ExecuteReader();
+                while (MyDataReader.Read())
+                {
+                    list.Add(MyDataReader.GetString(0));
+                }
+                MyDataReader.Close();
 
                 for (int i = 0; i < importFile.Rows.Count(); i++)
                 {
-                    sCommand.Append(string.Format("update plan set opl = '{0}' where date_format(sendDate, '%y.%m') = '{1}' and licscht = '{2}' and msg_type = 2; ",
-                         importFile.Rows[i][2].ToString(), DateTime.Today.AddMonths(-1).ToString("yy.MM"), importFile.Rows[i][1].ToString()));
+                    foreach (string y in list)
+                        if (y == importFile.Rows[i][1].ToString())
+                        {
+                            sCommand.Append(string.Format("update plan set opl = '{0}' where date_format(sendDate, '%y.%m') = '{1}' and licscht = '{2}' and msg_type = 2; ",
+                                                           importFile.Rows[i][2].ToString(), DateTime.Today.AddMonths(-1).ToString("yy.MM"), importFile.Rows[i][1].ToString()));
+                        }
                 }
+                list.Clear();
 
                 myCommand.CommandText = sCommand.ToString();
                 myCommand.Prepare();

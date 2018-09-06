@@ -38,91 +38,95 @@ namespace PometkaXP
                 txtBoxVvod.Clear();
                 txtBoxAdress.Clear();
 
-                MySqlConnection myConnection = new MySqlConnection(Connect);
-                MySqlCommand myCommand = new MySqlCommand();
-                myConnection.Open();
-                myCommand.Connection = myConnection;
-
-                myCommand.CommandText = string.Format("select * from Pometka where Pometka.LS = " + txtBoxLS.Text.ToString() + " order by STR_TO_DATE(Pometka.DATA,'%d.%m.%Y')");
-                myCommand.Prepare();//подготавливает строку
-                MyDataReader = myCommand.ExecuteReader();
-
-                listView1.View = View.Details;
-                listView1.GridLines = true;
-                listView1.FullRowSelect = true;
-
-                listView1.Columns.Add("id", 2);
-                listView1.Columns.Add("Дата", 100);
-                listView1.Columns.Add("Текст", 1000);
-
-                string[] arr = new string[3];
-                while (MyDataReader.Read())
+                if (txtBoxLS.Text.ToString() != "")
                 {
-                    arr[0] = MyDataReader.GetString(3);
-                    arr[1] = MyDataReader.GetString(1);
-                    arr[2] = MyDataReader.GetString(2);
+                    MySqlConnection myConnection = new MySqlConnection(Connect);
+                    MySqlCommand myCommand = new MySqlCommand();
+                    myConnection.Open();
+                    myCommand.Connection = myConnection;
 
-                    ListViewItem list = new ListViewItem(arr);
-                    listView1.Items.Add(list);
+                    myCommand.CommandText = string.Format("select * from Pometka where Pometka.LS = " + txtBoxLS.Text.ToString() + " order by STR_TO_DATE(Pometka.DATA,'%d.%m.%Y')");
+                    myCommand.Prepare();//подготавливает строку
+                    MyDataReader = myCommand.ExecuteReader();
+
+                    listView1.View = View.Details;
+                    listView1.GridLines = true;
+                    listView1.FullRowSelect = true;
+
+                    listView1.Columns.Add("id", 2);
+                    listView1.Columns.Add("Дата", 100);
+                    listView1.Columns.Add("Текст", 1000);
+
+                    string[] arr = new string[3];
+                    while (MyDataReader.Read())
+                    {
+                        arr[0] = MyDataReader.GetString(3);
+                        arr[1] = MyDataReader.GetString(1);
+                        arr[2] = MyDataReader.GetString(2);
+
+                        ListViewItem list = new ListViewItem(arr);
+                        listView1.Items.Add(list);
+                    }
+                    MyDataReader.Close();
+
+                    myCommand.CommandText = string.Format("SELECT V_EXT_LICSCHT.FULL_FIO," +
+                        "V_EXT_LICSCHT.DOLG," +
+                        "V_EXT_LICSCHT.STBLAG_NAME_R," +
+                        "V_EXT_LICSCHT.KOL_GIL," +
+                        "V_EXT_LICSCHT.KOL_LGO," +
+                        "V_EXT_LICSCHT.PROC_LGO," +
+                        "V_EXT_LICSCHT.OBSL_NAME_R," +
+                        "V_EXT_LICSCHT.STLSCHT_NAME_R, " +
+                        "V_EXT_LICSCHT.VVOD_ID, " +
+                        "V_EXT_LICSCHT.FULL_ADDR " +
+                        "FROM V_EXT_LICSCHT " +
+                        "WHERE V_EXT_LICSCHT.L_SCHET = " + txtBoxLS.Text.ToString() + " ;");
+                    myCommand.Prepare();//подготавливает строку
+                    MyDataReader = myCommand.ExecuteReader();
+
+                    while (MyDataReader.Read())
+                    {
+                        txtBoxFIO.Text = MyDataReader.GetString(0);
+                        txtBoxSaldo.Text = MyDataReader.GetString(1);
+                        txtBoxBlago.Text = MyDataReader.GetString(2);
+                        txtBoxKolJil.Text = MyDataReader.GetString(3);
+                        txtBoxKolLGO.Text = MyDataReader.GetString(4);
+                        txtBoxProcLGO.Text = MyDataReader.GetString(5);
+                        txtBoxObsl.Text = MyDataReader.GetString(6);
+                        txtBoxStatus.Text = MyDataReader.GetString(7);
+                        txtBoxVvod.Text = MyDataReader.GetString(8);
+                        txtBoxVvod2.Text = MyDataReader.GetString(8);
+                        txtBoxAdress.Text = MyDataReader.GetString(9);
+                    }
+                    MyDataReader.Close();
+                    myCommand.CommandText = string.Format("select * from saldo where LS = " + txtBoxLS.Text.ToString() + " order by STR_TO_DATE(saldo.DATA,'%d.%m.%Y')");
+                    myCommand.Prepare();//подготавливает строку
+                    MyDataReader = myCommand.ExecuteReader();
+
+                    listView2.View = View.Details;
+                    listView2.GridLines = true;
+                    listView2.FullRowSelect = true;
+
+                    listView2.Columns.Add("Дата", 100);
+                    listView2.Columns.Add("Сальдо", 100);
+
+                    string[] arr1 = new string[2];
+                    while (MyDataReader.Read())
+                    {
+                        arr1[0] = MyDataReader.GetString(1);
+                        arr1[1] = MyDataReader.GetString(2);
+                        ListViewItem list = new ListViewItem(arr1);
+                        listView2.Items.Add(list);
+                    }
+                    MyDataReader.Close();
+                    myConnection.Close();
                 }
-                MyDataReader.Close();
-
-                myCommand.CommandText = string.Format("SELECT V_EXT_LICSCHT.FULL_FIO," +
-                    "V_EXT_LICSCHT.DOLG," +
-                    "V_EXT_LICSCHT.STBLAG_NAME_R," +
-                    "V_EXT_LICSCHT.KOL_GIL," +
-                    "V_EXT_LICSCHT.KOL_LGO," +
-                    "V_EXT_LICSCHT.PROC_LGO," +
-                    "V_EXT_LICSCHT.OBSL_NAME_R," +
-                    "V_EXT_LICSCHT.STLSCHT_NAME_R, " +
-                    "V_EXT_LICSCHT.VVOD_ID, " +
-                    "V_EXT_LICSCHT.FULL_ADDR " +
-                    "FROM V_EXT_LICSCHT " +
-                    "WHERE V_EXT_LICSCHT.L_SCHET = " + txtBoxLS.Text.ToString() + " ;");
-                myCommand.Prepare();//подготавливает строку
-                MyDataReader = myCommand.ExecuteReader();
-
-                while (MyDataReader.Read())
-                {
-                    txtBoxFIO.Text = MyDataReader.GetString(0);
-                    txtBoxSaldo.Text = MyDataReader.GetString(1);
-                    txtBoxBlago.Text = MyDataReader.GetString(2);
-                    txtBoxKolJil.Text = MyDataReader.GetString(3);
-                    txtBoxKolLGO.Text = MyDataReader.GetString(4);
-                    txtBoxProcLGO.Text = MyDataReader.GetString(5);
-                    txtBoxObsl.Text = MyDataReader.GetString(6);
-                    txtBoxStatus.Text = MyDataReader.GetString(7);
-                    txtBoxVvod.Text = MyDataReader.GetString(8);
-                    txtBoxVvod2.Text = MyDataReader.GetString(8);
-                    txtBoxAdress.Text = MyDataReader.GetString(9);
-                }
-                MyDataReader.Close();
-                myCommand.CommandText = string.Format("select * from saldo where LS = " + txtBoxLS.Text.ToString() + " order by STR_TO_DATE(saldo.DATA,'%d.%m.%Y')");
-                myCommand.Prepare();//подготавливает строку
-                MyDataReader = myCommand.ExecuteReader();
-
-                listView2.View = View.Details;
-                listView2.GridLines = true;
-                listView2.FullRowSelect = true;
-
-                listView2.Columns.Add("Дата", 100);
-                listView2.Columns.Add("Сальдо", 100);
-
-                string[] arr1 = new string[2];
-                while (MyDataReader.Read())
-                {
-                    arr1[0] = MyDataReader.GetString(1);
-                    arr1[1] = MyDataReader.GetString(2);
-                    ListViewItem list = new ListViewItem(arr1);
-                    listView2.Items.Add(list);
-                }
-                MyDataReader.Close();
-                myConnection.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -227,11 +231,6 @@ namespace PometkaXP
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            MySqlConnection myConnection = new MySqlConnection(Connect);
-            MySqlCommand myCommand = new MySqlCommand();
-            myConnection.Open();
-            myCommand.Connection = myConnection;
-
         }
 
         private void label12_Click(object sender, EventArgs e)
