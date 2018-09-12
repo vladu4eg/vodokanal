@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /GIS-DogWimForms/Protect.cs
+/SMS-From-MTS/Protect.cs

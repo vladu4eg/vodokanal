@@ -185,6 +185,29 @@ namespace PometkaXP
                 e.Handled = true;
         }
 
+        private void btnNewPometka_Click(object sender, EventArgs e)
+        {
+            CreatePometka pometka = new CreatePometka(txtBoxLS.Text.ToString());
+            pometka.Show();
+        }
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            TextPoemtka pometka = new TextPoemtka(listView1.SelectedItems[0].SubItems[2].Text);
+            pometka.Show();
+            //MessageBox.Show(listView1.SelectedItems[0].SubItems[2].Text);
+        }
+
+        private void txtBoxVvod_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if (number == (char)Keys.Enter)
+                button4_Click(sender, e);
+            else if (number == (char)Keys.Back)
+                e.Handled = false;
+            else if (!Char.IsDigit(number))
+                e.Handled = true;
+        }
+
         private void button3_Click(object sender, EventArgs e)
         {
             Pokaz pokaz = new Pokaz(txtBoxNomerVDM.Text.ToString());
@@ -258,34 +281,13 @@ namespace PometkaXP
 
         }
 
-        private void btnNewPometka_Click(object sender, EventArgs e)
-        {
-            CreatePometka pometka = new CreatePometka(txtBoxLS.Text.ToString());
-            pometka.Show();
-        }
 
         private void listView1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void listView1_DoubleClick(object sender, EventArgs e)
-        {
-            TextPoemtka pometka = new TextPoemtka(listView1.SelectedItems[0].SubItems[2].Text);
-            pometka.Show();
-            //MessageBox.Show(listView1.SelectedItems[0].SubItems[2].Text);
-        }
 
-        private void txtBoxVvod_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char number = e.KeyChar;
-            if (number == (char)Keys.Enter)
-                button4_Click(sender, e);
-            else if (number == (char)Keys.Back)
-                e.Handled = false;
-            else if (!Char.IsDigit(number))
-                e.Handled = true;
-        }
 
         private void txtBoxAdress_TextChanged(object sender, EventArgs e)
         {
