@@ -261,3 +261,6 @@ __pycache__/
 *.pyc
 /GIS-DogWimForms/Protect.cs
 /SMS-From-MTS/Protect.cs
+/EIRC/Protect.cs
+/EIRC_Reester/Protect.cs
+/PometkaXP/Protect.cs
