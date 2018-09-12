@@ -55,6 +55,7 @@ namespace GIS_DogWimForms
         public void ImpotGis(string path)
         {
             importFile.FileOpen(path);
+            importFile.Rows.RemoveRange(0, 2);
 
             MySqlConnection myConnection = new MySqlConnection(Connect);
             MySqlCommand myCommand = new MySqlCommand();
@@ -62,9 +63,6 @@ namespace GIS_DogWimForms
             myCommand.Connection = myConnection;
 
             StringBuilder sCommand = new StringBuilder("INSERT INTO id_gis VALUES ");
-
-            importFile.Rows.RemoveRange(0,2);
-
 
             for (int i = 0; i < importFile.Rows.Count(); i++)
             {
