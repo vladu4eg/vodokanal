@@ -71,7 +71,7 @@ namespace GIS_DogWimForms
                 Rows.Add(string.Format("('{0}','{1}','{2}')",
                     MySqlHelper.EscapeString(importFile.Rows[i][2].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
-                    MySqlHelper.EscapeString(importFile.Rows[i][37].ToString())));
+                    MySqlHelper.EscapeString(importFile.Rows[i][41].ToString())));
             }
 
             importFile.Rows.Clear();
