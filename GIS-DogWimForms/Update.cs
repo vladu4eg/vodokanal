@@ -10,8 +10,14 @@ using System.Windows.Forms;
 
 namespace GIS_DogWimForms
 {
+    // Данный класс пока что не актуален, 
+    // НО если мегабиллинг даст доступ к БД, 
+    // то можно будет с легкостью переписать для их базы.
+    // Кстати, они точно не используют Oracle
+
     class Update
     {
+
         Stopwatch stopwatch = Stopwatch.StartNew();
 
         OracleConnection ConnectionToOracle;

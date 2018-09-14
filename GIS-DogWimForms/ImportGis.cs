@@ -104,7 +104,7 @@ namespace GIS_DogWimForms
 
             for (int i = 0; i < importFile.Rows.Count(); i++)
             {
-                Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}')",
+                Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}')",
                     MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][1].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][2].ToString()),
@@ -122,7 +122,8 @@ namespace GIS_DogWimForms
                     MySqlHelper.EscapeString(importFile.Rows[i][14].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][15].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][16].ToString()),
-                    MySqlHelper.EscapeString(importFile.Rows[i][17].ToString())));
+                    MySqlHelper.EscapeString(importFile.Rows[i][18].ToString()),
+                    MySqlHelper.EscapeString(importFile.Rows[i][19].ToString())));
             }
 
             sCommand.Append(string.Join(",", Rows));

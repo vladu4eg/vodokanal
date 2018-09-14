@@ -71,7 +71,8 @@ namespace GIS_DogWimForms
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            update.UpdateAll();
+            // Дал бог зайку, даст и доступ к бд. P.S. Данный метод используется только для импорта данных из БД
+            // update.UpdateAll(); 
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -82,13 +83,17 @@ namespace GIS_DogWimForms
         private void btnUpdAdressOnly_Click(object sender, EventArgs e)
         {
             update.UpdateClearAdress();
-            update.UpdateAdress();
+
+            // Дал бог зайку, даст и доступ к бд. P.S. Данный метод используется только для импорта данных из БД
+            //update.UpdateAdress();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             update.UpdateClearPD();
-            update.UpdatePD();
+
+            // Дал бог зайку, даст и доступ к бд. P.S. Данный метод используется только для импорта данных из БД
+            //update.UpdatePD();
         }
 
         private void ChkBoxOnlyMKD_CheckedChanged(object sender, EventArgs e)
@@ -147,6 +152,26 @@ namespace GIS_DogWimForms
                 return;
             ImportGis importGis = new ImportGis();
             importGis.ImportPY(openFileDialog1.FileName);
+        }
+
+        private void buttonImportLS_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonImportWith_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonImportPY_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonImportPD_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
