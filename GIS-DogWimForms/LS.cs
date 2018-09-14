@@ -26,49 +26,48 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("select distinct LS.l_schet, " +
-                "LS.l_schet, " +
-                "LS.ident, " +
-                "LS.lsrso, " +
-                "LS.Yav, " +
-                "LS.Pomesh, " +
-                "LS.Famil, " +
-                "LS.Imen, " +
-                "LS.Otch, " +
-                "LS.IDENT_NO, " +
-                "LS.O, " +
-                "LS.DOC_NO, " +
-                "LS.DOC_SE, " +
-                "LS.DOC_DATE," +
-                "'', '', '', '', '', ''," +
-                "LS.KOL_GIL," +
-                "LS.l_schet," +
+            myCommand.CommandText = string.Format("select distinct import_lischt.id,  " +
+                "import_lischt.id," +
+                "''," +
+                "'ЛС РСО'," +
+                "'Нет'," +
+                "''," +
+                "import_lischt.famil," +
+                "import_lischt.imen," +
+                "import_lischt.otch," +
+                "import_lischt.SNILS," +
+                "import_lischt.type_doc," +
+                "import_lischt.num_doc," +
+                "import_lischt.seria_doc," +
+                "import_lischt.data_doc," +
+                "'', '', '', '', '', '', ''," +
+                "import_lischt.id," +
                 "''," +
                 "ipadr_new.ipadr," +
                 "case when object_adress.id_kvt != '' " +
-                "then 'Жилое помещение' " +
+                "then 'Жилое помещение'  " +
                 "else '' " +
-                "end JIL, " +
+                "end JIL ," +
                 "case when object_adress.id_kvt != '' " +
-                "then ipadr_new.pomesh " +
+                "then ipadr_new.pomesh  " +
                 "else '' " +
-                "end pomesh, " +
-                "LS.l_schet," +
+                "end pomesh," +
+                "import_lischt.id," +
                 "'Договор ресурсоснабжения (ЛС РСО или ЛС РЦ)'," +
                 "id_gis.id_gis " +
-                "from LS, ipadr_new, object_adress,id_gis " +
-                "where LS.l_schet NOT IN " +
+                "from import_lischt, ipadr_new, object_adress, id_gis " +
+                "where import_lischt.id NOT IN " +
                 "(" +
                 "SELECT id_ls.id " +
                 "FROM id_ls " +
                 ") " +
-                "and LS.l_schet = ipadr_new.id " +
-                "and LS.l_schet = id_gis.id " +
+                "and import_lischt.id = ipadr_new.id " +
+                "and import_lischt.id = id_gis.id " +
                 "and ipadr_new.ipadr = object_adress.HOUSEGUID_fias " +
                 "and ipadr_new.pomesh = object_adress.kv " +
                 "and id_gis.`status` = 'Размещен' " +
-                 checkMKD +                 //мкд или нет
-                "order by LS.l_schet; ");
+                checkMKD +
+                "order by import_lischt.id; ");
             myCommand.Prepare();//подготавливает строку
 
             MyDataReader = myCommand.ExecuteReader();

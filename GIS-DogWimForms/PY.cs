@@ -17,50 +17,51 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("SELECT distinct PY.id_ls, " +
-                "PY.inv, " +
-                "PY.type, " +
-                "PY.type_name," +
-                "PY.type_name2," +
-                "PY.ulica, " +
-                "CASE " +
-                "WHEN PY.type = 'Индивидуальный' and SUBSTRING(id_ls.id_dom, 1, 1) <> 9  THEN id_ls.id_dom " +
-                "WHEN PY.`type` = 'Коллективный (общедомовой)' THEN id_ls.id_dom " +
-                "ELSE '' END AS adr1, " +
-                "CASE " +
-                "WHEN PY.`type` = 'Индивидуальный' and SUBSTRING(id_ls.id_dom, 1, 1) = 9 THEN id_ls.id_dom " +
-                "WHEN PY.`type` = 'Общий (квартирный)' THEN id_ls.id_dom " +
-                "ELSE '' END AS adr2, " +
-                "''," +
-                "id_ls.ls_jky," +
-                "'Нет'," +
-                "''," +
-                "'нет'," +
-                "'', " +
-                "''," +
-                "PY.voda," +
-                "'Однотарифный'," +
-                "PY.start_indication," +
-                "'', '', '', ''," +
-                "PY.dat_set, " +
-                "PY.ldat_testing, " +
-                "'', " +
-                "case when PY.y = '1' then concat(PY.y, ' год') " +
-                "when PY.y in ('2','3','4') then concat(PY.y, ' года') " +
-                "else concat(PY.y, ' лет') end let, " +
-                "'Нет'," +
-                "''," +
-                "'Нет'," +
-                "''," +
-                "'', " +
-                "PY.z " +
-                "FROM PY, id_ls " +
-                "where PY.id_ls = id_ls.id " +
-                "and PY.status = 'прибор учета' " +
-                "and PY.inv not in (select id_py_main.nomer from id_py_main) " +
-                "and PY.ndat_testing > date_format(DATE_ADD(now(), INTERVAL 2 month), '%Y-%m-%d') " +
-                "and trim(PY.inv) not in ('*','-') " +
-                "order by PY.inv,PY.id_ls ");
+            myCommand.CommandText = string.Format(@"SELECT distinct PY.id,  
+                PY.inv,
+                PY.type,
+                PY.type_name,
+                PY.type_name,
+                PY.ulica,
+                CASE
+                WHEN PY.type = 'Индивидуальный' and SUBSTRING(id_ls.id_dom, 1, 1) <> 9  THEN id_ls.id_dom
+                WHEN PY.`type` = 'Коллективный (общедомовой)' THEN id_ls.id_dom
+                ELSE '' END AS adr1,
+                CASE
+                WHEN PY.`type` = 'Индивидуальный' and SUBSTRING(id_ls.id_dom, 1, 1) = 9 THEN id_ls.id_dom
+                WHEN PY.`type` = 'Общий (квартирный)' THEN id_ls.id_dom
+                ELSE '' END AS adr2,
+                '',
+                id_ls.ls_jky,
+                'Нет',
+                '',
+                'нет',
+                '',
+                '',
+                PY.type_resursa,
+                'Кубический метр',
+                'Однотарифный',
+                PY.last_indication,
+                '', '', '',
+                PY.dat_set,
+                '',
+                PY.ldat_testing,
+                '',
+                case when PY.gos_poverka = '1' then concat(PY.gos_poverka, ' год')
+                when PY.gos_poverka in ('2', '3', '4') then concat(PY.gos_poverka, ' года')  
+                else concat(PY.gos_poverka, ' лет') end let,
+                'Нет',
+                '',
+                'Нет',
+                '',
+                '' 
+                FROM PY, id_ls 
+                where PY.id = id_ls.id 
+                and PY.status = 'прибор учета' 
+                and PY.inv not in (select id_py_main.nomer from id_py_main) 
+               -- and PY.ndat_testing > date_format(DATE_ADD(now(), INTERVAL 2 month), '%Y-%m-%d')  ??????????
+                and trim(PY.inv) not in ('*', '-') 
+                order by PY.inv,PY.id ");
 
             myCommand.Prepare();//подготавливает строку
             MyDataReader = myCommand.ExecuteReader();
@@ -180,48 +181,50 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("SELECT distinct PY.id_ls, " +
-                "PY.inv, " +
-                "PY.type, " +
-                "PY.type_name," +
-                "PY.type_name2," +
-                "PY.ulica, " +
-                "CASE " +
-                "WHEN PY.type = 'Индивидуальный' and SUBSTRING(id_ls.id_dom, 1, 1) <> 9  THEN object_adress.id_dom " +
-                "WHEN PY.`type` = 'Коллективный (общедомовой)' THEN object_adress.id_dom " +
-                "ELSE '' END AS adr1, " +
-                "CASE " +
-                "WHEN PY.`type` = 'Индивидуальный' and SUBSTRING(id_ls.id_dom, 1, 1) = 9 THEN id_ls.id_dom " +
-                "WHEN PY.`type` = 'Общий (квартирный)' THEN id_ls.id_dom " +
-                "ELSE '' END AS adr2, " +
-                "''," +
-                "id_ls.ls_jky," +
-                "'Нет'," +
-                "''," +
-                "'нет'," +
-                "'', " +
-                "''," +
-                "PY.voda," +
-                "'Однотарифный'," +
-                "PY.start_indication," +
-                "'', '', '', ''," +
-                "PY.dat_set, " +
-                "PY.ldat_testing, " +
-                "'', " +
-                "case when PY.y = '1' then concat(PY.y, ' год') " +
-                "when PY.y in ('2','3','4') then concat(PY.y, ' года') " +
-                "else concat(PY.y, ' лет') end let, " +
-                "'Нет'," +
-                "''," +
-                "'Нет'," +
-                "''," +
-                "id_py_main.id_gis, " +
-                "PY.z " +
-                "FROM PY, id_ls, object_adress,id_py_main " +
-                "where PY.id_ls = id_ls.id " +
-                "and PY.inv = id_py_main.nomer " +
-                "and object_adress.id_kvt = id_ls.id_dom " +
-                "order by PY.inv,PY.id_ls ");
+            myCommand.CommandText = string.Format(@"SELECT distinct PY.id,  
+                PY.inv,
+                PY.type,
+                PY.type_name,
+                PY.type_name,
+                PY.ulica,
+                CASE 
+                WHEN PY.type = 'Индивидуальный' and SUBSTRING(id_ls.id_dom, 1, 1) <> 9  THEN id_ls.id_dom 
+                WHEN PY.`type` = 'Коллективный (общедомовой)' THEN id_ls.id_dom 
+                ELSE '' END AS adr1,
+                CASE 
+                WHEN PY.`type` = 'Индивидуальный' and SUBSTRING(id_ls.id_dom, 1, 1) = 9 THEN id_ls.id_dom 
+                WHEN PY.`type` = 'Общий (квартирный)' THEN id_ls.id_dom 
+                ELSE '' END AS adr2,
+                '',
+                id_ls.ls_jky,
+                'Нет',
+                '',
+                'нет',
+                '',
+                '',
+                PY.type_resursa,
+                'Кубический метр',
+                'Однотарифный',
+                PY.last_indication,
+                '', '', '',
+                PY.dat_set,
+                '',
+                PY.ldat_testing,
+                '',
+                case when PY.gos_poverka = '1' then concat(PY.gos_poverka, ' год') 
+                when PY.gos_poverka in ('2', '3', '4') then concat(PY.gos_poverka, ' года')  
+                else concat(PY.gos_poverka, ' лет') end let,
+                'Нет',
+                '',
+                'Нет',
+                '',
+                id_py_main.id_gis,
+                '' 
+                FROM PY, id_ls, object_adress, id_py_main 
+                where PY.id = id_ls.id 
+                and PY.inv = id_py_main.nomer 
+                and object_adress.id_kvt = id_ls.id_dom 
+                order by PY.inv, PY.id  ");
 
             myCommand.Prepare();//подготавливает строку
             MyDataReader = myCommand.ExecuteReader();
