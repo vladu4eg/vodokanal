@@ -20,75 +20,76 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("SELECT distinct import_lischt.A," +
-                "import_lischt.PUBL_B," +
-                "import_lischt.NUM_DOG_C," +
-                "import_lischt.DAT_DOG_D," +
-                "import_lischt.DAT_VST_E," +
-                "''," +
-                "import_lischt.G," +
-                "import_lischt.H," +
-                "import_lischt.FAMIL_NAME_R," +
-                "import_lischt.IMEN_NAME_R," +
-                "import_lischt.OTCH_NAME_R," +
-                "import_lischt.POL_L," +
-                "import_lischt.M," +
-                "import_lischt.SNILS," +
-                "import_lischt.O," +
-                "import_lischt.Q," +
-                "import_lischt.P," +
-                "import_lischt.R," +
-                "'', '', ''," +
-                "import_lischt.SROK1," +
-                "import_lischt.`СЛЕДУЮЩЕГОМЕСЯЦАЗАРАСЧЕТНЫМ`," +
-                "import_lischt.SROR2," +
-                "import_lischt.`СЛЕДУЮЩЕГОМЕСЯЦАЗАРАСЧЕТНЫМ2`," +
-                "'', ''," +
-                "import_lischt.DAT_NACH," +
-                "import_lischt.`НЕТ`," +
-                "import_lischt.DAT_OK," +
-                "import_lischt.`НЕТ2`," +
-                "'Нормативный правовой акт'," +
-                "'РСО'," +
-                "'Да'," +
-                "'В разрезе договора'," +
-                "'Нет'," +
-                "''," +
-                "''," +
-                "import_with.A,import_with.B,import_with.C,import_with.DATA1,import_with.DATA2, " +
-                "''," +
-                "ipadr_new.id," +
-                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then 'МКД' else '' end pomeshen," +
-                "ipadr_new.adr," +
-                "ipadr_new.ipadr," +
-                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen," +
-                "ipadr_new.id," +
-                "ipadr_new.adr," +
-                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen," +
-                "''," +
-                "import_with.B," +
-                "import_with.C," +
-                "import_with.DATA1," +
-                "import_with.DATA2," +
-                "ipadr_new.id," +
-                "ipadr_new.adr," +
-                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen," +
-                "''," +
-                "import_with.B," +
-                "import_with.C," +
-                "'Соответствие показателей качества холодной воды требованиям законодательства Российской Федерации'," +
-                "'', '', ''," +
-                "'Соответствует', " +
-                "import_with.D,import_with.E " +
-                "FROM import_lischt " +
-                "JOIN ipadr_new ON import_lischt.A = ipadr_new.id " +
-                "JOIN import_with ON import_lischt.A = import_with.A " +
-                "where import_lischt.A NOT IN " +
-                "(" +
-                    "SELECT id_gis.id " +
-                    "FROM id_gis " +
-                    "WHERE id_gis.status in ('Проект','Размещен') " +
-                ")");
+            myCommand.CommandText = string.Format(@"SELECT distinct import_lischt.id, 
+                'Да', 
+                import_lischt.id, 
+                import_lischt.data_dogovor, 
+                import_lischt.data_dogovor, 
+                '', '','',
+                import_lischt.type_home, 
+                'Физическое лицо', 
+                import_lischt.famil, 
+                import_lischt.imen, 
+                import_lischt.otch, 
+                '', 
+                import_lischt.data_rojden, 
+                import_lischt.SNILS, 
+                import_lischt.type_doc, 
+                import_lischt.num_doc, 
+                import_lischt.seria_doc, 
+                import_lischt.data_doc, 
+                '', '', '', '',
+                '9', 
+                'Cледующего месяца за расчетным', 
+                '10', 
+                'Cледующего месяца за расчетным', 
+                '', '', '',
+                '20', 
+                'Нет', 
+                '26', 
+                'Нет', 
+                'Да',
+                'Нормативный правовой акт', 
+                'В разрезе договора', 
+                'РСО', 
+                'Да', 
+                'В разрезе договора',
+                'Нет', 
+                '', 
+                '', 
+                import_with.id,import_with.type_uslug,import_with.type_resurs,import_with.data_start,import_with.data_end,  
+                ipadr_new.id, 
+                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then 'МКД' else '' end pomeshen, 
+                ipadr_new.adr, 
+                ipadr_new.ipadr, 
+                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen, 
+                ipadr_new.id, 
+                ipadr_new.adr, 
+                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen, 
+                '', 
+					 import_with.type_uslug,
+					 import_with.type_resurs,
+					 import_with.data_start,
+					 import_with.data_end, 
+                ipadr_new.id, 
+                ipadr_new.adr, 
+                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen, 
+                '', 
+                import_with.type_uslug, 
+                import_with.type_resurs, 
+                'Соответствие показателей качества холодной воды требованиям законодательства Российской Федерации', 
+                '', '', '', 
+                'Соответствует',  
+                import_with.type_uslug2,import_with.type_resurs2 
+                FROM import_lischt  
+                JOIN ipadr_new ON import_lischt.id = ipadr_new.id  
+                JOIN import_with ON import_lischt.id = import_with.id  
+                where import_lischt.id NOT IN  
+                ( 
+                    SELECT id_gis.id  
+                    FROM id_gis  
+                    WHERE id_gis.status in ('Проект','Размещен')  
+                )");
 
             myCommand.Prepare();//подготавливает строку
 
@@ -135,70 +136,65 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(33),
                            MyDataReader.GetString(34),
                            MyDataReader.GetString(35),
-                           MyDataReader.GetString(36));
-
-                object1.AddRow(MyDataReader.GetString(37),
+                           MyDataReader.GetString(36),
+                           MyDataReader.GetString(37),
                                MyDataReader.GetString(38),
                                MyDataReader.GetString(39),
                                MyDataReader.GetString(40),
-                               MyDataReader.GetString(41));
+                               MyDataReader.GetString(41),
+                               MyDataReader.GetString(42),
+                               MyDataReader.GetString(43));
 
-                vkh.AddRow(MyDataReader.GetString(43),
-                MyDataReader.GetString(44),
-                MyDataReader.GetString(45),
-                MyDataReader.GetString(46),
-                MyDataReader.GetString(47));
+                object1.AddRow(MyDataReader.GetString(44),
+                               MyDataReader.GetString(45),
+                               MyDataReader.GetString(46),
+                               MyDataReader.GetString(47),
+                               MyDataReader.GetString(48));
 
-                kyandkr.AddRow(MyDataReader.GetString(48),
-                MyDataReader.GetString(49),
+                vkh.AddRow(MyDataReader.GetString(49),
                 MyDataReader.GetString(50),
                 MyDataReader.GetString(51),
                 MyDataReader.GetString(52),
-                MyDataReader.GetString(53),
-                MyDataReader.GetString(54),
-                MyDataReader.GetString(55));
+                MyDataReader.GetString(53));
 
-                kr.AddRow(MyDataReader.GetString(56),
+                kyandkr.AddRow(MyDataReader.GetString(54),
+                MyDataReader.GetString(55),
+                MyDataReader.GetString(56),
                 MyDataReader.GetString(57),
                 MyDataReader.GetString(58),
                 MyDataReader.GetString(59),
                 MyDataReader.GetString(60),
-                MyDataReader.GetString(61),
-                MyDataReader.GetString(62),
+                MyDataReader.GetString(61));
+
+                kr.AddRow(MyDataReader.GetString(62),
                 MyDataReader.GetString(63),
                 MyDataReader.GetString(64),
+                MyDataReader.GetString(64),
                 MyDataReader.GetString(65),
-                MyDataReader.GetString(66));
+                MyDataReader.GetString(66),
+                MyDataReader.GetString(67),
+                MyDataReader.GetString(68),
+                MyDataReader.GetString(69),
+                MyDataReader.GetString(70),
+                MyDataReader.GetString(71));
 
-                if (MyDataReader.GetString(67) == "Отведение сточных вод")
+                if (MyDataReader.GetString(73) == "Отведение сточных вод")
                 {
-                    object1.AddRow(MyDataReader.GetString(37),
-                    MyDataReader.GetString(67),
-                    MyDataReader.GetString(68),
-                    MyDataReader.GetString(40),
-                    MyDataReader.GetString(41));
 
-                    kyandkr.AddRow(MyDataReader.GetString(48),
-                    MyDataReader.GetString(49),
-                    MyDataReader.GetString(50),
-                    MyDataReader.GetString(51),
-                    "Отведение сточных вод",
-                    "Сточные воды",
-                    MyDataReader.GetString(54),
-                    MyDataReader.GetString(55));
-                    /* нет показателей качества для какаш )
-                    kr.AddRow(MyDataReader.GetString(56),
+                    object1.AddRow(MyDataReader.GetString(44),
+               MyDataReader.GetString(73),
+               MyDataReader.GetString(46),
+               MyDataReader.GetString(47),
+               MyDataReader.GetString(48));
+
+                    kyandkr.AddRow(MyDataReader.GetString(54),
+                    MyDataReader.GetString(55),
+                    MyDataReader.GetString(56),
                     MyDataReader.GetString(57),
-                    MyDataReader.GetString(58),
-                    MyDataReader.GetString(59),
                     "Отведение сточных вод",
                     "Сточные воды",
-                    "",
-                    MyDataReader.GetString(63),
-                    MyDataReader.GetString(64),
-                    MyDataReader.GetString(65),
-                    MyDataReader.GetString(66));
-                    */
+                    MyDataReader.GetString(60),
+                    MyDataReader.GetString(61));
                 }
 
                 z++;
@@ -248,70 +244,72 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("SELECT distinct import_lischt.A," +
-                "import_lischt.PUBL_B," +
-                "import_lischt.NUM_DOG_C," +
-                "import_lischt.DAT_DOG_D," +
-                "import_lischt.DAT_VST_E," +
-                "''," +
-                "import_lischt.G," +
-                "import_lischt.H," +
-                "import_lischt.FAMIL_NAME_R," +
-                "import_lischt.IMEN_NAME_R," +
-                "import_lischt.OTCH_NAME_R," +
-                "import_lischt.POL_L," +
-                "import_lischt.M," +
-                "import_lischt.SNILS," +
-                "import_lischt.O," +
-                "import_lischt.Q," +
-                "import_lischt.P," +
-                "import_lischt.R," +
-                "'', '', ''," +
-                "import_lischt.SROK1," +
-                "import_lischt.`СЛЕДУЮЩЕГОМЕСЯЦАЗАРАСЧЕТНЫМ`," +
-                "import_lischt.SROR2," +
-                "import_lischt.`СЛЕДУЮЩЕГОМЕСЯЦАЗАРАСЧЕТНЫМ2`," +
-                "'', ''," +
-                "import_lischt.DAT_NACH," +
-                "import_lischt.`НЕТ`," +
-                "import_lischt.DAT_OK," +
-                "import_lischt.`НЕТ2`," +
-                "'Нормативный правовой акт'," +
-                "'РСО'," +
-                "'Да'," +
-                "'В разрезе договора'," +
-                "'Нет'," +
-                "id_gis.id_gis," +
-                "import_with.A,import_with.B,import_with.C,import_with.DATA1,import_with.DATA2, " +
-                "''," +
-                "ipadr_new.id," +
-                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then 'МКД' else '' end pomeshen," +
-                "ipadr_new.adr," +
-                "ipadr_new.ipadr," +
-                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen," +
-                "ipadr_new.id," +
-                "ipadr_new.adr," +
-                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen," +
-                "''," +
-                "import_with.B," +
-                "import_with.C," +
-                "import_with.DATA1," +
-                "import_with.DATA2," +
-                "ipadr_new.id," +
-                "ipadr_new.adr," +
-                "case when import_lischt.G = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen," +
-                "''," +
-                "import_with.B," +
-                "import_with.C," +
-                "'Соответствие показателей качества холодной воды требованиям законодательства Российской Федерации'," +
-                "'', '', ''," +
-                "'Соответствует', " +
-                "import_with.D,import_with.E " +
-                "FROM id_gis " +
-                "JOIN ipadr_new ON id_gis.id = ipadr_new.id " +
-                "JOIN import_lischt ON id_gis.id = import_lischt.A " +
-                "JOIN import_with ON id_gis.id = import_with.A " +
-                "where id_gis.status = 'Проект' ");
+            myCommand.CommandText = string.Format(@"SELECT distinct import_lischt.id, 
+                'Да',
+                import_lischt.id,
+                import_lischt.data_dogovor,
+                import_lischt.data_dogovor,
+                '', '', '',
+                import_lischt.type_home,
+                'Физическое лицо',
+                import_lischt.famil,
+                import_lischt.imen,
+                import_lischt.otch,
+                '',
+                import_lischt.data_rojden,
+                import_lischt.SNILS,
+                import_lischt.type_doc,
+                import_lischt.num_doc,
+                import_lischt.seria_doc,
+                import_lischt.data_doc,
+                '', '', '', '',
+                '9',
+                'Cледующего месяца за расчетным',
+                '10',
+                'Cледующего месяца за расчетным',
+                '', '', '',
+                '20',
+                'Нет',
+                '26',
+                'Нет',
+                'Да',
+                'Нормативный правовой акт',
+                'В разрезе договора',
+                'РСО',
+                'Да',
+                'В разрезе договора',
+                'Нет',
+                '',
+                '',
+                import_with.id, import_with.type_uslug, import_with.type_resurs, import_with.data_start, import_with.data_end,
+                ipadr_new.id,
+                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then 'МКД' else '' end pomeshen,
+                ipadr_new.adr,
+                ipadr_new.ipadr,
+                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen,
+                ipadr_new.id,
+                ipadr_new.adr,
+                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen,
+                '',
+                     import_with.type_uslug,
+                     import_with.type_resurs,
+                     import_with.data_start,
+                     import_with.data_end,
+                ipadr_new.id,
+                ipadr_new.adr,
+                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen,
+                '',
+                import_with.type_uslug,
+                import_with.type_resurs,
+                'Соответствие показателей качества холодной воды требованиям законодательства Российской Федерации',
+                '', '', '',
+                'Соответствует',
+                import_with.type_uslug2, import_with.type_resurs2 
+                FROM id_gis 
+                JOIN ipadr_new ON id_gis.id = ipadr_new.id 
+                JOIN import_lischt ON id_gis.id = import_lischt.id 
+                JOIN import_with ON id_gis.id = import_with.id 
+                where id_gis.status = 'Проект' ");
 
             myCommand.Prepare();
 
@@ -356,70 +354,65 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(33),
                            MyDataReader.GetString(34),
                            MyDataReader.GetString(35),
-                           MyDataReader.GetString(36));
-
-                object1.AddRow(MyDataReader.GetString(37),
+                           MyDataReader.GetString(36),
+                           MyDataReader.GetString(37),
                                MyDataReader.GetString(38),
                                MyDataReader.GetString(39),
                                MyDataReader.GetString(40),
-                               MyDataReader.GetString(41));
+                               MyDataReader.GetString(41),
+                               MyDataReader.GetString(42),
+                               MyDataReader.GetString(43));
 
-                vkh.AddRow(MyDataReader.GetString(43),
-                MyDataReader.GetString(44),
-                MyDataReader.GetString(45),
-                MyDataReader.GetString(46),
-                MyDataReader.GetString(47));
+                object1.AddRow(MyDataReader.GetString(44),
+                               MyDataReader.GetString(45),
+                               MyDataReader.GetString(46),
+                               MyDataReader.GetString(47),
+                               MyDataReader.GetString(48));
 
-                kyandkr.AddRow(MyDataReader.GetString(48),
-                MyDataReader.GetString(49),
+                vkh.AddRow(MyDataReader.GetString(49),
                 MyDataReader.GetString(50),
                 MyDataReader.GetString(51),
                 MyDataReader.GetString(52),
-                MyDataReader.GetString(53),
-                MyDataReader.GetString(54),
-                MyDataReader.GetString(55));
+                MyDataReader.GetString(53));
 
-                kr.AddRow(MyDataReader.GetString(56),
-MyDataReader.GetString(57),
-MyDataReader.GetString(58),
-MyDataReader.GetString(59),
-MyDataReader.GetString(60),
-MyDataReader.GetString(61),
-MyDataReader.GetString(62),
-MyDataReader.GetString(63),
-MyDataReader.GetString(64),
-MyDataReader.GetString(65),
-MyDataReader.GetString(66));
+                kyandkr.AddRow(MyDataReader.GetString(54),
+                MyDataReader.GetString(55),
+                MyDataReader.GetString(56),
+                MyDataReader.GetString(57),
+                MyDataReader.GetString(58),
+                MyDataReader.GetString(59),
+                MyDataReader.GetString(60),
+                MyDataReader.GetString(61));
 
-                if (MyDataReader.GetString(67) == "Отведение сточных вод")
+                kr.AddRow(MyDataReader.GetString(62),
+                MyDataReader.GetString(63),
+                MyDataReader.GetString(64),
+                MyDataReader.GetString(64),
+                MyDataReader.GetString(65),
+                MyDataReader.GetString(66),
+                MyDataReader.GetString(67),
+                MyDataReader.GetString(68),
+                MyDataReader.GetString(69),
+                MyDataReader.GetString(70),
+                MyDataReader.GetString(71));
+
+                if (MyDataReader.GetString(73) == "Отведение сточных вод")
                 {
-                    object1.AddRow(MyDataReader.GetString(37),
-                    MyDataReader.GetString(67),
-                    MyDataReader.GetString(68),
-                    MyDataReader.GetString(40),
-                    MyDataReader.GetString(41));
 
-                    kyandkr.AddRow(MyDataReader.GetString(48),
-                    MyDataReader.GetString(49),
-                    MyDataReader.GetString(50),
-                    MyDataReader.GetString(51),
-                    "Отведение сточных вод",
-                    "Сточные воды",
-                    MyDataReader.GetString(54),
-                    MyDataReader.GetString(55));
-                    /*
-                    kr.AddRow(MyDataReader.GetString(56),
+                    object1.AddRow(MyDataReader.GetString(44),
+               MyDataReader.GetString(73),
+               MyDataReader.GetString(46),
+               MyDataReader.GetString(47),
+               MyDataReader.GetString(48));
+
+                    kyandkr.AddRow(MyDataReader.GetString(54),
+                    MyDataReader.GetString(55),
+                    MyDataReader.GetString(56),
                     MyDataReader.GetString(57),
-                    MyDataReader.GetString(58),
-                    MyDataReader.GetString(59),
                     "Отведение сточных вод",
                     "Сточные воды",
-                    "",
-                    MyDataReader.GetString(63),
-                    MyDataReader.GetString(64),
-                    MyDataReader.GetString(65),
-                    MyDataReader.GetString(66));
-                    */
+                    MyDataReader.GetString(60),
+                    MyDataReader.GetString(61));
                 }
 
                 z++;
