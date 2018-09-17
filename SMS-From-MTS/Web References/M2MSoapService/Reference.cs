@@ -209,14 +209,14 @@ namespace M2MSOAPSample.M2MSoapService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://mcommunicator.ru/M2M/SendMessage", RequestNamespace="http://mcommunicator.ru/M2M", ResponseNamespace="http://mcommunicator.ru/M2M", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public long SendMessage(string msid, string message, string naming, string login, string password) {
+        public string SendMessage(string msid, string message, string naming, string login, string password) {
             object[] results = this.Invoke("SendMessage", new object[] {
                         msid,
                         message,
                         naming,
                         login,
                         password});
-            return ((long)(results[0]));
+            return ((string)(results[0]));
         }
         
         /// <remarks/>
