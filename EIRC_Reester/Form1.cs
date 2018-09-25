@@ -1,15 +1,11 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.Odbc;
-using System.Data.OleDb;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EIRC_Reester
@@ -20,11 +16,8 @@ namespace EIRC_Reester
         Excel importFile = new Excel();
         List<string> Rows = new List<string>();
         MySqlDataReader MyDataReader;
-
-        StringBuilder sCommand = new StringBuilder("INSERT INTO id_ls VALUES ");
-
+        StringBuilder sCommand = new StringBuilder();
         string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;SslMode=none;Password=" + Protect.PasswordMysql);
-
 
         public Form1()
         {
@@ -33,74 +26,37 @@ namespace EIRC_Reester
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
-                return;
-            DBFtoExcel(openFileDialog1.FileName, openFileDialog1.SafeFileName);
-            //ExcelgoBDReester(openFileDialog1.FileName);
-            DBtoExcel();
+            try
+            {
+                openFileDialog1.Filter = "DBF files (*.dbf)|*.dbf";
+                if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                    return;
+
+                using (var fs = new FileStream(openFileDialog1.FileName, FileMode.Open))
+                {
+                    fs.Position = 29; //меняем 29 байт, чтобы установиь кодировку открытого DBF.
+                    fs.WriteByte(101); // http://www.autopark.ru/ASBProgrammerGuide/DBFSTRUC.HTM#Table_9
+                }
+
+                ReadDBF WDBF = new ReadDBF();
+                ImportReester(WDBF.GetAll(openFileDialog1.SafeFileName));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                File.Delete("\\\\192.168.27.79\\public\\bank\\temp.DBF");
+                button1_Click(sender, e);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (openFileDialog2.ShowDialog() == DialogResult.Cancel)
-                return;
-            ExcelgoBD(openFileDialog2.FileName);
-        }
-
-        public void DBFtoExcel(string path, string fileName)
-        {
             try
             {
-                OdbcConnection obdcconn = new OdbcConnection();
-                obdcconn.ConnectionString = "Driver={Microsoft dBase Driver (*.dbf)};SourceType=DBF;SourceDB=Z:\\bank\\eirc\\;Exclusive=No; NULL=NO;DELETED=NO;BACKGROUNDFETCH=NO;";
-
-
-             //   OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=dBASE 5.0;Data Source=Z:\\bank\\eirc\\");
-
-                MySqlConnection myConnection = new MySqlConnection(Connect);
-                MySqlCommand myCommand = new MySqlCommand();
-                myConnection.Open();
-                obdcconn.Open();
-                myCommand.Connection = myConnection;
-
-                myCommand.CommandText = string.Format("TRUNCATE TABLE EIRC_LS;");
-                myCommand.Prepare();//подготавливает строку
-                myCommand.ExecuteNonQuery();//выполняет запрос
-                                            //StringBuilder sCommand = new StringBuilder("INSERT INTO EIRC_LS VALUES ");
-
-                OdbcCommand oCmd = obdcconn.CreateCommand();
-                oCmd.CommandText = "SELECT * FROM " + path;
-
-                //OleDbCommand dbf = new OleDbCommand(string.Format("select * from " + fileName), conn);
-
-                DataTable dt1 = new DataTable();
-                dt1.Load(oCmd.ExecuteReader());
-                obdcconn.Close();
-
-               // DataSet ds = new DataSet();
-               // OleDbDataAdapter da = new OleDbDataAdapter(string.Format("select * from " + fileName), conn);
-              //  da.Fill(ds, "Item");
-                foreach (DataRow row in dt1.Rows)
-                {
-                    myCommand.CommandText = string.Format("INSERT INTO EIRC_reester VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}')",
-                        MySqlHelper.EscapeString(row[0].ToString()),
-                        MySqlHelper.EscapeString(row[1].ToString()),
-                        MySqlHelper.EscapeString(row[2].ToString()),
-                        MySqlHelper.EscapeString(row[3].ToString()),
-                        MySqlHelper.EscapeString(row[4].ToString()),
-                        MySqlHelper.EscapeString(row[5].ToString()),
-                        MySqlHelper.EscapeString(row[6].ToString()),
-                        MySqlHelper.EscapeString(row[7].ToString()),
-                        MySqlHelper.EscapeString(row[8].ToString()),
-                        MySqlHelper.EscapeString(row[9].ToString()),
-                        MySqlHelper.EscapeString(row[10].ToString()),
-                        MySqlHelper.EscapeString(row[11].ToString()),
-                        MySqlHelper.EscapeString(row[12].ToString()),
-                        MySqlHelper.EscapeString(row[13].ToString()),
-                        MySqlHelper.EscapeString(row[14].ToString()));
-                    myCommand.Prepare();
-                    myCommand.ExecuteNonQuery();
-                }
+                openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+                if (openFileDialog2.ShowDialog() == DialogResult.Cancel)
+                    return;
+                ImportLS(openFileDialog2.FileName);
             }
             catch (Exception ex)
             {
@@ -108,7 +64,7 @@ namespace EIRC_Reester
             }
         }
 
-        public void ExcelgoBD(string path)
+        public void ImportLS(string path)
         {
             try
             {
@@ -154,82 +110,59 @@ namespace EIRC_Reester
             }
         }
 
-        public void ExcelgoBDReester(string path)
+        public void ImportReester(string path)
         {
             try
             {
-                importFile.FileOpen(path);
-
-                MySqlConnection myConnection = new MySqlConnection(Connect);
-                MySqlCommand myCommand = new MySqlCommand();
-                myConnection.Open();
-                myCommand.Connection = myConnection;
-
-                myCommand.CommandText = string.Format("TRUNCATE TABLE EIRC_LS;");
-                myCommand.Prepare();//подготавливает строку
-                myCommand.ExecuteNonQuery();//выполняет запрос
-
-                sCommand = new StringBuilder("INSERT INTO EIRC_reester VALUES ");
-
-                importFile.Rows.RemoveRange(0, 1);
-
-                for (int i = 0; i < importFile.Rows.Count(); i++)
+                if (path != null)
                 {
-                    Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}')",
-                        MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][1].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][2].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][3].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][4].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][5].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][6].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][7].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][8].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][9].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][10].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][11].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][12].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][13].ToString()),
-                        MySqlHelper.EscapeString(importFile.Rows[i][14].ToString())));
-                }
+                    MySqlConnection myConnection = new MySqlConnection(Connect);
+                    MySqlCommand myCommand = new MySqlCommand();
+                    myConnection.Open();
+                    myCommand.Connection = myConnection;
 
-                sCommand.Append(string.Join(",", Rows));
-                sCommand.Append(";");
+                    myCommand.CommandText = string.Format("TRUNCATE TABLE EIRC_reester;");
+                    myCommand.Prepare();//подготавливает строку
+                    myCommand.ExecuteNonQuery();//выполняет запрос
 
-                using (MySqlCommand myCmd = new MySqlCommand(sCommand.ToString(), myConnection))
-                {
-                    myCmd.CommandType = CommandType.Text;
-                    myCmd.ExecuteNonQuery();
+                    using (MySqlCommand myCmd = new MySqlCommand(path, myConnection))
+                    {
+                        myCmd.CommandType = CommandType.Text;
+                        myCmd.ExecuteNonQuery();
+                    }
+                    myConnection.Close();
+                    sCommand.Clear();
+                    Rows.Clear();
+
+                    File.Move(openFileDialog1.FileName, "\\\\192.168.27.79\\public\\bank\\eirc\\" + openFileDialog1.SafeFileName);
                 }
-                importFile.Rows.Clear();
-                myConnection.Close();
-                sCommand.Clear();
-                Rows.Clear();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
         }
 
-        public void DBtoExcel()
+        public string FromDBtoExcel()
         {
             try
             {
-
+                double sum = 0;
                 MySqlConnection myConnection = new MySqlConnection(Connect);
                 MySqlCommand myCommand = new MySqlCommand();
                 myConnection.Open();
                 myCommand.Connection = myConnection;
 
-                myCommand.CommandText = string.Format("select @n:=@n+1 as `num`, EIRC_reester.PAY_DATE, " +
-                    "EIRC_LS.id_ls, concat(EIRC_reester.CITY, ', ', EIRC_reester.HOUSE, ' ', EIRC_reester.BUILDING, ', ', EIRC_reester.FLAT, ' ', EIRC_reester.LITER)," +
-                    "EIRC_reester.PAY_PERIOD, EIRC_reester.PLAT_SUMMA " +
+                myCommand.CommandText = string.Format("select EIRC_reester.PAY_DATE,  EIRC_reester.LS," +
+                    "EIRC_LS.id_ls, concat(EIRC_reester.CITY,', ' ,EIRC_reester.STREET,', д. ', EIRC_reester.HOUSE, ' ', EIRC_reester.BUILDING, ', кв. ', EIRC_reester.FLAT, ' ', EIRC_reester.LITER)," +
+                    "EIRC_reester.PAY_PERIOD, EIRC_reester.SERV_SUMMA " +
                     "from EIRC_reester, EIRC_LS " +
                     "where EIRC_reester.ls = EIRC_LS.id_eirc; ");
 
                 myCommand.Prepare();//подготавливает строку
                 MyDataReader = myCommand.ExecuteReader();
+                importFile.AddRow("Дата оплаты", "ЕИРЦ ЛС", "ЛС", "Адрес", "Период", "Сумма");
                 while (MyDataReader.Read())
                 {
                     importFile.AddRow(MyDataReader.GetString(0),
@@ -238,20 +171,24 @@ namespace EIRC_Reester
                                MyDataReader.GetString(3),
                                MyDataReader.GetString(4),
                                MyDataReader.GetString(5));
-                }
+                    sum += Convert.ToDouble(MyDataReader.GetString(5));
 
-                importFile.FileSave("c:\\" + openFileDialog1.FileNames + ".xlsx");
+                    sCommand = new StringBuilder(MyDataReader.GetString(0));
+                }
+                importFile.AddRow("", "", "", "", "Сумма:", sum.ToString("#.##"));
+                importFile.FileSave("\\\\192.168.27.79\\public\\bank\\eirc\\РЕЕСТРЫ\\" + sCommand + ".xlsx");
 
                 importFile.Rows.Clear();
                 myConnection.Close();
                 Rows.Clear();
 
-                MessageBox.Show("Готово! На диске С лежит файл: " + openFileDialog1.FileNames);
+                MessageBox.Show("Готово! На диске \\\\192.168.27.79\\public\\bank\\eirc\\РЕЕСТРЫ\\ " + sCommand + ".xlsx");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            return sCommand.ToString();
         }
     }
 }

@@ -70,5 +70,10 @@ namespace PometkaXP
             else
                 e.Handled = true;
         }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

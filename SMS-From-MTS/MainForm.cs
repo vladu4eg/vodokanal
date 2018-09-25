@@ -146,7 +146,6 @@ namespace M2MSOAPSample
                 }
                 MyDataReader.Close();
 
-
                 foreach (long id_foreach in id_list)
                 {
                     //Прокси для вызова методов сервиса
@@ -293,7 +292,11 @@ namespace M2MSOAPSample
             MTSCommunicatorM2MXMLAPI client = GetSoapService();
             //Получить статус доставки для сообщения
             label3.Text = string.Format("Баланс: " + client.GetBalance(login, password));
+        }
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            GetBalance(txtLogin.Text, GetMd5Hash(txtPassword.Text));
         }
 
         private void groupBox1_Enter_1(object sender, EventArgs e)
@@ -332,10 +335,6 @@ namespace M2MSOAPSample
         private void labCheckDostavka_Click(object sender, EventArgs e)
         {
 
-        }
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            GetBalance(txtLogin.Text, GetMd5Hash(txtPassword.Text));
         }
     }
 }
