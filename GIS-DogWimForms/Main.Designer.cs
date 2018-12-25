@@ -35,26 +35,27 @@
             this.btnPY = new System.Windows.Forms.Button();
             this.btnPokaz = new System.Windows.Forms.Button();
             this.btnKvit = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnUpdAdressOnly = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnUpdatePD = new System.Windows.Forms.Button();
             this.chkBoxOnlyMKD = new System.Windows.Forms.CheckBox();
             this.btnClearGis = new System.Windows.Forms.Button();
             this.btnImportLS = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnImportAdress = new System.Windows.Forms.Button();
+            this.btnImportDogovor = new System.Windows.Forms.Button();
+            this.btnImportPY = new System.Windows.Forms.Button();
             this.groupBoxCreateShablon = new System.Windows.Forms.GroupBox();
+            this.btnODPY = new System.Windows.Forms.Button();
             this.groupBoxImportWithBD = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBoxImportCSV = new System.Windows.Forms.GroupBox();
+            this.buttonImportPD = new System.Windows.Forms.Button();
             this.buttonImportLS = new System.Windows.Forms.Button();
             this.buttonImportWith = new System.Windows.Forms.Button();
             this.buttonImportPY = new System.Windows.Forms.Button();
-            this.buttonImportPD = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBoxCreateShablon.SuspendLayout();
             this.groupBoxImportWithBD.SuspendLayout();
             this.groupBoxImportCSV.SuspendLayout();
@@ -69,7 +70,7 @@
             this.btnProjectDogovor.TabIndex = 19;
             this.btnProjectDogovor.Text = "Проекты договоров";
             this.btnProjectDogovor.UseVisualStyleBackColor = true;
-            this.btnProjectDogovor.Click += new System.EventHandler(this.button7_Click);
+            this.btnProjectDogovor.Click += new System.EventHandler(this.btnProjectDogovor_Click);
             // 
             // btnNewDogovor
             // 
@@ -79,7 +80,7 @@
             this.btnNewDogovor.TabIndex = 20;
             this.btnNewDogovor.Text = "Новый договор";
             this.btnNewDogovor.UseVisualStyleBackColor = true;
-            this.btnNewDogovor.Click += new System.EventHandler(this.button8_Click);
+            this.btnNewDogovor.Click += new System.EventHandler(this.btnNewDogovor_Click);
             // 
             // btnNewLS
             // 
@@ -88,7 +89,7 @@
             this.btnNewLS.Size = new System.Drawing.Size(95, 47);
             this.btnNewLS.TabIndex = 24;
             this.btnNewLS.Text = "Добавить ЛС";
-            this.btnNewLS.Click += new System.EventHandler(this.button9_Click);
+            this.btnNewLS.Click += new System.EventHandler(this.btnNewLS_Click);
             // 
             // btnHome
             // 
@@ -98,7 +99,7 @@
             this.btnHome.TabIndex = 22;
             this.btnHome.Text = "Обьекты жил фонда МКД жил";
             this.btnHome.UseVisualStyleBackColor = true;
-            this.btnHome.Click += new System.EventHandler(this.button10_Click);
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
             // btnPY
             // 
@@ -108,7 +109,7 @@
             this.btnPY.TabIndex = 23;
             this.btnPY.Text = "ИПУ";
             this.btnPY.UseVisualStyleBackColor = true;
-            this.btnPY.Click += new System.EventHandler(this.button11_Click);
+            this.btnPY.Click += new System.EventHandler(this.btnIPY_Click);
             // 
             // btnPokaz
             // 
@@ -129,16 +130,6 @@
             this.btnKvit.Text = "Квитанции";
             this.btnKvit.UseVisualStyleBackColor = true;
             this.btnKvit.Click += new System.EventHandler(this.btnKvit_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(107, 197);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 47);
-            this.button1.TabIndex = 27;
-            this.button1.Text = "Фиксики для ПУ";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnUpdate
             // 
@@ -162,16 +153,16 @@
             this.btnUpdAdressOnly.UseVisualStyleBackColor = true;
             this.btnUpdAdressOnly.Click += new System.EventHandler(this.btnUpdAdressOnly_Click);
             // 
-            // button2
+            // btnUpdatePD
             // 
-            this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(7, 194);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(101, 64);
-            this.button2.TabIndex = 30;
-            this.button2.Text = "Обновление ПД";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnUpdatePD.Enabled = false;
+            this.btnUpdatePD.Location = new System.Drawing.Point(7, 194);
+            this.btnUpdatePD.Name = "btnUpdatePD";
+            this.btnUpdatePD.Size = new System.Drawing.Size(101, 64);
+            this.btnUpdatePD.TabIndex = 30;
+            this.btnUpdatePD.Text = "Обновление ПД";
+            this.btnUpdatePD.UseVisualStyleBackColor = true;
+            this.btnUpdatePD.Click += new System.EventHandler(this.btnUpdatePD_Click);
             // 
             // chkBoxOnlyMKD
             // 
@@ -209,38 +200,40 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
-            // button3
+            // btnImportAdress
             // 
-            this.button3.Location = new System.Drawing.Point(6, 177);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(101, 47);
-            this.button3.TabIndex = 37;
-            this.button3.Text = "Import Adress";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnImportAdress.Location = new System.Drawing.Point(6, 177);
+            this.btnImportAdress.Name = "btnImportAdress";
+            this.btnImportAdress.Size = new System.Drawing.Size(101, 47);
+            this.btnImportAdress.TabIndex = 37;
+            this.btnImportAdress.Text = "Import Adress";
+            this.btnImportAdress.UseVisualStyleBackColor = true;
+            this.btnImportAdress.Click += new System.EventHandler(this.btnImportAdress_Click);
             // 
-            // button4
+            // btnImportDogovor
             // 
-            this.button4.Location = new System.Drawing.Point(6, 124);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(101, 47);
-            this.button4.TabIndex = 38;
-            this.button4.Text = "Import Dogovor";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btnImportDogovor.Location = new System.Drawing.Point(6, 124);
+            this.btnImportDogovor.Name = "btnImportDogovor";
+            this.btnImportDogovor.Size = new System.Drawing.Size(101, 47);
+            this.btnImportDogovor.TabIndex = 38;
+            this.btnImportDogovor.Text = "Import Dogovor";
+            this.btnImportDogovor.UseVisualStyleBackColor = true;
+            this.btnImportDogovor.Click += new System.EventHandler(this.btnImportDogovor_Click);
             // 
-            // button5
+            // btnImportPY
             // 
-            this.button5.Location = new System.Drawing.Point(6, 283);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(101, 47);
-            this.button5.TabIndex = 39;
-            this.button5.Text = "Import PY";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btnImportPY.Location = new System.Drawing.Point(6, 283);
+            this.btnImportPY.Name = "btnImportPY";
+            this.btnImportPY.Size = new System.Drawing.Size(101, 47);
+            this.btnImportPY.TabIndex = 39;
+            this.btnImportPY.Text = "Import PY";
+            this.btnImportPY.UseVisualStyleBackColor = true;
+            this.btnImportPY.Click += new System.EventHandler(this.btnImportPY_Click);
             // 
             // groupBoxCreateShablon
             // 
+            this.groupBoxCreateShablon.Controls.Add(this.button1);
+            this.groupBoxCreateShablon.Controls.Add(this.btnODPY);
             this.groupBoxCreateShablon.Controls.Add(this.btnProjectDogovor);
             this.groupBoxCreateShablon.Controls.Add(this.btnNewDogovor);
             this.groupBoxCreateShablon.Controls.Add(this.btnNewLS);
@@ -248,27 +241,45 @@
             this.groupBoxCreateShablon.Controls.Add(this.btnPY);
             this.groupBoxCreateShablon.Controls.Add(this.btnPokaz);
             this.groupBoxCreateShablon.Controls.Add(this.btnKvit);
-            this.groupBoxCreateShablon.Controls.Add(this.button1);
             this.groupBoxCreateShablon.Controls.Add(this.chkBoxOnlyMKD);
             this.groupBoxCreateShablon.Location = new System.Drawing.Point(12, 12);
             this.groupBoxCreateShablon.Name = "groupBoxCreateShablon";
-            this.groupBoxCreateShablon.Size = new System.Drawing.Size(225, 352);
+            this.groupBoxCreateShablon.Size = new System.Drawing.Size(306, 352);
             this.groupBoxCreateShablon.TabIndex = 40;
             this.groupBoxCreateShablon.TabStop = false;
             this.groupBoxCreateShablon.Text = "Формирования шаблонов";
+            // 
+            // btnODPY
+            // 
+            this.btnODPY.Location = new System.Drawing.Point(107, 197);
+            this.btnODPY.Name = "btnODPY";
+            this.btnODPY.Size = new System.Drawing.Size(95, 47);
+            this.btnODPY.TabIndex = 32;
+            this.btnODPY.Text = "ОДПУ";
+            this.btnODPY.UseVisualStyleBackColor = true;
+            this.btnODPY.Click += new System.EventHandler(this.btnODPY_Click);
             // 
             // groupBoxImportWithBD
             // 
             this.groupBoxImportWithBD.Controls.Add(this.label1);
             this.groupBoxImportWithBD.Controls.Add(this.btnUpdate);
             this.groupBoxImportWithBD.Controls.Add(this.btnUpdAdressOnly);
-            this.groupBoxImportWithBD.Controls.Add(this.button2);
-            this.groupBoxImportWithBD.Location = new System.Drawing.Point(485, 15);
+            this.groupBoxImportWithBD.Controls.Add(this.btnUpdatePD);
+            this.groupBoxImportWithBD.Location = new System.Drawing.Point(583, 15);
             this.groupBoxImportWithBD.Name = "groupBoxImportWithBD";
             this.groupBoxImportWithBD.Size = new System.Drawing.Size(114, 349);
             this.groupBoxImportWithBD.TabIndex = 41;
             this.groupBoxImportWithBD.TabStop = false;
             this.groupBoxImportWithBD.Text = "Обновление MySQL из Oracle ";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 261);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(92, 34);
+            this.label1.TabIndex = 31;
+            this.label1.Text = "Временно \r\nнеактуально";
             // 
             // groupBoxImportCSV
             // 
@@ -276,12 +287,22 @@
             this.groupBoxImportCSV.Controls.Add(this.buttonImportLS);
             this.groupBoxImportCSV.Controls.Add(this.buttonImportWith);
             this.groupBoxImportCSV.Controls.Add(this.buttonImportPY);
-            this.groupBoxImportCSV.Location = new System.Drawing.Point(243, 15);
+            this.groupBoxImportCSV.Location = new System.Drawing.Point(341, 15);
             this.groupBoxImportCSV.Name = "groupBoxImportCSV";
             this.groupBoxImportCSV.Size = new System.Drawing.Size(115, 349);
             this.groupBoxImportCSV.TabIndex = 42;
             this.groupBoxImportCSV.TabStop = false;
             this.groupBoxImportCSV.Text = "Импорт выгрузки из БД";
+            // 
+            // buttonImportPD
+            // 
+            this.buttonImportPD.Location = new System.Drawing.Point(6, 230);
+            this.buttonImportPD.Name = "buttonImportPD";
+            this.buttonImportPD.Size = new System.Drawing.Size(101, 47);
+            this.buttonImportPD.TabIndex = 34;
+            this.buttonImportPD.Text = "PD";
+            this.buttonImportPD.UseVisualStyleBackColor = true;
+            this.buttonImportPD.Click += new System.EventHandler(this.buttonImportPD_Click);
             // 
             // buttonImportLS
             // 
@@ -313,45 +334,36 @@
             this.buttonImportPY.UseVisualStyleBackColor = true;
             this.buttonImportPY.Click += new System.EventHandler(this.buttonImportPY_Click);
             // 
-            // buttonImportPD
-            // 
-            this.buttonImportPD.Location = new System.Drawing.Point(6, 230);
-            this.buttonImportPD.Name = "buttonImportPD";
-            this.buttonImportPD.Size = new System.Drawing.Size(101, 47);
-            this.buttonImportPD.TabIndex = 34;
-            this.buttonImportPD.Text = "PD";
-            this.buttonImportPD.UseVisualStyleBackColor = true;
-            this.buttonImportPD.Click += new System.EventHandler(this.buttonImportPD_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnClearGis);
             this.groupBox1.Controls.Add(this.btnImportLS);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button5);
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Location = new System.Drawing.Point(364, 15);
+            this.groupBox1.Controls.Add(this.btnImportAdress);
+            this.groupBox1.Controls.Add(this.btnImportPY);
+            this.groupBox1.Controls.Add(this.btnImportDogovor);
+            this.groupBox1.Location = new System.Drawing.Point(462, 15);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(115, 349);
             this.groupBox1.TabIndex = 43;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Импорт из ГИС ЖКХ";
             // 
-            // label1
+            // btnDelIPY
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 261);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 34);
-            this.label1.TabIndex = 31;
-            this.label1.Text = "Временно \r\nнеактуально";
+            this.button1.Location = new System.Drawing.Point(211, 197);
+            this.button1.Name = "btnDelIPY";
+            this.button1.Size = new System.Drawing.Size(95, 47);
+            this.button1.TabIndex = 33;
+            this.button1.Text = "Удаление ИПУ";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnDelIPY_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(612, 373);
+            this.ClientSize = new System.Drawing.Size(827, 372);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxImportCSV);
             this.Controls.Add(this.groupBoxImportWithBD);
@@ -382,17 +394,16 @@
         private System.Windows.Forms.Button btnPY;
         private System.Windows.Forms.Button btnPokaz;
         private System.Windows.Forms.Button btnKvit;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnUpdAdressOnly;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnUpdatePD;
         private System.Windows.Forms.CheckBox chkBoxOnlyMKD;
         private System.Windows.Forms.Button btnClearGis;
         private System.Windows.Forms.Button btnImportLS;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnImportAdress;
+        private System.Windows.Forms.Button btnImportDogovor;
+        private System.Windows.Forms.Button btnImportPY;
         private System.Windows.Forms.GroupBox groupBoxCreateShablon;
         private System.Windows.Forms.GroupBox groupBoxImportWithBD;
         private System.Windows.Forms.GroupBox groupBoxImportCSV;
@@ -402,6 +413,8 @@
         private System.Windows.Forms.Button buttonImportPY;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnODPY;
+        private System.Windows.Forms.Button button1;
     }
 }
 

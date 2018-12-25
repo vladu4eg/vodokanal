@@ -11,27 +11,26 @@ namespace GIS_DogWimForms
 
         string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=" + Protect.PasswordMysql);
 
-        public void AddPokazIPY()
+        public void AddPokazIPY(string path)
         {
             MySqlConnection myConnection = new MySqlConnection(Connect);
             MySqlCommand myCommand = new MySqlCommand();
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("SELECT distinct id_py_main.full_adress," +
-                "id_py_main.id_gis," +
-                "'Холодная вода'," +
-                "PY.last_indication," +
-                "'', ''," +
-                "PY.ldate_indication," +
-                "id_py_main.type " +
-                "FROM PY, id_py_main " +
-                "where PY.inv = id_py_main.nomer " +
-                "and PY.last_indication <> id_py_main.pokaz " +
-                "and PY.type = 'Индивидуальный' " +
-                "and trim(PY.inv) not in ('-', '*') " +
-                "and id_py_main.LS = PY.id_ls " +
-                "order by PY.inv, PY.id_ls ");
+            myCommand.CommandText = string.Format(@"SELECT distinct gis_py_main.full_adress, 
+                gis_py_main.id_gis,  
+                'Холодная вода', 
+                mb_pokaz_ipy.pokaz1, 
+                '', '', 
+                date_format(STR_TO_DATE(mb_pokaz_ipy.data_pokaz,  '%d/%m/%Y'),'%d.%m.%Y') 
+                FROM mb_pokaz_ipy, gis_py_main 
+                where mb_pokaz_ipy.inv = gis_py_main.nomer 
+                and mb_pokaz_ipy.ls = gis_py_main.LS 
+                and gis_py_main.type = 'Индивидуальный' 
+                and trim(mb_pokaz_ipy.inv) not in ('-', '*')  
+                and gis_py_main.LS = mb_pokaz_ipy.ls  
+                order by mb_pokaz_ipy.inv, mb_pokaz_ipy.ls ");
 
             myCommand.Prepare();//подготавливает строку
             MyDataReader = myCommand.ExecuteReader();
@@ -52,12 +51,12 @@ namespace GIS_DogWimForms
 
                 if (z1 % 20000 == 0)
                 {
-                    ipy.FileSave("c:\\gis\\ipy" + y1 + "k.xlsx");
+                    ipy.FileSave(path,"c:\\gis\\ipy" + y1 + "k.xlsx",1,1);
                     ipy.Rows.Clear();
                     y1++;
                 }
             }
-            ipy.FileSave("c:\\gis\\ipy-Final.xlsx");
+            ipy.FileSave(path,"c:\\gis\\ipy-Final.xlsx",1,1);
             ipy.Rows.Clear();
 
             MyDataReader.Close();
@@ -65,27 +64,24 @@ namespace GIS_DogWimForms
 
             MessageBox.Show("Готово! С:\\gis\\");
         }
-        public void AddPokazODPY()
+        public void AddPokazODPY(string path)
         {
             MySqlConnection myConnection = new MySqlConnection(Connect);
             MySqlCommand myCommand = new MySqlCommand();
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("SELECT distinct id_py_main.full_adress," +
-                "id_py_main.id_gis, " +
-                "'Холодная вода', " +
-                "PY.last_indication, " +
-                "'', '', " +
-                "PY.ldate_indication, " +
-                "id_py_main.type " +
-                "FROM PY, id_py_main " +
-                "where PY.inv = id_py_main.nomer " +
-                "and PY.last_indication <> id_py_main.pokaz " +
-                "and trim(PY.inv) not in ('-', '*') " +
-                "and id_py_main.`type` = PY.`type` " +
-                "and PY.type = 'Коллективный (общедомовой)' " +
-                "order by PY.inv, PY.id_ls");
+            myCommand.CommandText = string.Format(@"SELECT distinct gis_py_main.full_adress, 
+                gis_py_main.id_gis,  
+                'Холодная вода', 
+                mb_pokaz_odpy.pokaz1, 
+                '', '', 
+                date_format(STR_TO_DATE(mb_pokaz_odpy.data_pokaz,  '%d/%m/%Y'),'%d.%m.%Y') 
+                FROM mb_pokaz_odpy, gis_py_main 
+                where mb_pokaz_odpy.inv = gis_py_main.nomer 
+                and gis_py_main.type = 'Коллективный (общедомовой)' 
+                and trim(mb_pokaz_odpy.inv) not in ('-', '*')  
+                order by mb_pokaz_odpy.inv ");
             myCommand.Prepare();//подготавливает строку
             MyDataReader = myCommand.ExecuteReader();
             int y1 = 1;
@@ -104,13 +100,13 @@ namespace GIS_DogWimForms
 
                 if (z1 % 20000 == 0)
                 {
-                    odpy.FileSave("c:\\gis\\odpy" + y1 + "k.xlsx");
+                    odpy.FileSave(path,"c:\\gis\\odpy" + y1 + "k.xlsx",1,1);
                     odpy.Rows.Clear();
                     y1++;
                 }
             }
 
-            odpy.FileSave("c:\\gis\\odpy-Final.xlsx");
+            odpy.FileSave(path,"c:\\gis\\odpy-Final.xlsx",1,1);
             odpy.Rows.Clear();
 
             MyDataReader.Close();

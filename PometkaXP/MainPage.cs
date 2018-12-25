@@ -7,11 +7,21 @@ using System.Windows.Forms;
 
 namespace PometkaXP
 {
-    public partial class Form1 : Form
+    public partial class MainPage : Form
     {
-        public Form1()
+        public MainPage()
         {
             InitializeComponent();
+
+            ToolTip t = new ToolTip();
+            t.SetToolTip(button5, "Можно удалить случайно внесенную пометку, \nНО не пытайтесь удалить чужую или старую пометку!");
+            t.SetToolTip(btnNewPometka, "Можно добавить новую пометку.");
+            t.SetToolTip(button3, "Поиск показаний/водомера по инвентарному номеру водомера.");
+            t.SetToolTip(button4, "Поиск показаний/водомера по номеру ввода.");
+            t.SetToolTip(listView2, "Примерный долг на определенную дату.");
+            t.SetToolTip(button2, "Выводит информацию про квитанцию->подпачку->пачку.\nВсе эти данные в одну строчку.");
+            t.SetToolTip(txtBoxSumKvit, "Это поле отсеивает квитанции на выбранном лицевом по сумме.\nФормат внесение суммы: 100.00\nОБЯЗАТЕЛЬНО через точку и с двумя значениями после запятой!");
+            t.SetToolTip(btnEIRC, "Поиск по единому лицевому счету.\nПоможет найти ЛС, если вам принисут квитанцию с ЕИРЦ.\nЕЛС содержит 10 символов.");
         }
 
         MySqlDataReader MyDataReader;
@@ -34,9 +44,9 @@ namespace PometkaXP
                 txtBoxProcLGO.Clear();
                 txtBoxObsl.Clear();
                 txtBoxStatus.Clear();
-                txtBoxVvod2.Clear();
                 txtBoxVvod.Clear();
                 txtBoxAdress.Clear();
+                txtBoxSearchEIRC.Clear();
 
                 if (txtBoxLS.Text.ToString() != "")
                 {
@@ -45,7 +55,7 @@ namespace PometkaXP
                     myConnection.Open();
                     myCommand.Connection = myConnection;
 
-                    myCommand.CommandText = string.Format("select * from Pometka where Pometka.LS = " + txtBoxLS.Text.ToString() + " order by STR_TO_DATE(Pometka.DATA,'%d.%m.%Y')");
+                    myCommand.CommandText = string.Format("select Pometka.*,EIRC_LS.id_eirc from Pometka left outer join EIRC_LS on Pometka.LS = EIRC_LS.id_ls  where Pometka.LS = " + txtBoxLS.Text.ToString() + " order by STR_TO_DATE(Pometka.DATA,'%d.%m.%Y')");
                     myCommand.Prepare();//подготавливает строку
                     MyDataReader = myCommand.ExecuteReader();
 
@@ -64,7 +74,10 @@ namespace PometkaXP
                         arr[1] = MyDataReader.GetString(1);
                         arr[2] = MyDataReader.GetString(2);
 
+                        txtBoxSearchEIRC.Text = MyDataReader.GetValue(6).ToString(); //ЕИРЦ ЛС
+
                         ListViewItem list = new ListViewItem(arr);
+
                         listView1.Items.Add(list);
                     }
                     MyDataReader.Close();
@@ -95,7 +108,6 @@ namespace PometkaXP
                         txtBoxObsl.Text = MyDataReader.GetString(6);
                         txtBoxStatus.Text = MyDataReader.GetString(7);
                         txtBoxVvod.Text = MyDataReader.GetString(8);
-                        txtBoxVvod2.Text = MyDataReader.GetString(8);
                         txtBoxAdress.Text = MyDataReader.GetString(9);
                     }
                     MyDataReader.Close();
@@ -138,15 +150,18 @@ namespace PometkaXP
                 {
                     try
                     {
+                        string result = Microsoft.VisualBasic.Interaction.InputBox("Секретное слово:");
+
                         MySqlConnection myConnection = new MySqlConnection(Connect);
                         MySqlCommand myCommand = new MySqlCommand();
                         myConnection.Open();
                         myCommand.Connection = myConnection;
 
-                        myCommand.CommandText = string.Format("delete from Pometka where id = " + listView1.SelectedItems[0].SubItems[0].Text + " and flag = 1;");
+                        myCommand.CommandText = string.Format("delete from Pometka where id = '{0}' and flag = 1 and secret = '{1}';", listView1.SelectedItems[0].SubItems[0].Text, result.ToUpper());
                         myCommand.Prepare();//подготавливает строку
                         myCommand.ExecuteNonQuery();
                         buttonSearch_Click(sender, e);
+                        myConnection.Close();
                     }
                     catch (Exception ex)
                     {
@@ -155,6 +170,34 @@ namespace PometkaXP
                 }
             }
         }
+
+        private void btnEIRC_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                txtBoxLS.Clear();
+                MySqlConnection myConnection = new MySqlConnection(Connect);
+                MySqlCommand myCommand = new MySqlCommand();
+                myConnection.Open();
+                myCommand.Connection = myConnection;
+
+                myCommand.CommandText = string.Format("select EIRC_LS.id_ls from EIRC_LS where EIRC_LS.id_eirc = '{0}' ;", txtBoxSearchEIRC.Text.ToString());
+                myCommand.Prepare();//подготавливает строку
+                MyDataReader = myCommand.ExecuteReader();
+                while (MyDataReader.Read())
+                {
+                    txtBoxLS.Text = MyDataReader.GetString(0);
+                }
+
+                buttonSearch_Click(sender, e);
+                myConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
 
         private void txtBoxNomerVDM_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -192,7 +235,7 @@ namespace PometkaXP
         }
         private void listView1_DoubleClick(object sender, EventArgs e)
         {
-            TextPoemtka pometka = new TextPoemtka(listView1.SelectedItems[0].SubItems[2].Text);
+            TextPometka pometka = new TextPometka(listView1.SelectedItems[0].SubItems[2].Text);
             pometka.Show();
             //MessageBox.Show(listView1.SelectedItems[0].SubItems[2].Text);
         }
@@ -294,5 +337,34 @@ namespace PometkaXP
 
         }
 
+        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtBoxSumKvit_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxEIRC_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtBoxSearchEIRC_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

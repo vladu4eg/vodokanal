@@ -36,34 +36,25 @@ namespace GIS_DogWimForms
             }
         }
 
-        public void FileSave(string path)
+        public void FileSave(string path, string pathSave, int workNum, int numPos)
         {
             CreateDirIfNotExist(path, true);
 
-            using (XLWorkbook wb = new XLWorkbook())
+            using (XLWorkbook wb = new XLWorkbook(path))
             {
-                var workSheet = wb.Worksheets.Add("Sample Sheet");
-
+                var workSheet = wb.Worksheet(workNum);
                 for (int row = 0; row < Rows.Count; row++)
                 {
                     for (int col = 0; col < Rows[row].Count; col++)
                     {
-                        var cellAdress = GetExcelPos(row, col);
+                        var cellAdress = GetExcelPos(row + numPos, col);
 
-                        if (Rows[row][col].StartsWith("="))
-                        {
-                            workSheet.Cell(cellAdress).FormulaA1 = Rows[row][col];
-                        }
-                        else
-                        {
-                            workSheet.Cell(cellAdress).Style.NumberFormat.Format = "@";
-                            workSheet.Cell(cellAdress).Value = Rows[row][col];
-                        }
+                        workSheet.Cell(cellAdress).Style.NumberFormat.Format = "@";
+                        workSheet.Cell(cellAdress).Value = Rows[row][col];
                     }
                     count = 0;
                 }
-
-                wb.SaveAs(path);
+                wb.SaveAs(pathSave);
             }
         }
 

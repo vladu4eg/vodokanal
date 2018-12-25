@@ -41,6 +41,7 @@
             this.txtProxyServer = new System.Windows.Forms.TextBox();
             this.chbUseProxy = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkOplata = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.labCheckDostavka = new System.Windows.Forms.Label();
             this.labSend = new System.Windows.Forms.Label();
@@ -52,7 +53,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.btnGener = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.chkOplata = new System.Windows.Forms.CheckBox();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -155,7 +155,6 @@
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Авторизация";
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // label3
             // 
@@ -165,6 +164,7 @@
             this.label3.Size = new System.Drawing.Size(64, 17);
             this.label3.TabIndex = 19;
             this.label3.Text = "Баланс: ";
+            this.label3.Click += new System.EventHandler(this.label3_Click_1);
             // 
             // txtProxyServer
             // 
@@ -206,7 +206,17 @@
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Импорт";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter_1);
+
+            // 
+            // chkOplata
+            // 
+            this.chkOplata.AutoSize = true;
+            this.chkOplata.Location = new System.Drawing.Point(7, 121);
+            this.chkOplata.Name = "chkOplata";
+            this.chkOplata.Size = new System.Drawing.Size(82, 21);
+            this.chkOplata.TabIndex = 24;
+            this.chkOplata.Text = "Оплаты";
+            this.chkOplata.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -224,7 +234,7 @@
             this.labCheckDostavka.Size = new System.Drawing.Size(92, 17);
             this.labCheckDostavka.TabIndex = 21;
             this.labCheckDostavka.Text = "Доставлено:";
-            this.labCheckDostavka.Click += new System.EventHandler(this.labCheckDostavka_Click);
+
             // 
             // labSend
             // 
@@ -234,7 +244,7 @@
             this.labSend.Size = new System.Drawing.Size(93, 17);
             this.labSend.TabIndex = 18;
             this.labSend.Text = "Отправлено:";
-            this.labSend.Click += new System.EventHandler(this.label9_Click);
+
             // 
             // btnCheckSend
             // 
@@ -255,7 +265,7 @@
             this.labTime.Size = new System.Drawing.Size(128, 17);
             this.labTime.TabIndex = 15;
             this.labTime.Text = "Время обработки:";
-            this.labTime.Click += new System.EventHandler(this.label3_Click);
+
             // 
             // labImport
             // 
@@ -306,16 +316,6 @@
             this.btnGener.UseVisualStyleBackColor = true;
             this.btnGener.Click += new System.EventHandler(this.btnGener_Click);
             // 
-            // chkOplata
-            // 
-            this.chkOplata.AutoSize = true;
-            this.chkOplata.Location = new System.Drawing.Point(7, 121);
-            this.chkOplata.Name = "chkOplata";
-            this.chkOplata.Size = new System.Drawing.Size(82, 21);
-            this.chkOplata.TabIndex = 24;
-            this.chkOplata.Text = "Оплаты";
-            this.chkOplata.UseVisualStyleBackColor = true;
-            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -327,7 +327,6 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "mainForm";
             this.Text = "Рассылка СМС";
-            this.Load += new System.EventHandler(this.mainForm_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);

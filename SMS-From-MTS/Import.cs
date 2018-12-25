@@ -109,8 +109,11 @@ namespace M2MSOAPSample
         {
             try
             {
+                myConnection.Open();
+
                 for (int i = 0; i < importFile.Rows.Count(); i++)
                 {
+
                     if (importFile.Rows[i][6].ToString() == "2" && checkDolg)
                     {
                         Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}')",
@@ -129,7 +132,7 @@ namespace M2MSOAPSample
                             MySqlHelper.EscapeString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
                             MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
                             MySqlHelper.EscapeString(importFile.Rows[i][3].ToString()),
-                            MySqlHelper.EscapeString(string.Format("Поверка водомера до {0} \n79789470440 \nЯлта,ул.Кривошты,27", importFile.Rows[i][5].ToString())),
+                            MySqlHelper.EscapeString(string.Format("Поверка водомера до {0}\n79789470440\nЯлта,ул.Кривошты,27", importFile.Rows[i][5].ToString())),
                             MySqlHelper.EscapeString(importFile.Rows[i][6].ToString()),
                             MySqlHelper.EscapeString("NULL")));
                         countGP++;

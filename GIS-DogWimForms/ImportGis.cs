@@ -14,7 +14,7 @@ namespace GIS_DogWimForms
         Excel importFile = new Excel();
         List<string> Rows = new List<string>();
 
-        StringBuilder sCommand = new StringBuilder("INSERT INTO id_ls VALUES ");
+        StringBuilder sCommand = new StringBuilder("INSERT INTO gis_ls VALUES ");
 
         string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=" + Protect.PasswordMysql);
 
@@ -62,14 +62,14 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            StringBuilder sCommand = new StringBuilder("INSERT INTO id_gis VALUES ");
+            StringBuilder sCommand = new StringBuilder("INSERT INTO gis_id VALUES ");
 
             for (int i = 0; i < importFile.Rows.Count(); i++)
             {
                 Rows.Add(string.Format("('{0}','{1}','{2}')",
                     MySqlHelper.EscapeString(importFile.Rows[i][2].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
-                    MySqlHelper.EscapeString(importFile.Rows[i][41].ToString())));
+                    MySqlHelper.EscapeString(importFile.Rows[i][42].ToString())));
             }
 
             importFile.Rows.Clear();
@@ -98,13 +98,13 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            StringBuilder sCommand = new StringBuilder("INSERT INTO object_adress VALUES ");
+            StringBuilder sCommand = new StringBuilder("INSERT INTO gis_object_adress VALUES ");
 
             importFile.Rows.RemoveRange(0, 2);
 
             for (int i = 0; i < importFile.Rows.Count(); i++)
             {
-                Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}')",
+                Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}')",
                     MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][1].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][2].ToString()),
@@ -122,8 +122,14 @@ namespace GIS_DogWimForms
                     MySqlHelper.EscapeString(importFile.Rows[i][14].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][15].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][16].ToString()),
+                    MySqlHelper.EscapeString(importFile.Rows[i][17].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][18].ToString()),
-                    MySqlHelper.EscapeString(importFile.Rows[i][19].ToString())));
+                    MySqlHelper.EscapeString(importFile.Rows[i][19].ToString()),
+                    MySqlHelper.EscapeString(importFile.Rows[i][20].ToString()),
+                    MySqlHelper.EscapeString(importFile.Rows[i][21].ToString()),
+                    MySqlHelper.EscapeString(importFile.Rows[i][22].ToString()),
+                    MySqlHelper.EscapeString(importFile.Rows[i][23].ToString()),
+                    MySqlHelper.EscapeString(importFile.Rows[i][24].ToString())));
             }
 
             sCommand.Append(string.Join(",", Rows));
@@ -149,13 +155,13 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            StringBuilder sCommand = new StringBuilder("INSERT INTO id_py_main VALUES ");
+            StringBuilder sCommand = new StringBuilder("INSERT INTO gis_py_main VALUES ");
 
             importFile.Rows.RemoveRange(0, 2);
 
             for (int i = 0; i < importFile.Rows.Count(); i++)
             {
-                Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}', '{19}', '{2}0', '{21}', '{22}', '{23}', '{24}', '{25}', '{26}', '{27}', '{28}', '{29}', '{30}', '{31}', '{32}', '{33}', '{34}', '{35}', '{36}', '{37}', '{38}', '{39}', '{40}', '{41}', '{42}', '{43}', '{44}', '{45}', '{46}', '{47}')",
+                Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}', '{19}', '{20}', '{21}', '{22}', '{23}', '{24}', '{25}', '{26}', '{27}', '{28}', '{29}', '{30}', '{31}', '{32}', '{33}', '{34}', '{35}', '{36}', '{37}', '{38}', '{39}', '{40}', '{41}', '{42}', '{43}', '{44}', '{45}', '{46}', '{47}', '{48}','{49}')",
                     MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][1].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][2].ToString()),
@@ -203,7 +209,9 @@ namespace GIS_DogWimForms
                     MySqlHelper.EscapeString(importFile.Rows[i][44].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][45].ToString()),
                     MySqlHelper.EscapeString(importFile.Rows[i][46].ToString()),
-                    MySqlHelper.EscapeString(importFile.Rows[i][47].ToString())));
+                    MySqlHelper.EscapeString(importFile.Rows[i][47].ToString()),
+                    MySqlHelper.EscapeString(importFile.Rows[i][48].ToString()),
+                    MySqlHelper.EscapeString(importFile.Rows[i][49].ToString())));
             }
 
             sCommand.Append(string.Join(",", Rows));

@@ -11,62 +11,97 @@ namespace GIS_DogWimForms
         // класс protect содержит только две переменные PasswordOracle и PasswordMysql.
         public Main()
         {
-
             InitializeComponent();
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void btnProjectDogovor_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
             Dogovor dogovor = new Dogovor();
-            dogovor.ProjectDogovor();
+            dogovor.ProjectDogovor(openFileDialog1.FileName);
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void btnNewDogovor_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
             Dogovor dogovor = new Dogovor();
-            dogovor.CreateDogovor();
+            dogovor.CreateDogovor(openFileDialog1.FileName);
         }
 
-        private void button9_Click(object sender, EventArgs e)
+        private void btnNewLS_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
             LS ls = new LS();
-            ls.CreateLS(chkBoxOnlyMKD.Checked);
+            ls.CreateLS(chkBoxOnlyMKD.Checked, openFileDialog1.FileName);
         }
 
-        private void button10_Click(object sender, EventArgs e)
+        private void btnHome_Click(object sender, EventArgs e)
         {
-            Home home = new Home();
-            home.CreateHome();
+       //     Home home = new Home();
+       //     home.CreateHome();
         }
 
-        private void button11_Click(object sender, EventArgs e)
+        private void btnIPY_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
             PY py = new PY();
-            py.AddIPY();
+            py.AddIPY(openFileDialog1.FileName);
+            //py.DeleteIPY();
+        }
+
+        private void btnODPY_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+            PY py = new PY();
+            py.AddODPY(openFileDialog1.FileName);
+        }
+
+        private void btnDelIPY_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+            PY py = new PY();
+            py.DeleteIPY(openFileDialog1.FileName);
         }
 
         private void btnPokaz_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+
             Pokaz pokaz = new Pokaz();
-            Update update = new Update();
-
-            update.UpdateClearPY();
-            update.UpdatePY();
-
-            pokaz.AddPokazIPY();
-            pokaz.AddPokazODPY();
+            pokaz.AddPokazIPY(openFileDialog1.FileName);
+            //pokaz.AddPokazODPY(openFileDialog1.FileName);
         }
 
         private void btnKvit_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
             Kvit kvit = new Kvit();
-            kvit.CreatKvit();
+            kvit.CreatKvit(openFileDialog1.FileName);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+
             PY py = new PY();
-            py.PyFIX();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -88,7 +123,7 @@ namespace GIS_DogWimForms
             //update.UpdateAdress();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnUpdatePD_Click(object sender, EventArgs e)
         {
             update.UpdateClearPD();
 
@@ -118,6 +153,7 @@ namespace GIS_DogWimForms
 
         private void btnImportLS_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
             ImportGis importGis = new ImportGis();
@@ -130,29 +166,33 @@ namespace GIS_DogWimForms
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btnImportDogovor_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
             ImportGis importGis = new ImportGis();
             importGis.ImpotGis(openFileDialog1.FileName);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnImportAdress_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
             ImportGis importGis = new ImportGis();
             importGis.ImportObject(openFileDialog1.FileName);
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void btnImportPY_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
             ImportGis importGis = new ImportGis();
             importGis.ImportPY(openFileDialog1.FileName);
         }
+
 
         private void buttonImportLS_Click(object sender, EventArgs e)
         {
@@ -173,5 +213,6 @@ namespace GIS_DogWimForms
         {
 
         }
+
     }
 }

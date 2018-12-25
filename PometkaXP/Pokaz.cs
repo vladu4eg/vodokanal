@@ -23,7 +23,7 @@ namespace PometkaXP
             if (inv != null)
                 zapros = string.Format("where INV_N = '" + inv.ToString() + "' ");
             else if (vvod_nomer != null)
-                zapros = string.Format("where vvod_id = '" + vvod_nomer.ToString() + "' "); ;
+                zapros = string.Format("where vvod_id = '" + vvod_nomer.ToString() + "' ");
 
             try
             {

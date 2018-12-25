@@ -13,7 +13,7 @@ namespace GIS_DogWimForms
         string checkMKD;
         string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=" + Protect.PasswordMysql);
 
-        public void CreateLS(bool chk)
+        public void CreateLS(bool chk, string path)
         {
             if (chk)
                 checkMKD = "and ipadr_new.pomesh <> '' ";
@@ -26,48 +26,54 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("select distinct import_lischt.id,  " +
-                "import_lischt.id," +
-                "''," +
-                "'ЛС РСО'," +
-                "'Нет'," +
-                "''," +
-                "import_lischt.famil," +
-                "import_lischt.imen," +
-                "import_lischt.otch," +
-                "import_lischt.SNILS," +
-                "import_lischt.type_doc," +
-                "import_lischt.num_doc," +
-                "import_lischt.seria_doc," +
-                "import_lischt.data_doc," +
-                "'', '', '', '', '', '', ''," +
-                "import_lischt.id," +
-                "''," +
-                "ipadr_new.ipadr," +
-                "case when object_adress.id_kvt != '' " +
-                "then 'Жилое помещение'  " +
-                "else '' " +
-                "end JIL ," +
-                "case when object_adress.id_kvt != '' " +
-                "then ipadr_new.pomesh  " +
-                "else '' " +
-                "end pomesh," +
-                "import_lischt.id," +
-                "'Договор ресурсоснабжения (ЛС РСО или ЛС РЦ)'," +
-                "id_gis.id_gis " +
-                "from import_lischt, ipadr_new, object_adress, id_gis " +
-                "where import_lischt.id NOT IN " +
-                "(" +
-                "SELECT id_ls.id " +
-                "FROM id_ls " +
-                ") " +
-                "and import_lischt.id = ipadr_new.id " +
-                "and import_lischt.id = id_gis.id " +
-                "and ipadr_new.ipadr = object_adress.HOUSEGUID_fias " +
-                "and ipadr_new.pomesh = object_adress.kv " +
-                "and id_gis.`status` = 'Размещен' " +
-                checkMKD +
-                "order by import_lischt.id; ");
+            myCommand.CommandText = string.Format(@"select distinct mb_ls.ls,   
+                mb_ls.ls,
+                '',
+                'ЛС РСО',
+                'Нет',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '', '', '', '', '', '', '',
+                mb_ls.ls,
+                '',
+                tmp_ipadr_new.ipadr,
+                case when gis_object_adress.type_dom = 'Многоквартирный'
+                    then 'Жилое помещение'
+                when gis_object_adress.type_dom = 'Жилой'
+                    then ''
+                when gis_object_adress.type_dom = 'Жилой дом блокированной застройки'
+                    then 'Блок в доме блокированной застройки'
+                end JIL,
+                case when gis_object_adress.type_dom = 'Многоквартирный'
+                    then tmp_ipadr_new.pomesh
+                when gis_object_adress.type_dom = 'Жилой'
+                    then ''
+                when gis_object_adress.type_dom = 'Жилой дом блокированной застройки'
+                     then tmp_ipadr_new.pomesh
+                end pomesh,
+                mb_ls.ls,
+                'Договор ресурсоснабжения (ЛС РСО или ЛС РЦ)',
+                gis_id.id_gis 
+                from mb_ls, tmp_ipadr_new, gis_object_adress, gis_id 
+                where mb_ls.ls NOT IN 
+                ( 
+                SELECT gis_ls.id 
+                FROM gis_ls 
+                ) 
+                and mb_ls.ls = tmp_ipadr_new.id 
+                and mb_ls.ls = gis_id.id 
+                and tmp_ipadr_new.ipadr = gis_object_adress.HOUSEGUID_fias 
+                -- and tmp_ipadr_new.pomesh = gis_object_adress.kv 
+                and gis_id.`status` = 'Размещен' "
+                + checkMKD +
+                "order by mb_ls.ls; ");
             myCommand.Prepare();//подготавливает строку
 
             MyDataReader = myCommand.ExecuteReader();
@@ -113,23 +119,27 @@ namespace GIS_DogWimForms
                                 MyDataReader.GetString(28));
 
                 z++;
+
                 if (z % 1000 == 0)
                 {
-                    Ls.FileSave("c:\\gis\\LS" + y + "k.xlsx");
+                    string path2 = "c:\\gis\\LS" + y + "k.xlsx";
+
+                    Ls.FileSave(path, path2, 1,2);
                     Ls.Rows.Clear();
 
-                    adress.FileSave("c:\\gis\\adress" + y + "k.xlsx");
+                    adress.FileSave(path2, path2,2,2);
                     adress.Rows.Clear();
 
-                    dogovor.FileSave("c:\\gis\\DOGLS" + y + "k.xlsx");
+                    dogovor.FileSave(path2, path2,3,2);
                     dogovor.Rows.Clear();
 
                     y++;
                 }
             }
-            dogovor.FileSave("c:\\gis\\DOGLS-Final.xlsx");
-            adress.FileSave("c:\\gis\\adress-Final.xlsx");
-            Ls.FileSave("c:\\gis\\LS-Final.xlsx");
+            Ls.FileSave(path, "c:\\gis\\LS_Final.xlsx", 1,2);
+            adress.FileSave("c:\\gis\\LS_Final.xlsx", "c:\\gis\\LS_Final.xlsx", 2,2);
+            dogovor.FileSave("c:\\gis\\LS_Final.xlsx", "c:\\gis\\LS_Final.xlsx", 3,2);
+
 
             dogovor.Rows.Clear();
             Ls.Rows.Clear();

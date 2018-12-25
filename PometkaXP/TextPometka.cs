@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace PometkaXP
 {
-    public partial class TextPoemtka : Form
+    public partial class TextPometka : Form
     {
-        public TextPoemtka(string text)
+        public TextPometka(string text)
         {
             InitializeComponent();
             textBox1.Text = text;

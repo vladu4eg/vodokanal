@@ -1,6 +1,6 @@
 ﻿namespace PometkaXP
 {
-    partial class TextPoemtka
+    partial class TextPometka
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextPoemtka));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextPometka));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 

@@ -1,6 +1,6 @@
 ﻿namespace PometkaXP
 {
-    partial class Form1
+    partial class MainPage
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPage));
             this.txtBoxLS = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -59,8 +59,8 @@
             this.txtBoxLSKvit = new System.Windows.Forms.TextBox();
             this.txtBoxSumKvit = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtBoxVvod2 = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.txtBoxAdress = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label13 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
@@ -69,8 +69,9 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnNewPometka = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.txtBoxAdress = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.btnEIRC = new System.Windows.Forms.Button();
+            this.txtBoxSearchEIRC = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -93,7 +94,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(138, 31);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Поиск заметок";
+            this.button1.Text = "Поиск по ЛС";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
@@ -102,9 +103,9 @@
             this.listView1.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.listView1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView1.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.listView1.Location = new System.Drawing.Point(12, 344);
+            this.listView1.Location = new System.Drawing.Point(12, 382);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(884, 307);
+            this.listView1.Size = new System.Drawing.Size(884, 269);
             this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
@@ -134,7 +135,7 @@
             this.txtBoxSaldo.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtBoxSaldo.Location = new System.Drawing.Point(174, 55);
             this.txtBoxSaldo.Name = "txtBoxSaldo";
-            this.txtBoxSaldo.Size = new System.Drawing.Size(128, 27);
+            this.txtBoxSaldo.Size = new System.Drawing.Size(407, 27);
             this.txtBoxSaldo.TabIndex = 6;
             // 
             // label2
@@ -264,18 +265,18 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(461, 40);
+            this.button3.Location = new System.Drawing.Point(461, 77);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(138, 31);
             this.button3.TabIndex = 21;
-            this.button3.Text = "Поиск показ...";
+            this.button3.Text = "Поиск по инв...";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // txtBoxNomerVDM
             // 
             this.txtBoxNomerVDM.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtBoxNomerVDM.Location = new System.Drawing.Point(132, 43);
+            this.txtBoxNomerVDM.Location = new System.Drawing.Point(132, 80);
             this.txtBoxNomerVDM.Name = "txtBoxNomerVDM";
             this.txtBoxNomerVDM.Size = new System.Drawing.Size(323, 27);
             this.txtBoxNomerVDM.TabIndex = 20;
@@ -296,11 +297,12 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(15, 47);
+            this.label10.Location = new System.Drawing.Point(15, 84);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(94, 19);
             this.label10.TabIndex = 23;
             this.label10.Text = "Номер В/Д:\r\n";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // button2
             // 
@@ -351,14 +353,13 @@
             this.txtBoxSumKvit.Name = "txtBoxSumKvit";
             this.txtBoxSumKvit.Size = new System.Drawing.Size(109, 28);
             this.txtBoxSumKvit.TabIndex = 25;
+            this.txtBoxSumKvit.TextChanged += new System.EventHandler(this.txtBoxSumKvit_TextChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.txtBoxAdress);
             this.groupBox1.Controls.Add(this.label15);
-            this.groupBox1.Controls.Add(this.txtBoxVvod2);
             this.groupBox1.Controls.Add(this.txtBoxFIO);
-            this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtBoxSaldo);
@@ -375,119 +376,13 @@
             this.groupBox1.Controls.Add(this.txtBoxObsl);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 114);
+            this.groupBox1.Location = new System.Drawing.Point(12, 151);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(587, 225);
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Информация ЛС";
+            this.groupBox1.Text = "Информация по ЛС";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
-            // 
-            // txtBoxVvod2
-            // 
-            this.txtBoxVvod2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtBoxVvod2.Location = new System.Drawing.Point(365, 54);
-            this.txtBoxVvod2.Name = "txtBoxVvod2";
-            this.txtBoxVvod2.Size = new System.Drawing.Size(216, 27);
-            this.txtBoxVvod2.TabIndex = 20;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label14.Location = new System.Drawing.Point(308, 58);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(51, 19);
-            this.label14.TabIndex = 19;
-            this.label14.Text = "Ввод:";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.txtBoxSumKvit);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.txtBoxLSKvit);
-            this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox2.Location = new System.Drawing.Point(605, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(291, 100);
-            this.groupBox2.TabIndex = 32;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Квитанции";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(15, 84);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(107, 19);
-            this.label13.TabIndex = 35;
-            this.label13.Text = "Номер ввода:\r\n";
-            // 
-            // button4
-            // 
-            this.button4.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Location = new System.Drawing.Point(461, 77);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(138, 31);
-            this.button4.TabIndex = 34;
-            this.button4.Text = "Поиск показ...";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // txtBoxVvod
-            // 
-            this.txtBoxVvod.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtBoxVvod.Location = new System.Drawing.Point(132, 80);
-            this.txtBoxVvod.Name = "txtBoxVvod";
-            this.txtBoxVvod.Size = new System.Drawing.Size(323, 27);
-            this.txtBoxVvod.TabIndex = 33;
-            this.txtBoxVvod.TextChanged += new System.EventHandler(this.txtBoxVvod_TextChanged);
-            this.txtBoxVvod.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxVvod_KeyPress);
-            // 
-            // listView2
-            // 
-            this.listView2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listView2.Location = new System.Drawing.Point(6, 21);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(279, 156);
-            this.listView2.TabIndex = 36;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.listView2);
-            this.groupBox3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox3.Location = new System.Drawing.Point(605, 114);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(291, 183);
-            this.groupBox3.TabIndex = 37;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Сальдо";
-            // 
-            // btnNewPometka
-            // 
-            this.btnNewPometka.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnNewPometka.Location = new System.Drawing.Point(611, 303);
-            this.btnNewPometka.Name = "btnNewPometka";
-            this.btnNewPometka.Size = new System.Drawing.Size(139, 36);
-            this.btnNewPometka.TabIndex = 37;
-            this.btnNewPometka.Text = "Добавить пометку";
-            this.btnNewPometka.UseVisualStyleBackColor = true;
-            this.btnNewPometka.Click += new System.EventHandler(this.btnNewPometka_Click);
-            // 
-            // button5
-            // 
-            this.button5.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.Location = new System.Drawing.Point(757, 303);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(139, 35);
-            this.button5.TabIndex = 38;
-            this.button5.Text = "Удалить пометку";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // txtBoxAdress
             // 
@@ -508,11 +403,137 @@
             this.label15.TabIndex = 21;
             this.label15.Text = "Адрес:";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.txtBoxSumKvit);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.txtBoxLSKvit);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox2.Location = new System.Drawing.Point(605, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(291, 100);
+            this.groupBox2.TabIndex = 32;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Квитанции";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label13.Location = new System.Drawing.Point(15, 121);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(107, 19);
+            this.label13.TabIndex = 35;
+            this.label13.Text = "Номер ввода:\r\n";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
+            // 
+            // button4
+            // 
+            this.button4.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button4.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.Location = new System.Drawing.Point(461, 114);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(138, 31);
+            this.button4.TabIndex = 34;
+            this.button4.Text = "Поиск по вводу";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // txtBoxVvod
+            // 
+            this.txtBoxVvod.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtBoxVvod.Location = new System.Drawing.Point(132, 117);
+            this.txtBoxVvod.Name = "txtBoxVvod";
+            this.txtBoxVvod.Size = new System.Drawing.Size(323, 27);
+            this.txtBoxVvod.TabIndex = 33;
+            this.txtBoxVvod.TextChanged += new System.EventHandler(this.txtBoxVvod_TextChanged);
+            this.txtBoxVvod.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxVvod_KeyPress);
+            // 
+            // listView2
+            // 
+            this.listView2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView2.Location = new System.Drawing.Point(6, 21);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(279, 193);
+            this.listView2.TabIndex = 36;
+            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.SelectedIndexChanged += new System.EventHandler(this.listView2_SelectedIndexChanged);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.listView2);
+            this.groupBox3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox3.Location = new System.Drawing.Point(605, 114);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(291, 220);
+            this.groupBox3.TabIndex = 37;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Сальдо";
+            // 
+            // btnNewPometka
+            // 
+            this.btnNewPometka.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnNewPometka.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.btnNewPometka.Location = new System.Drawing.Point(611, 340);
+            this.btnNewPometka.Name = "btnNewPometka";
+            this.btnNewPometka.Size = new System.Drawing.Size(139, 36);
+            this.btnNewPometka.TabIndex = 37;
+            this.btnNewPometka.Text = "Добавить пометку";
+            this.btnNewPometka.UseVisualStyleBackColor = true;
+            this.btnNewPometka.Click += new System.EventHandler(this.btnNewPometka_Click);
+            // 
+            // button5
+            // 
+            this.button5.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button5.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button5.ForeColor = System.Drawing.Color.DarkRed;
+            this.button5.Location = new System.Drawing.Point(757, 340);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(139, 35);
+            this.button5.TabIndex = 38;
+            this.button5.Text = "Удалить пометку";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label17.Location = new System.Drawing.Point(15, 47);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(85, 19);
+            this.label17.TabIndex = 41;
+            this.label17.Text = "ЕИРЦ ЛС:\r\n";
+            // 
+            // btnEIRC
+            // 
+            this.btnEIRC.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnEIRC.Location = new System.Drawing.Point(461, 40);
+            this.btnEIRC.Name = "btnEIRC";
+            this.btnEIRC.Size = new System.Drawing.Size(138, 31);
+            this.btnEIRC.TabIndex = 40;
+            this.btnEIRC.Text = "Поиск по ЕИРЦ";
+            this.btnEIRC.UseVisualStyleBackColor = true;
+            this.btnEIRC.Click += new System.EventHandler(this.btnEIRC_Click);
+            // 
+            // txtBoxSearchEIRC
+            // 
+            this.txtBoxSearchEIRC.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtBoxSearchEIRC.Location = new System.Drawing.Point(132, 43);
+            this.txtBoxSearchEIRC.Name = "txtBoxSearchEIRC";
+            this.txtBoxSearchEIRC.Size = new System.Drawing.Size(323, 27);
+            this.txtBoxSearchEIRC.TabIndex = 39;
+            this.txtBoxSearchEIRC.TextChanged += new System.EventHandler(this.txtBoxSearchEIRC_TextChanged);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(907, 663);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.btnEIRC);
+            this.Controls.Add(this.txtBoxSearchEIRC);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.btnNewPometka);
             this.Controls.Add(this.groupBox3);
@@ -528,7 +549,7 @@
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtBoxLS);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -580,14 +601,15 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox txtBoxVvod;
-        private System.Windows.Forms.TextBox txtBoxVvod2;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnNewPometka;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox txtBoxAdress;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button btnEIRC;
+        private System.Windows.Forms.TextBox txtBoxSearchEIRC;
     }
 }
 

@@ -45,42 +45,25 @@ namespace M2MSOAPSample
                     "where delivery = 0 " +
                     "and sms_id = 0 " +
                     "and length(phone) = 11 " +
-                    "and date_format(sendDate, '%Y-%m') = date_format(now(), '%Y-%m') order by licscht; ");
+                    "and date_format(sendDate, '%Y-%m') = date_format(now(), '%Y-%m') order by plan.msg_type, licscht; ");
                 myCommand.Prepare();//подготавливает строку
                 MyDataReader = myCommand.ExecuteReader();
-                while (MyDataReader.Read())
-                {
-                    list.Add(MyDataReader.GetString(0));
-                    list.Add(MyDataReader.GetString(1));
-                    list.Add(MyDataReader.GetString(2));
-                    list.Add(MyDataReader.GetString(3));
-                }
-                MyDataReader.Close();
+                
                 //Прокси для вызова методов сервиса
                 MTSCommunicatorM2MXMLAPI client = GetSoapService();
-                for (int i = 0; i <= list.Count-4; )
+                while (MyDataReader.Read())
                 {
-                    //Послать сообщение
-
-                    idSMS = client.SendMessage(list[i+1], list[i + 2], "Vodokanal", txtLogin.Text, GetMd5Hash(txtPassword.Text));
+                    idSMS = client.SendMessage(MyDataReader.GetString(1), MyDataReader.GetString(2), "Vodokanal", txtLogin.Text, GetMd5Hash(txtPassword.Text));
                     if (IsDigitsOnly(idSMS))
                     {
                         //Сформировать запрос 
                         sCommand.Append(string.Format("update plan set sms_id=" + idSMS + " where licscht='{0}' and phone='{1}' and id='{2}' and date_format(sendDate,'%Y-%m')=date_format(now(),'%Y-%m') and sms_id=0; ",
-                                                   list[i + 0], list[i + 1], list[i + 3]));   //сравниваю по тексту... вдруг на один номер несколько смс и я могу присвоить айди не той СМСки.
+                                                   MyDataReader.GetString(0), MyDataReader.GetString(1), MyDataReader.GetString(3)));   //сравниваю по тексту... вдруг на один номер несколько смс и я могу присвоить айди не той СМСки.
                                                                                                                                         //это была глупая идея... лучше сравнивать по внутр айди смс
                         count_sms++;
-
-                        if (i % 4000 == 0)
-                        {
-                            myCommand.CommandText = sCommand.ToString();
-                            myCommand.Prepare();
-                            myCommand.ExecuteNonQuery();
-                            sCommand.Clear();
-                        }
                     }
-                    i += 4;
                 }
+                MyDataReader.Close();
 
                 //Подготавливаем и выполняем
                 myCommand.CommandText = sCommand.ToString();
@@ -92,15 +75,12 @@ namespace M2MSOAPSample
             {
                 labSend.Text = Convert.ToString(string.Format("Отправлено: {0}", count_sms));
                 MessageBox.Show(string.Format(ex.Message));
-                //Подготавливаем и выполняем
-                myCommand.CommandText = sCommand.ToString();
-                myCommand.Prepare();
-                myCommand.ExecuteNonQuery();
             }
+
             stopwatch.Stop();
-            MyDataReader.Close();
             myConnection.Close();
             sCommand.Clear();
+
             labTime.Text = string.Format("Время отправки СМС: " + stopwatch.Elapsed);
             labSend.Text = Convert.ToString(string.Format("Отправлено: {0}", count_sms));
             stopwatch.Reset();
@@ -113,7 +93,6 @@ namespace M2MSOAPSample
                 if (c < '0' || c > '9')
                     return false;
             }
-
             return true;
         }
 
@@ -121,14 +100,13 @@ namespace M2MSOAPSample
         {
             stopwatch.Start();
             labCheckDostavka.Text = "Доставлено:";
+            sCommand.Clear();
 
             int countStatus0 = 0;
             int countStatus1 = 0;
             int countStatus2 = 0;
             int status = 0;
 
-            List<long> id_list = new List<long>();
-            StringBuilder sb = new StringBuilder();
             try
             {
                 myConnection.Open();
@@ -140,18 +118,13 @@ namespace M2MSOAPSample
                     "and date_format(sendDate, '%Y-%m') = date_format(now(), '%Y-%m'); ");
                 myCommand.Prepare();//подготавливает строку
                 MyDataReader = myCommand.ExecuteReader();
-                while (MyDataReader.Read())
-                {
-                    id_list.Add(Convert.ToInt64(MyDataReader.GetString(0)));
-                }
-                MyDataReader.Close();
 
-                foreach (long id_foreach in id_list)
+                while (MyDataReader.Read())
                 {
                     //Прокси для вызова методов сервиса
                     MTSCommunicatorM2MXMLAPI client = GetSoapService();
                     //Получить статус доставки для сообщения
-                    DeliveryInfo[] info = client.GetMessageStatus(id_foreach, txtLogin.Text, GetMd5Hash(txtPassword.Text));
+                    DeliveryInfo[] info = client.GetMessageStatus(MyDataReader.GetInt64(0), txtLogin.Text, GetMd5Hash(txtPassword.Text));
 
                     switch (info[0].DeliveryStatus.ToString())
                     {
@@ -178,17 +151,8 @@ namespace M2MSOAPSample
                             break;
 
                     }
-                    sb.Append(string.Format("update plan set delivery='{0}', delivery_type='{1}', reciveDate='{2}' where sms_id='{3}'; ",
-                        status, info[0].DeliveryStatus, info[0].DeliveryDate.ToString("yyyy-MM-dd HH:mm:ss"), id_foreach));
-
-                    if ((countStatus1 + countStatus2 + countStatus0) % 1000 == 0)
-                    {
-                        myCommand.CommandText = sb.ToString();
-                        myCommand.Prepare();
-                        myCommand.ExecuteNonQuery();
-                        sb.Clear();
-                    }
-
+                    sCommand.Append(string.Format("update plan set delivery='{0}', delivery_type='{1}', reciveDate='{2}' where sms_id='{3}'; ",
+                        status, info[0].DeliveryStatus, info[0].DeliveryDate.ToString("yyyy-MM-dd HH:mm:ss"), MyDataReader.GetInt64(0)));
                 }
 
                 labCheckDostavka.Text = string.Format("Доставлено:\n" +
@@ -197,29 +161,13 @@ namespace M2MSOAPSample
                                         "Ошибка: {2}\n" +
                                         "Всего: {3}\n", countStatus0, countStatus1, countStatus2, (countStatus0 + countStatus1 + countStatus2));
 
-
-                myCommand.CommandText = sb.ToString();
-                myCommand.Prepare();
-                myCommand.ExecuteNonQuery();
-
             }
             catch (Exception ex)
             {
-                myCommand.CommandText = sb.ToString();
-                myCommand.Prepare();
-                myCommand.ExecuteNonQuery();
-
-                labCheckDostavka.Text = string.Format("Доставлено:\n" +
-                        "В ожид.: {0}\n" +
-                        "Получ.: {1}\n" +
-                        "Ошибка: {2}\n" +
-                        "Всего: {3}\n", countStatus0, countStatus1, countStatus2, (countStatus0 + countStatus1 + countStatus2));
-
                 MessageBox.Show(string.Format(ex.Message));
             }
             myConnection.Close();
-            sb.Clear();
-            id_list.Clear();
+            sCommand.Clear();
             stopwatch.Stop();
             labTime.Text = string.Format("Время проверки доставки: " + stopwatch.Elapsed);
             stopwatch.Reset();
@@ -239,12 +187,6 @@ namespace M2MSOAPSample
             stopwatch.Stop();
             labTime.Text = string.Format("Время обработки: " + stopwatch.Elapsed);
             stopwatch.Reset();
-        }
-
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-
         }
 
         private MTSCommunicatorM2MXMLAPI GetSoapService()
@@ -291,7 +233,7 @@ namespace M2MSOAPSample
             //Прокси для вызова методов сервиса
             MTSCommunicatorM2MXMLAPI client = GetSoapService();
             //Получить статус доставки для сообщения
-            label3.Text = string.Format("Баланс: " + client.GetBalance(login, password));
+            label3.Text = string.Format("Баланс: " + client.GetBalance(login, password) + " на " + DateTime.Now.ToString("HH:mm:ss dd.MM.yy"));
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -299,42 +241,9 @@ namespace M2MSOAPSample
             GetBalance(txtLogin.Text, GetMd5Hash(txtPassword.Text));
         }
 
-        private void groupBox1_Enter_1(object sender, EventArgs e)
+        private void label3_Click_1(object sender, EventArgs e)
         {
-
-        }
-
-        private void mainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void groupBox3_Enter(object sender, EventArgs e)
-        {
-
-        }
-        private void labCheckDostavka_Click(object sender, EventArgs e)
-        {
-
+            GetBalance(txtLogin.Text, GetMd5Hash(txtPassword.Text));
         }
     }
 }
