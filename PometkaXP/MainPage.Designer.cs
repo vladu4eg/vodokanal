@@ -527,7 +527,7 @@
             this.txtBoxSearchEIRC.TabIndex = 39;
             this.txtBoxSearchEIRC.TextChanged += new System.EventHandler(this.txtBoxSearchEIRC_TextChanged);
             // 
-            // Form1
+            // MainPage
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(907, 663);
@@ -551,7 +551,7 @@
             this.Controls.Add(this.txtBoxLS);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "MainPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Поиск заметок";
             this.Load += new System.EventHandler(this.Form1_Load);

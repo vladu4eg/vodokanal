@@ -53,6 +53,8 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.btnGener = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.chkNormtative = new System.Windows.Forms.CheckBox();
+            this.chkSred = new System.Windows.Forms.CheckBox();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -98,7 +100,7 @@
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(153, 148);
+            this.btnSend.Location = new System.Drawing.Point(153, 202);
             this.btnSend.Margin = new System.Windows.Forms.Padding(4);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(119, 49);
@@ -188,6 +190,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkSred);
+            this.groupBox1.Controls.Add(this.chkNormtative);
             this.groupBox1.Controls.Add(this.chkOplata);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.labCheckDostavka);
@@ -202,21 +206,22 @@
             this.groupBox1.Controls.Add(this.btnSend);
             this.groupBox1.Location = new System.Drawing.Point(16, 237);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(462, 247);
+            this.groupBox1.Size = new System.Drawing.Size(462, 307);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Импорт";
-
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // chkOplata
             // 
             this.chkOplata.AutoSize = true;
-            this.chkOplata.Location = new System.Drawing.Point(7, 121);
+            this.chkOplata.Location = new System.Drawing.Point(6, 175);
             this.chkOplata.Name = "chkOplata";
             this.chkOplata.Size = new System.Drawing.Size(82, 21);
             this.chkOplata.TabIndex = 24;
             this.chkOplata.Text = "Оплаты";
             this.chkOplata.UseVisualStyleBackColor = true;
+            this.chkOplata.CheckedChanged += new System.EventHandler(this.chkOplata_CheckedChanged);
             // 
             // label4
             // 
@@ -234,21 +239,19 @@
             this.labCheckDostavka.Size = new System.Drawing.Size(92, 17);
             this.labCheckDostavka.TabIndex = 21;
             this.labCheckDostavka.Text = "Доставлено:";
-
             // 
             // labSend
             // 
             this.labSend.AutoSize = true;
-            this.labSend.Location = new System.Drawing.Point(8, 227);
+            this.labSend.Location = new System.Drawing.Point(8, 281);
             this.labSend.Name = "labSend";
             this.labSend.Size = new System.Drawing.Size(93, 17);
             this.labSend.TabIndex = 18;
             this.labSend.Text = "Отправлено:";
-
             // 
             // btnCheckSend
             // 
-            this.btnCheckSend.Location = new System.Drawing.Point(309, 148);
+            this.btnCheckSend.Location = new System.Drawing.Point(309, 202);
             this.btnCheckSend.Margin = new System.Windows.Forms.Padding(4);
             this.btnCheckSend.Name = "btnCheckSend";
             this.btnCheckSend.Size = new System.Drawing.Size(119, 49);
@@ -260,12 +263,11 @@
             // labTime
             // 
             this.labTime.AutoSize = true;
-            this.labTime.Location = new System.Drawing.Point(8, 200);
+            this.labTime.Location = new System.Drawing.Point(8, 254);
             this.labTime.Name = "labTime";
             this.labTime.Size = new System.Drawing.Size(128, 17);
             this.labTime.TabIndex = 15;
             this.labTime.Text = "Время обработки:";
-
             // 
             // labImport
             // 
@@ -308,7 +310,7 @@
             // 
             // btnGener
             // 
-            this.btnGener.Location = new System.Drawing.Point(7, 148);
+            this.btnGener.Location = new System.Drawing.Point(7, 202);
             this.btnGener.Name = "btnGener";
             this.btnGener.Size = new System.Drawing.Size(119, 49);
             this.btnGener.TabIndex = 9;
@@ -316,11 +318,32 @@
             this.btnGener.UseVisualStyleBackColor = true;
             this.btnGener.Click += new System.EventHandler(this.btnGener_Click);
             // 
+            // chkNormtative
+            // 
+            this.chkNormtative.AutoSize = true;
+            this.chkNormtative.Location = new System.Drawing.Point(6, 148);
+            this.chkNormtative.Name = "chkNormtative";
+            this.chkNormtative.Size = new System.Drawing.Size(95, 21);
+            this.chkNormtative.TabIndex = 25;
+            this.chkNormtative.Text = "Норматив";
+            this.chkNormtative.UseVisualStyleBackColor = true;
+            this.chkNormtative.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            // 
+            // chkSred
+            // 
+            this.chkSred.AutoSize = true;
+            this.chkSred.Location = new System.Drawing.Point(6, 121);
+            this.chkSred.Name = "chkSred";
+            this.chkSred.Size = new System.Drawing.Size(86, 21);
+            this.chkSred.TabIndex = 26;
+            this.chkSred.Text = "Средняк";
+            this.chkSred.UseVisualStyleBackColor = true;
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(495, 496);
+            this.ClientSize = new System.Drawing.Size(495, 556);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -362,6 +385,8 @@
         private System.Windows.Forms.Button btnCheckSend;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox chkOplata;
+        private System.Windows.Forms.CheckBox chkSred;
+        private System.Windows.Forms.CheckBox chkNormtative;
     }
 }
 

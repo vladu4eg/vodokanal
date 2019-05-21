@@ -17,6 +17,8 @@ namespace M2MSOAPSample
         int countDolg = 0;
         int countGP = 0;
         int countPokaz = 0;
+        int countSred = 0;
+        int countNormative = 0;
 
         StringBuilder sCommand = new StringBuilder("INSERT INTO plan (sendDate,licscht,phone,sms,msg_type,dolg) VALUES ");
         static string Connect = string.Format("Database=ignas;Data Source=192.168.27.79;User Id=iguser;charset=cp1251;default command timeout = 999;SslMode=none;Password=  " + Protect.PasswordMysql);
@@ -24,20 +26,20 @@ namespace M2MSOAPSample
         MySqlCommand myCommand = new MySqlCommand();
         MySqlDataReader MyDataReader;
 
-        public string ImportBD(string path, string fileName, bool checkDolg = false, bool checkGP = false, bool checkPokaz = false, bool checkOplata = false)
+        public string ImportBD(string path, string fileName, bool checkDolg = false, bool checkGP = false, bool checkPokaz = false, bool checkSred = false, bool checkNormative = false, bool checkOplata = false)
         {
             try
             {
                 importFile.FileOpen(path);
                 importFile.Rows.RemoveAt(0);
 
-                if(checkOplata & checkDolg || checkOplata & checkGP || checkOplata & checkPokaz)
+                if(checkOplata & checkDolg || checkOplata & checkGP || checkOplata & checkPokaz || checkOplata & checkNormative || checkOplata & checkSred)
                 {
                     MessageBox.Show("Нельзя одним файлом проверить все. \nДобро пожаловать в мир с ограничениями :P ");
                 }
-                else if (checkDolg || checkGP || checkPokaz)
+                else if (checkDolg || checkGP || checkPokaz || checkSred || checkNormative)
                 {
-                    ImportSMS(checkDolg, checkGP, checkPokaz);
+                    ImportSMS(checkDolg, checkGP, checkPokaz, checkSred, checkNormative);
                 }
                 else if (checkOplata)
                 {
@@ -59,7 +61,9 @@ namespace M2MSOAPSample
                                  "СМС с долгом: {0} \n" +
                                  "СМС с ГП: {1} \n" +
                                  "СМС с показ..: {2} \n" +
-                                 "Всего: {3}", countDolg, countGP, countPokaz, (countDolg + countGP + countPokaz));
+                                 "СМС средняк: {3} \n" +
+                                 "СМС норматив: {4} \n" +
+                                 "Всего: {5}", countDolg, countGP, countPokaz, countSred, countNormative, (countDolg + countGP + countPokaz));
         }
 
         public void ImportOplat()
@@ -105,7 +109,7 @@ namespace M2MSOAPSample
             }
         }
 
-        private void ImportSMS(bool checkDolg = false, bool checkGP = false, bool checkPokaz = false)
+        private void ImportSMS(bool checkDolg = false, bool checkGP = false, bool checkPokaz = false, bool checkSred = false , bool checkNormative = false)
         {
             try
             {
@@ -120,7 +124,7 @@ namespace M2MSOAPSample
                             MySqlHelper.EscapeString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
                             MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
                             MySqlHelper.EscapeString(importFile.Rows[i][3].ToString()),
-                            MySqlHelper.EscapeString(string.Format("На {0} по Л/С {1} долг {2} руб. Тариф - 61,49 руб.",
+                            MySqlHelper.EscapeString(string.Format("На {0} по Л/С {1} долг {2} руб. Тариф - 61,99 руб.",
                                         DateTime.Now.ToString("dd.MM.yy"), importFile.Rows[i][0].ToString(), importFile.Rows[i][2].ToString())),
                             MySqlHelper.EscapeString(importFile.Rows[i][6].ToString()),
                             MySqlHelper.EscapeString(importFile.Rows[i][2].ToString())));
@@ -132,7 +136,7 @@ namespace M2MSOAPSample
                             MySqlHelper.EscapeString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
                             MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
                             MySqlHelper.EscapeString(importFile.Rows[i][3].ToString()),
-                            MySqlHelper.EscapeString(string.Format("Поверка водомера до {0}\n79789470440\nЯлта,ул.Кривошты,27", importFile.Rows[i][5].ToString())),
+                            MySqlHelper.EscapeString(string.Format("Уважаемый абонент!\nВодоканал напоминает о необходимости поверки водомера до {0} г.\n8(800)7333337", importFile.Rows[i][5].ToString())),
                             MySqlHelper.EscapeString(importFile.Rows[i][6].ToString()),
                             MySqlHelper.EscapeString("NULL")));
                         countGP++;
@@ -143,10 +147,32 @@ namespace M2MSOAPSample
                             MySqlHelper.EscapeString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
                             MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
                             MySqlHelper.EscapeString(importFile.Rows[i][3].ToString()),
-                            MySqlHelper.EscapeString("Вам необходимо предоставить показания водомера по +79180761858"),
+                            MySqlHelper.EscapeString("Вам необходимо предоставить показания водомера по т. 88007333337"),
                             MySqlHelper.EscapeString(importFile.Rows[i][6].ToString()),
                             MySqlHelper.EscapeString("NULL")));
                         countPokaz++;
+                    }
+                    else if (importFile.Rows[i][6].ToString() == "6" && checkPokaz)
+                    {
+                        Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}')",
+                            MySqlHelper.EscapeString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                            MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
+                            MySqlHelper.EscapeString(importFile.Rows[i][3].ToString()),
+                            MySqlHelper.EscapeString("Вам начисляется средний расход.\nНеобходимо поверить водомер."),
+                            MySqlHelper.EscapeString(importFile.Rows[i][6].ToString()),
+                            MySqlHelper.EscapeString("NULL")));
+                        countSred++;
+                    }
+                    else if (importFile.Rows[i][6].ToString() == "6" && checkPokaz)
+                    {
+                        Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}')",
+                            MySqlHelper.EscapeString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                            MySqlHelper.EscapeString(importFile.Rows[i][0].ToString()),
+                            MySqlHelper.EscapeString(importFile.Rows[i][3].ToString()),
+                            MySqlHelper.EscapeString("Вам начисляется норматив расход.\nНеобходимо поверить водомер."),
+                            MySqlHelper.EscapeString(importFile.Rows[i][6].ToString()),
+                            MySqlHelper.EscapeString("NULL")));
+                        countNormative++;
                     }
                 }
                 sCommand.Append(string.Join(",", Rows));

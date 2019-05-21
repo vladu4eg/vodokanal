@@ -51,12 +51,14 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(11),
                            MyDataReader.GetString(12),
                            MyDataReader.GetString(13),
+                           "",
                            MyDataReader.GetString(14),
                            MyDataReader.GetString(15),
                            MyDataReader.GetString(16));
 
                 razdel3_6.AddRow(MyDataReader.GetString(17),
                 MyDataReader.GetString(18),
+                "",
                 MyDataReader.GetString(24),
                 MyDataReader.GetString(25),
                 "","",
@@ -64,7 +66,8 @@ namespace GIS_DogWimForms
                 "", "", 
                 MyDataReader.GetString(22),
                 MyDataReader.GetString(31),
-                "","", 
+                MyDataReader.GetString(32),
+                "", 
                 MyDataReader.GetString(27), 
                 "", "", "", "", "", "", "", "", "", "", "","","","",
                 MyDataReader.GetString(29));
@@ -73,6 +76,7 @@ namespace GIS_DogWimForms
                 {
                     razdel3_6.AddRow(MyDataReader.GetString(17),
                     MyDataReader.GetString(20),
+                    "",
                     MyDataReader.GetString(24),
                     MyDataReader.GetString(26), 
                     "", "",
@@ -100,11 +104,9 @@ namespace GIS_DogWimForms
             }
             razdel1_2.FileSave(path,"c:\\gis\\PD-Final.xlsx",1,3);
             razdel3_6.FileSave("c:\\gis\\PD-Final.xlsx", "c:\\gis\\PD-Final.xlsx",2,4);
-            // dpd.FileSave("c:\\gis\\DPD-Final.xlsx");
 
             razdel1_2.Rows.Clear();
             razdel3_6.Rows.Clear();
-            // dpd.Rows.Clear();
 
             MyDataReader.Close();
             myConnection.Close();

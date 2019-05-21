@@ -15,7 +15,7 @@ namespace GIS_DogWimForms
     // то можно будет с легкостью переписать для их базы.
     // Кстати, они точно не используют Oracle
 
-    class Update
+    class UpdateOracle
     {
 
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -26,7 +26,7 @@ namespace GIS_DogWimForms
         List<string> Rows = new List<string>();
         string temp;
         string path;
-
+        Clear clear = new Clear();
         StringBuilder sCommand = new StringBuilder("INSERT INTO import_lischt VALUES ");
 
         string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password="+ Protect.PasswordMysql);
@@ -36,7 +36,7 @@ namespace GIS_DogWimForms
         {
             stopwatch.Start();
 
-            UpdateClearAll();
+            clear.All();
             UpdateImport_LS();
             UpdateImport_with();
             UpdateImport_vkh();
@@ -381,69 +381,6 @@ namespace GIS_DogWimForms
             OraDataReader.Close();
             Rows.Clear();
             sCommand.Clear();
-            myConnection.Close();
-        }
-
-        //clear
-        public void UpdateClearAll()
-        {
-            MySqlConnection myConnection = new MySqlConnection(Connect);
-            MySqlCommand myCommand = new MySqlCommand();
-            myConnection.Open();
-            myCommand.Connection = myConnection;
-
-            myCommand.CommandText = string.Format("TRUNCATE TABLE import_lischt;TRUNCATE TABLE import_vkh;TRUNCATE TABLE import_with;TRUNCATE TABLE ipadr_new;TRUNCATE TABLE PY;TRUNCATE TABLE LS;");
-            myCommand.Prepare();//подготавливает строку
-            myCommand.ExecuteNonQuery();//выполняет запрос
-            myConnection.Close();
-        }
-        public void UpdateClearAdress()
-        {
-            MySqlConnection myConnection = new MySqlConnection(Connect);
-            MySqlCommand myCommand = new MySqlCommand();
-            myConnection.Open();
-            myCommand.Connection = myConnection;
-
-            myCommand.CommandText = string.Format("TRUNCATE TABLE ipadr_new;");
-            myCommand.Prepare();//подготавливает строку
-            myCommand.ExecuteNonQuery();//выполняет запрос
-            myConnection.Close();
-        }
-        public void UpdateClearPD()
-        {
-            MySqlConnection myConnection = new MySqlConnection(Connect);
-            MySqlCommand myCommand = new MySqlCommand();
-            myConnection.Open();
-            myCommand.Connection = myConnection;
-
-            myCommand.CommandText = string.Format("TRUNCATE TABLE EIRC_main;");
-            myCommand.Prepare();//подготавливает строку
-            myCommand.ExecuteNonQuery();//выполняет запрос
-            myConnection.Close();
-        }
-        public void UpdateClearPY()
-        {
-            MySqlConnection myConnection = new MySqlConnection(Connect);
-            MySqlCommand myCommand = new MySqlCommand();
-            myConnection.Open();
-            myCommand.Connection = myConnection;
-
-            myCommand.CommandText = string.Format("TRUNCATE TABLE PY;");
-            myCommand.Prepare();//подготавливает строку
-            myCommand.ExecuteNonQuery();//выполняет запрос
-            myConnection.Close();
-        }
-
-        public void UpdateClearAllGis()
-        {
-            MySqlConnection myConnection = new MySqlConnection(Connect);
-            MySqlCommand myCommand = new MySqlCommand();
-            myConnection.Open();
-            myCommand.Connection = myConnection;
-
-            myCommand.CommandText = string.Format("TRUNCATE TABLE id_ls;TRUNCATE TABLE id_gis;TRUNCATE TABLE id_py_main;TRUNCATE TABLE object_adress;");
-            myCommand.Prepare();//подготавливает строку
-            myCommand.ExecuteNonQuery();//выполняет запрос
             myConnection.Close();
         }
     }

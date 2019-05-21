@@ -26,11 +26,11 @@ namespace GIS_DogWimForms
                 case when mb_dogovor.dog_data <> '' 
 				then
 				date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
-			    else mb_dogovor.dog_data end,
+			    else '' end,
                 case when mb_dogovor.dog_data <> '' 
 				then
 				date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
-				else mb_dogovor.dog_data end,
+				else '' end,
                 'Нет', 'Да','31.12.2999',
                 case when gis_object_adress.type_dom = 'Многоквартирный'
                 then 'Собственник или пользователь жилого (нежилого) помещения в МКД'
@@ -112,8 +112,8 @@ namespace GIS_DogWimForms
                 mb_uslugi.type_uslug2,mb_uslugi.type_resurs2  
                 FROM mb_ls left join mb_dogovor on mb_ls.ls = mb_dogovor.ls ,
                 tmp_ipadr_new,mb_uslugi,gis_object_adress 
-                where mb_dogovor.ls = tmp_ipadr_new.id  
-                and mb_dogovor.ls = mb_uslugi.id  
+                where mb_ls.ls = tmp_ipadr_new.id  
+                and mb_ls.ls = mb_uslugi.id  
                 and tmp_ipadr_new.ipadr = gis_object_adress.HOUSEGUID_fias 
                 and mb_ls.ls NOT IN  
                 ( 
@@ -268,11 +268,11 @@ namespace GIS_DogWimForms
                 case when mb_dogovor.dog_data <> '' 
 				then
 				date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
-			    else mb_dogovor.dog_data end,
+			    else '' end,
                 case when mb_dogovor.dog_data <> '' 
 				then
 				date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
-				else mb_dogovor.dog_data end,
+				else '' end,
                 'Нет', 'Да','31.12.2999',
                 case when gis_object_adress.type_dom = 'Многоквартирный'
                 then 'Собственник или пользователь жилого (нежилого) помещения в МКД'
@@ -354,10 +354,10 @@ namespace GIS_DogWimForms
                 mb_uslugi.type_uslug2,mb_uslugi.type_resurs2  
                 FROM mb_ls left join mb_dogovor on mb_ls.ls = mb_dogovor.ls ,
                 tmp_ipadr_new,mb_uslugi,gis_object_adress,gis_id  
-                where mb_dogovor.ls = tmp_ipadr_new.id  
-                and mb_dogovor.ls = mb_uslugi.id  
+                where mb_ls.ls = tmp_ipadr_new.id  
+                and mb_ls.ls = mb_uslugi.id  
                 and tmp_ipadr_new.ipadr = gis_object_adress.HOUSEGUID_fias 
-                and mb_dogovor.ls = gis_id.id 
+                and mb_ls.ls = gis_id.id 
                 and gis_id.status = 'Проект' ");
 
             myCommand.Prepare();
