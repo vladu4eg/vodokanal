@@ -13,36 +13,34 @@ namespace GIS_DogWimForms
         MySqlDataReader MyDataReader;
 
         string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=" + Protect.PasswordMysql);
-        public void CreateDogovor()
+        public void CreateDogovor(string path)
         {
             MySqlConnection myConnection = new MySqlConnection(Connect);
             MySqlCommand myCommand = new MySqlCommand();
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format(@"SELECT distinct import_lischt.id, 
+            myCommand.CommandText = string.Format(@"SELECT distinct mb_ls.ls, 
                 'Да', 
-                import_lischt.id, 
-                import_lischt.data_dogovor, 
-                import_lischt.data_dogovor, 
-                '', '','',
-                import_lischt.type_home, 
+                mb_ls.ls, 
+                case when mb_dogovor.dog_data <> '' 
+				then
+				date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
+			    else '' end,
+                case when mb_dogovor.dog_data <> '' 
+				then
+				date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
+				else '' end,
+                'Нет', 'Да','31.12.2999',
+                case when gis_object_adress.type_dom = 'Многоквартирный'
+                then 'Собственник или пользователь жилого (нежилого) помещения в МКД'
+                else 'Собственник или пользователь жилого дома (домовладения)' end type_home_ls,
                 'Физическое лицо', 
-                import_lischt.famil, 
-                import_lischt.imen, 
-                import_lischt.otch, 
-                '', 
-                import_lischt.data_rojden, 
-                import_lischt.SNILS, 
-                import_lischt.type_doc, 
-                import_lischt.num_doc, 
-                import_lischt.seria_doc, 
-                import_lischt.data_doc, 
-                '', '', '', '',
+                '', '', '', '', '', '', '', '', '',  '', '', '', '', '',
                 '9', 
-                'Cледующего месяца за расчетным', 
+                'следующего месяца за расчетным', 
                 '10', 
-                'Cледующего месяца за расчетным', 
+                'следующего месяца за расчетным', 
                 '', '', '',
                 '20', 
                 'Нет', 
@@ -50,45 +48,78 @@ namespace GIS_DogWimForms
                 'Нет', 
                 'Да',
                 'Нормативный правовой акт', 
-                'В разрезе договора', 
-                'РСО', 
+                '', 
+                '', 
                 'Да', 
                 'В разрезе договора',
                 'Нет', 
                 '', 
                 '', 
-                import_with.id,import_with.type_uslug,import_with.type_resurs,import_with.data_start,import_with.data_end,  
-                ipadr_new.id, 
-                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then 'МКД' else '' end pomeshen, 
-                ipadr_new.adr, 
-                ipadr_new.ipadr, 
-                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen, 
-                ipadr_new.id, 
-                ipadr_new.adr, 
-                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen, 
+                mb_uslugi.id,
+					 case when mb_uslugi.type_uslug <> ''
+					 then mb_uslugi.type_uslug 
+					 else 'Холодное водоснабжение' end, 
+					 case when mb_uslugi.type_resurs <> ''
+					 then mb_uslugi.type_resurs
+					 else 'Питьевая вода' end, 
+                case when mb_dogovor.dog_data <> '' 
+					 then
+				    date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
+			       else date_format(STR_TO_DATE(mb_ls.data1,   '%d/%m/%Y'),'%d.%m.%Y')  end,
+					 '31.12.2999',  
+                tmp_ipadr_new.id, 
+                case when gis_object_adress.type_dom = 'Многоквартирный' then 'МКД'
+					 when gis_object_adress.type_dom = 'Жилой'
+					 then 'ЖД'
+					  else 'ЖД блок. застройки' end type_pomeshen, 
+                tmp_ipadr_new.adr, 
+                tmp_ipadr_new.ipadr, 
+                case when gis_object_adress.type_dom = 'Жилой' 
+					 then ''
+					  else tmp_ipadr_new.pomesh end pomeshen, 
+                tmp_ipadr_new.id, 
+                tmp_ipadr_new.adr, 
+                case when gis_object_adress.type_dom = 'Жилой' 
+					 then ''
+					  else tmp_ipadr_new.pomesh end pomeshen, 
                 '', 
-					 import_with.type_uslug,
-					 import_with.type_resurs,
-					 import_with.data_start,
-					 import_with.data_end, 
-                ipadr_new.id, 
-                ipadr_new.adr, 
-                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen, 
+                case when mb_uslugi.type_uslug <> ''
+					 then mb_uslugi.type_uslug 
+					 else 'Холодное водоснабжение' end, 
+					 case when mb_uslugi.type_resurs <> ''
+					 then mb_uslugi.type_resurs
+					 else 'Питьевая вода' end, 
+                case when mb_dogovor.dog_data <> '' 
+					 then
+					 date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
+			    else date_format(STR_TO_DATE(mb_ls.data1,   '%d/%m/%Y'),'%d.%m.%Y') end,
+					 '31.12.2999',  
+                tmp_ipadr_new.id, 
+                tmp_ipadr_new.adr, 
+                case when gis_object_adress.type_dom = 'Жилой' 
+					 then ''
+					  else tmp_ipadr_new.pomesh end pomeshen,  
                 '', 
-                import_with.type_uslug, 
-                import_with.type_resurs, 
+                case when mb_uslugi.type_uslug <> ''
+					 then mb_uslugi.type_uslug 
+					 else 'Холодное водоснабжение' end, 
+					 case when mb_uslugi.type_resurs <> ''
+					 then mb_uslugi.type_resurs
+					 else 'Питьевая вода' end, 
                 'Соответствие показателей качества холодной воды требованиям законодательства Российской Федерации', 
                 '', '', '', 
                 'Соответствует',  
-                import_with.type_uslug2,import_with.type_resurs2 
-                FROM import_lischt  
-                JOIN ipadr_new ON import_lischt.id = ipadr_new.id  
-                JOIN import_with ON import_lischt.id = import_with.id  
-                where import_lischt.id NOT IN  
+                mb_uslugi.type_uslug2,mb_uslugi.type_resurs2  
+                FROM mb_ls left join mb_dogovor on mb_ls.ls = mb_dogovor.ls ,
+                tmp_ipadr_new,mb_uslugi,gis_object_adress 
+                where mb_ls.ls = tmp_ipadr_new.id  
+                and mb_ls.ls = mb_uslugi.id  
+                and tmp_ipadr_new.ipadr = gis_object_adress.HOUSEGUID_fias 
+                and mb_ls.ls NOT IN  
                 ( 
-                    SELECT id_gis.id  
-                    FROM id_gis  
-                    WHERE id_gis.status in ('Проект','Размещен')  
+                    SELECT gis_id.id  
+                    FROM gis_id  
+                    WHERE gis_id.status in ('Проект','Размещен')  
                 )");
 
             myCommand.Prepare();//подготавливает строку
@@ -166,33 +197,22 @@ namespace GIS_DogWimForms
                 MyDataReader.GetString(60),
                 MyDataReader.GetString(61));
 
-                kr.AddRow(MyDataReader.GetString(62),
-                MyDataReader.GetString(63),
-                MyDataReader.GetString(64),
-                MyDataReader.GetString(64),
-                MyDataReader.GetString(65),
-                MyDataReader.GetString(66),
-                MyDataReader.GetString(67),
-                MyDataReader.GetString(68),
-                MyDataReader.GetString(69),
-                MyDataReader.GetString(70),
-                MyDataReader.GetString(71));
 
                 if (MyDataReader.GetString(73) == "Отведение сточных вод")
                 {
 
                     object1.AddRow(MyDataReader.GetString(44),
-               MyDataReader.GetString(73),
-               MyDataReader.GetString(46),
-               MyDataReader.GetString(47),
-               MyDataReader.GetString(48));
+                    MyDataReader.GetString(73),
+                    MyDataReader.GetString(74),
+                    MyDataReader.GetString(47),
+                    MyDataReader.GetString(48));
 
                     kyandkr.AddRow(MyDataReader.GetString(54),
                     MyDataReader.GetString(55),
                     MyDataReader.GetString(56),
                     MyDataReader.GetString(57),
-                    "Отведение сточных вод",
-                    "Сточные воды",
+                    MyDataReader.GetString(73),
+                    MyDataReader.GetString(74),
                     MyDataReader.GetString(60),
                     MyDataReader.GetString(61));
                 }
@@ -200,35 +220,33 @@ namespace GIS_DogWimForms
                 z++;
                 if (z % 1000 == 0)
                 {
-                    dogovor.FileSave("c:\\gis\\DOG" + y + "k.xlsx");
+                    string pathFinal = "c:\\gis\\DOG" + y + "k.xlsx";
+
+                    dogovor.FileSave(path, pathFinal, 1,2);
                     dogovor.Rows.Clear();
 
-                    object1.FileSave("c:\\gis\\object" + y + "k.xlsx");
+                    object1.FileSave(pathFinal, pathFinal, 3,2);
                     object1.Rows.Clear();
 
-                    vkh.FileSave("c:\\gis\\vkh" + y + "k.xlsx");
+                    vkh.FileSave(pathFinal, pathFinal, 4,1);
                     vkh.Rows.Clear();
 
-                    kyandkr.FileSave("c:\\gis\\KYandKR" + y + "k.xlsx");
+                    kyandkr.FileSave(pathFinal, pathFinal, 5,2);
                     kyandkr.Rows.Clear();
-
-                    kr.FileSave("c:\\gis\\KR" + y + "k.xlsx");
-                    kr.Rows.Clear();
 
                     y++;
                 }
             }
-            dogovor.FileSave("c:\\gis\\DOG-Final.xlsx");
-            object1.FileSave("c:\\gis\\object-Final.xlsx");
-            vkh.FileSave("c:\\gis\\vkh-Final.xlsx");
-            kyandkr.FileSave("c:\\gis\\KYandKR-Final.xlsx");
-            kr.FileSave("c:\\gis\\KR-Final.xlsx");
+
+            dogovor.FileSave(path, "c:\\gis\\DOG-Final.xlsx", 1,2);
+            object1.FileSave("c:\\gis\\DOG-Final.xlsx", "c:\\gis\\DOG-Final.xlsx", 3,2);
+            vkh.FileSave("c:\\gis\\DOG-Final.xlsx", "c:\\gis\\DOG-Final.xlsx", 4,1);
+            kyandkr.FileSave("c:\\gis\\DOG-Final.xlsx", "c:\\gis\\DOG-Final.xlsx", 5,2);
 
             dogovor.Rows.Clear();
             object1.Rows.Clear();
             vkh.Rows.Clear();
             kyandkr.Rows.Clear();
-            kr.Rows.Clear();
 
             MyDataReader.Close();
             myConnection.Close();
@@ -236,7 +254,7 @@ namespace GIS_DogWimForms
             MessageBox.Show("Готово! С:\\gis\\");
         }
 
-        public void ProjectDogovor()
+        public void ProjectDogovor(string path)
         {
             MySqlConnection myConnection = new MySqlConnection(Connect);
             MySqlCommand myCommand = new MySqlCommand();
@@ -244,72 +262,103 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format(@"SELECT distinct import_lischt.id, 
-                'Да',
-                import_lischt.id,
-                import_lischt.data_dogovor,
-                import_lischt.data_dogovor,
+            myCommand.CommandText = string.Format(@"SELECT distinct mb_ls.ls, 
+                'Да', 
+                mb_ls.ls, 
+                case when mb_dogovor.dog_data <> '' 
+				then
+				date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
+			    else '' end,
+                case when mb_dogovor.dog_data <> '' 
+				then
+				date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
+				else '' end,
+                'Нет', 'Да','31.12.2999',
+                case when gis_object_adress.type_dom = 'Многоквартирный'
+                then 'Собственник или пользователь жилого (нежилого) помещения в МКД'
+                else 'Собственник или пользователь жилого дома (домовладения)' end type_home_ls,
+                'Физическое лицо', 
+                '', '', '', '', '', '', '', '', '',  '', '', '', '', '',
+                '9', 
+                'следующего месяца за расчетным', 
+                '10', 
+                'следующего месяца за расчетным', 
                 '', '', '',
-                import_lischt.type_home,
-                'Физическое лицо',
-                import_lischt.famil,
-                import_lischt.imen,
-                import_lischt.otch,
-                '',
-                import_lischt.data_rojden,
-                import_lischt.SNILS,
-                import_lischt.type_doc,
-                import_lischt.num_doc,
-                import_lischt.seria_doc,
-                import_lischt.data_doc,
-                '', '', '', '',
-                '9',
-                'Cледующего месяца за расчетным',
-                '10',
-                'Cледующего месяца за расчетным',
-                '', '', '',
-                '20',
-                'Нет',
-                '26',
-                'Нет',
+                '20', 
+                'Нет', 
+                '26', 
+                'Нет', 
                 'Да',
-                'Нормативный правовой акт',
+                'Нормативный правовой акт', 
+                '', 
+                '', 
+                'Да', 
                 'В разрезе договора',
-                'РСО',
-                'Да',
-                'В разрезе договора',
-                'Нет',
-                '',
-                '',
-                import_with.id, import_with.type_uslug, import_with.type_resurs, import_with.data_start, import_with.data_end,
-                ipadr_new.id,
-                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then 'МКД' else '' end pomeshen,
-                ipadr_new.adr,
-                ipadr_new.ipadr,
-                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen,
-                ipadr_new.id,
-                ipadr_new.adr,
-                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen,
-                '',
-                     import_with.type_uslug,
-                     import_with.type_resurs,
-                     import_with.data_start,
-                     import_with.data_end,
-                ipadr_new.id,
-                ipadr_new.adr,
-                case when import_lischt.type_home = 'Собственник или пользователь жилого (нежилого) помещения в МКД' then ipadr_new.pomesh else '' end pomeshen,
-                '',
-                import_with.type_uslug,
-                import_with.type_resurs,
-                'Соответствие показателей качества холодной воды требованиям законодательства Российской Федерации',
-                '', '', '',
-                'Соответствует',
-                import_with.type_uslug2, import_with.type_resurs2 
-                FROM id_gis 
-                JOIN ipadr_new ON id_gis.id = ipadr_new.id 
-                JOIN import_lischt ON id_gis.id = import_lischt.id 
-                JOIN import_with ON id_gis.id = import_with.id 
-                where id_gis.status = 'Проект' ");
+                'Нет', 
+                '', 
+                gis_id.id_gis, 
+                mb_uslugi.id,
+					 case when mb_uslugi.type_uslug <> ''
+					 then mb_uslugi.type_uslug 
+					 else 'Холодное водоснабжение' end, 
+					 case when mb_uslugi.type_resurs <> ''
+					 then mb_uslugi.type_resurs
+					 else 'Питьевая вода' end, 
+                case when mb_dogovor.dog_data <> '' 
+					 then
+				    date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
+			       else date_format(STR_TO_DATE(mb_ls.data1,   '%d/%m/%Y'),'%d.%m.%Y')  end,
+					 '31.12.2999',  
+                tmp_ipadr_new.id, 
+                case when gis_object_adress.type_dom = 'Многоквартирный' then 'МКД'
+					 when gis_object_adress.type_dom = 'Жилой'
+					 then 'ЖД'
+					  else 'ЖД блок. застройки' end type_pomeshen, 
+                tmp_ipadr_new.adr, 
+                tmp_ipadr_new.ipadr, 
+                case when gis_object_adress.type_dom = 'Жилой' 
+					 then ''
+					  else tmp_ipadr_new.pomesh end pomeshen, 
+                tmp_ipadr_new.id, 
+                tmp_ipadr_new.adr, 
+                case when gis_object_adress.type_dom = 'Жилой' 
+					 then ''
+					  else tmp_ipadr_new.pomesh end pomeshen, 
+                '', 
+                case when mb_uslugi.type_uslug <> ''
+					 then mb_uslugi.type_uslug 
+					 else 'Холодное водоснабжение' end, 
+					 case when mb_uslugi.type_resurs <> ''
+					 then mb_uslugi.type_resurs
+					 else 'Питьевая вода' end, 
+                case when mb_dogovor.dog_data <> '' 
+					 then
+					 date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
+			    else date_format(STR_TO_DATE(mb_ls.data1,   '%d/%m/%Y'),'%d.%m.%Y') end,
+					 '31.12.2999',  
+                tmp_ipadr_new.id, 
+                tmp_ipadr_new.adr, 
+                case when gis_object_adress.type_dom = 'Жилой' 
+					 then ''
+					  else tmp_ipadr_new.pomesh end pomeshen,  
+                '', 
+                case when mb_uslugi.type_uslug <> ''
+					 then mb_uslugi.type_uslug 
+					 else 'Холодное водоснабжение' end, 
+					 case when mb_uslugi.type_resurs <> ''
+					 then mb_uslugi.type_resurs
+					 else 'Питьевая вода' end, 
+                'Соответствие показателей качества холодной воды требованиям законодательства Российской Федерации', 
+                '', '', '', 
+                'Соответствует',  
+                mb_uslugi.type_uslug2,mb_uslugi.type_resurs2  
+                FROM mb_ls left join mb_dogovor on mb_ls.ls = mb_dogovor.ls ,
+                tmp_ipadr_new,mb_uslugi,gis_object_adress,gis_id  
+                where mb_ls.ls = tmp_ipadr_new.id  
+                and mb_ls.ls = mb_uslugi.id  
+                and tmp_ipadr_new.ipadr = gis_object_adress.HOUSEGUID_fias 
+                and mb_ls.ls = gis_id.id 
+                and gis_id.status = 'Проект' ");
 
             myCommand.Prepare();
 
@@ -384,33 +433,21 @@ namespace GIS_DogWimForms
                 MyDataReader.GetString(60),
                 MyDataReader.GetString(61));
 
-                kr.AddRow(MyDataReader.GetString(62),
-                MyDataReader.GetString(63),
-                MyDataReader.GetString(64),
-                MyDataReader.GetString(64),
-                MyDataReader.GetString(65),
-                MyDataReader.GetString(66),
-                MyDataReader.GetString(67),
-                MyDataReader.GetString(68),
-                MyDataReader.GetString(69),
-                MyDataReader.GetString(70),
-                MyDataReader.GetString(71));
-
                 if (MyDataReader.GetString(73) == "Отведение сточных вод")
                 {
 
                     object1.AddRow(MyDataReader.GetString(44),
-               MyDataReader.GetString(73),
-               MyDataReader.GetString(46),
-               MyDataReader.GetString(47),
-               MyDataReader.GetString(48));
+                    MyDataReader.GetString(73),
+                    MyDataReader.GetString(74),
+                    MyDataReader.GetString(47),
+                    MyDataReader.GetString(48));
 
                     kyandkr.AddRow(MyDataReader.GetString(54),
                     MyDataReader.GetString(55),
                     MyDataReader.GetString(56),
                     MyDataReader.GetString(57),
-                    "Отведение сточных вод",
-                    "Сточные воды",
+                    MyDataReader.GetString(73),
+                    MyDataReader.GetString(74),
                     MyDataReader.GetString(60),
                     MyDataReader.GetString(61));
                 }
@@ -418,35 +455,33 @@ namespace GIS_DogWimForms
                 z++;
                 if (z % 1000 == 0)
                 {
-                    dogovor.FileSave("c:\\gis\\DOG" + y + "k.xlsx");
+                    string pathFinal = "c:\\gis\\DOG" + y + "k.xlsx";
+
+                    dogovor.FileSave(path, pathFinal, 1,2);
                     dogovor.Rows.Clear();
 
-                    object1.FileSave("c:\\gis\\object" + y + "k.xlsx");
+                    object1.FileSave(pathFinal, pathFinal,3,2);
                     object1.Rows.Clear();
 
-                    vkh.FileSave("c:\\gis\\vkh" + y + "k.xlsx");
+                    vkh.FileSave(pathFinal, pathFinal,4,1);
                     vkh.Rows.Clear();
 
-                    kyandkr.FileSave("c:\\gis\\KYandKR" + y + "k.xlsx");
+                    kyandkr.FileSave(pathFinal, pathFinal,5,2);
                     kyandkr.Rows.Clear();
-
-                    kr.FileSave("c:\\gis\\KR" + y + "k.xlsx");
-                    kr.Rows.Clear();
 
                     y++;
                 }
             }
-            dogovor.FileSave("c:\\gis\\DOG-Final.xlsx");
-            object1.FileSave("c:\\gis\\object-Final.xlsx");
-            vkh.FileSave("c:\\gis\\vkh-Final.xlsx");
-            kyandkr.FileSave("c:\\gis\\KYandKR-Final.xlsx");
-            kr.FileSave("c:\\gis\\KR-Final.xlsx");
+
+            dogovor.FileSave(path, "c:\\gis\\DOG-Final.xlsx",1,2);
+            object1.FileSave("c:\\gis\\DOG-Final.xlsx", "c:\\gis\\DOG-Final.xlsx",3,2);
+            vkh.FileSave("c:\\gis\\DOG-Final.xlsx", "c:\\gis\\DOG-Final.xlsx",4,1);
+            kyandkr.FileSave("c:\\gis\\DOG-Final.xlsx", "c:\\gis\\DOG-Final.xlsx",5,2);
 
             dogovor.Rows.Clear();
             object1.Rows.Clear();
             vkh.Rows.Clear();
             kyandkr.Rows.Clear();
-            kr.Rows.Clear();
 
             MyDataReader.Close();
             myConnection.Close();
