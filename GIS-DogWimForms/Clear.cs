@@ -47,7 +47,11 @@ namespace GIS_DogWimForms
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("TRUNCATE TABLE {0};",table);
+            if(table == "mb_buh")
+                myCommand.CommandText = string.Format("DELETE FROM {0} where mb_buh.period = date_format(DATE_SUB(now(),INTERVAL + 1 MONTH), '%m.%Y');", table);
+            else
+                myCommand.CommandText = string.Format("TRUNCATE TABLE {0};",table);
+
             myCommand.Prepare();//подготавливает строку
             myCommand.ExecuteNonQuery();//выполняет запрос
             myConnection.Close();
