@@ -32,7 +32,7 @@ namespace GIS_DogWimForms
 				date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
 				else '' end,
                 'Нет', 'Да','31.12.2999',
-                case when gis_object_adress.type_dom = 'Многоквартирный'
+                case when mb_dogovor.type_home = 'общежитие' or mb_dogovor.type_home = 'многоквартирный дом' 
                 then 'Собственник или пользователь жилого (нежилого) помещения в МКД'
                 else 'Собственник или пользователь жилого дома (домовладения)' end type_home_ls,
                 'Физическое лицо', 
@@ -44,7 +44,7 @@ namespace GIS_DogWimForms
                 '', '', '',
                 '20', 
                 'Нет', 
-                '26', 
+                '25', 
                 'Нет', 
                 'Да',
                 'Нормативный правовой акт', 
@@ -68,26 +68,28 @@ namespace GIS_DogWimForms
 			       else date_format(STR_TO_DATE(mb_ls.data1,   '%d/%m/%Y'),'%d.%m.%Y')  end,
 					 '31.12.2999',  
                 tmp_ipadr_new.id, 
-                case when gis_object_adress.type_dom = 'Многоквартирный' then 'МКД'
-					 when gis_object_adress.type_dom = 'Жилой'
-					 then 'ЖД'
-					  else 'ЖД блок. застройки' end type_pomeshen, 
+                case when mb_dogovor.type_home = 'многоквартирный дом' 
+					 	or mb_dogovor.type_home = 'общежитие' 
+						  then 'МКД' 
+					  else 'ЖД' end type_pomeshen, 
                 tmp_ipadr_new.adr, 
                 tmp_ipadr_new.ipadr, 
-                case when gis_object_adress.type_dom = 'Жилой' 
-					 then ''
+                case when mb_dogovor.type_home = 'жилой частный дом' 
+                or mb_dogovor.type_home = 'дача' 
+					 then '' 
 					  else tmp_ipadr_new.pomesh end pomeshen, 
                 tmp_ipadr_new.id, 
                 tmp_ipadr_new.adr, 
-                case when gis_object_adress.type_dom = 'Жилой' 
-					 then ''
+                                case when mb_dogovor.type_home = 'жилой частный дом' 
+                or mb_dogovor.type_home = 'дача' 
+					 then '' 
 					  else tmp_ipadr_new.pomesh end pomeshen, 
                 '', 
                 case when mb_uslugi.type_uslug <> ''
 					 then mb_uslugi.type_uslug 
 					 else 'Холодное водоснабжение' end, 
-					 case when mb_uslugi.type_resurs <> ''
-					 then mb_uslugi.type_resurs
+					 case when mb_uslugi.type_resurs <> '' 
+					 then mb_uslugi.type_resurs 
 					 else 'Питьевая вода' end, 
                 case when mb_dogovor.dog_data <> '' 
 					 then
@@ -96,25 +98,25 @@ namespace GIS_DogWimForms
 					 '31.12.2999',  
                 tmp_ipadr_new.id, 
                 tmp_ipadr_new.adr, 
-                case when gis_object_adress.type_dom = 'Жилой' 
-					 then ''
+                case when mb_dogovor.type_home = 'жилой частный дом' 
+                or mb_dogovor.type_home = 'дача' 
+					 then '' 
 					  else tmp_ipadr_new.pomesh end pomeshen,  
                 '', 
-                case when mb_uslugi.type_uslug <> ''
+                case when mb_uslugi.type_uslug <> '' 
 					 then mb_uslugi.type_uslug 
 					 else 'Холодное водоснабжение' end, 
 					 case when mb_uslugi.type_resurs <> ''
-					 then mb_uslugi.type_resurs
+					 then mb_uslugi.type_resurs 
 					 else 'Питьевая вода' end, 
                 'Соответствие показателей качества холодной воды требованиям законодательства Российской Федерации', 
                 '', '', '', 
                 'Соответствует',  
                 mb_uslugi.type_uslug2,mb_uslugi.type_resurs2  
                 FROM mb_ls left join mb_dogovor on mb_ls.ls = mb_dogovor.ls ,
-                tmp_ipadr_new,mb_uslugi,gis_object_adress 
+                tmp_ipadr_new,mb_uslugi 
                 where mb_ls.ls = tmp_ipadr_new.id  
                 and mb_ls.ls = mb_uslugi.id  
-                and tmp_ipadr_new.ipadr = gis_object_adress.HOUSEGUID_fias 
                 and mb_ls.ls NOT IN  
                 ( 
                     SELECT gis_id.id  
@@ -274,7 +276,7 @@ namespace GIS_DogWimForms
 				date_format(STR_TO_DATE(mb_dogovor.dog_data,   '%d/%m/%Y'),'%d.%m.%Y') 
 				else '' end,
                 'Нет', 'Да','31.12.2999',
-                case when gis_object_adress.type_dom = 'Многоквартирный'
+                case when mb_dogovor.type_home = 'общежитие' or mb_dogovor.type_home = 'многоквартирный дом' 
                 then 'Собственник или пользователь жилого (нежилого) помещения в МКД'
                 else 'Собственник или пользователь жилого дома (домовладения)' end type_home_ls,
                 'Физическое лицо', 
@@ -310,26 +312,28 @@ namespace GIS_DogWimForms
 			       else date_format(STR_TO_DATE(mb_ls.data1,   '%d/%m/%Y'),'%d.%m.%Y')  end,
 					 '31.12.2999',  
                 tmp_ipadr_new.id, 
-                case when gis_object_adress.type_dom = 'Многоквартирный' then 'МКД'
-					 when gis_object_adress.type_dom = 'Жилой'
-					 then 'ЖД'
-					  else 'ЖД блок. застройки' end type_pomeshen, 
+                case when mb_dogovor.type_home = 'многоквартирный дом' 
+					 	or mb_dogovor.type_home = 'общежитие' 
+						  then 'МКД' 
+					  else 'ЖД' end type_pomeshen, 
                 tmp_ipadr_new.adr, 
                 tmp_ipadr_new.ipadr, 
-                case when gis_object_adress.type_dom = 'Жилой' 
-					 then ''
+                case when mb_dogovor.type_home = 'жилой частный дом' 
+                or mb_dogovor.type_home = 'дача' 
+					 then '' 
 					  else tmp_ipadr_new.pomesh end pomeshen, 
                 tmp_ipadr_new.id, 
                 tmp_ipadr_new.adr, 
-                case when gis_object_adress.type_dom = 'Жилой' 
-					 then ''
+                                case when mb_dogovor.type_home = 'жилой частный дом' 
+                or mb_dogovor.type_home = 'дача' 
+					 then '' 
 					  else tmp_ipadr_new.pomesh end pomeshen, 
                 '', 
                 case when mb_uslugi.type_uslug <> ''
 					 then mb_uslugi.type_uslug 
 					 else 'Холодное водоснабжение' end, 
-					 case when mb_uslugi.type_resurs <> ''
-					 then mb_uslugi.type_resurs
+					 case when mb_uslugi.type_resurs <> '' 
+					 then mb_uslugi.type_resurs 
 					 else 'Питьевая вода' end, 
                 case when mb_dogovor.dog_data <> '' 
 					 then
@@ -338,27 +342,30 @@ namespace GIS_DogWimForms
 					 '31.12.2999',  
                 tmp_ipadr_new.id, 
                 tmp_ipadr_new.adr, 
-                case when gis_object_adress.type_dom = 'Жилой' 
-					 then ''
+                case when mb_dogovor.type_home = 'жилой частный дом' 
+                or mb_dogovor.type_home = 'дача' 
+					 then '' 
 					  else tmp_ipadr_new.pomesh end pomeshen,  
                 '', 
-                case when mb_uslugi.type_uslug <> ''
+                case when mb_uslugi.type_uslug <> '' 
 					 then mb_uslugi.type_uslug 
 					 else 'Холодное водоснабжение' end, 
 					 case when mb_uslugi.type_resurs <> ''
-					 then mb_uslugi.type_resurs
+					 then mb_uslugi.type_resurs 
 					 else 'Питьевая вода' end, 
                 'Соответствие показателей качества холодной воды требованиям законодательства Российской Федерации', 
                 '', '', '', 
                 'Соответствует',  
                 mb_uslugi.type_uslug2,mb_uslugi.type_resurs2  
                 FROM mb_ls left join mb_dogovor on mb_ls.ls = mb_dogovor.ls ,
-                tmp_ipadr_new,mb_uslugi,gis_object_adress,gis_id  
+                tmp_ipadr_new,mb_uslugi,gis_object_adress,gis_id,tmp_jky,gis_ls
                 where mb_ls.ls = tmp_ipadr_new.id  
                 and mb_ls.ls = mb_uslugi.id  
                 and tmp_ipadr_new.ipadr = gis_object_adress.HOUSEGUID_fias 
                 and mb_ls.ls = gis_id.id 
-                and gis_id.status = 'Проект' ");
+                and mb_ls.ls = gris_ls.id 
+                and gis_object_adress.data_delete = '' 
+                and gis_ls.ls_jky = tmp_jky.jky ");
 
             myCommand.Prepare();
 

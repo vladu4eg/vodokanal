@@ -23,7 +23,7 @@ namespace Create1k
             myConnection.Open();
             conn.Open();
 
-            string s = DateTime.Now.ToString("yyyyMMdd_9103006160.DBF");
+            string s = DateTime.Now.ToString("yyyyMMdd" + "_9103006160.DBF");
 
             OleDbCommand dbf = new OleDbCommand(string.Format("CREATE TABLE ["+s+ "] (ELS VARCHAR(20),PAYERIDENT VARCHAR(11), FIO VARCHAR(50), LS VARCHAR(11), STREET VARCHAR(25), BUILDING VARCHAR(10), FLAT VARCHAR(10), SUM1 NUMERIC(10,2), SERVICECOD VARCHAR(2))"), conn);
 

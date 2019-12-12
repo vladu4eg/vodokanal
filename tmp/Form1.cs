@@ -93,7 +93,13 @@ namespace tmp
             myCommand.Connection = myConnection;
             for(int i = 0; i < dataGridView1.Rows.Count-1; i++)
             {
-                myCommand.CommandText = string.Format(@"update tmp_TY_pokaz set tmp_TY_pokaz.pokaz = {0}, volume = {3} where tmp_TY_pokaz.adress = '{1}' and tmp_TY_pokaz.`data` = '{2}'; ", dataGridView1[1, i].Value.ToString(), tmp, dataGridView1[0, i].Value.ToString(), Convert.ToInt32(dataGridView1[1, i+1].Value) - Convert.ToInt32(dataGridView1[1, i].Value));
+                int sum_volume = 0;
+                if (Convert.ToInt32(dataGridView1[1, i].Value) == 0)
+                    sum_volume = 0;
+                else
+                    sum_volume = Convert.ToInt32(dataGridView1[1, i + 1].Value) - Convert.ToInt32(dataGridView1[1, i].Value);
+
+                myCommand.CommandText = string.Format(@"update tmp_TY_pokaz set tmp_TY_pokaz.pokaz = {0}, volume = {3} where tmp_TY_pokaz.adress = '{1}' and tmp_TY_pokaz.`data` = '{2}'; ", dataGridView1[1, i].Value.ToString(), tmp, dataGridView1[0, i].Value.ToString(), sum_volume);
                 myCommand.Prepare();
                 myCommand.ExecuteNonQuery();
             }

@@ -93,14 +93,14 @@ namespace GIS_DogWimForms
             myCommand.ExecuteNonQuery();//выполняет запрос
             myConnection.Close();
         }
-        public void GisLS()
+        public void GisLS(string name_db)
         {
             MySqlConnection myConnection = new MySqlConnection(Connect);
             MySqlCommand myCommand = new MySqlCommand();
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("TRUNCATE TABLE gis_ls;");
+            myCommand.CommandText = string.Format("TRUNCATE TABLE {0};", name_db);
             myCommand.Prepare();//подготавливает строку
             myCommand.ExecuteNonQuery();//выполняет запрос
             myConnection.Close();
@@ -125,6 +125,17 @@ namespace GIS_DogWimForms
             myCommand.Connection = myConnection;
 
             myCommand.CommandText = string.Format("TRUNCATE TABLE gis_object_adress;");
+            myCommand.Prepare();//подготавливает строку
+            myCommand.ExecuteNonQuery();//выполняет запрос
+            myConnection.Close();
+        }
+        public void GisPD()
+        {
+            MySqlConnection myConnection = new MySqlConnection(Connect);
+            MySqlCommand myCommand = new MySqlCommand();
+            myConnection.Open();
+            myCommand.Connection = myConnection;
+            myCommand.CommandText = string.Format("DELETE FROM gis_PD where gis_PD.period = date_format(DATE_SUB(now(),INTERVAL + 1 MONTH), '%m.%Y');");
             myCommand.Prepare();//подготавливает строку
             myCommand.ExecuteNonQuery();//выполняет запрос
             myConnection.Close();

@@ -13,9 +13,9 @@ namespace GIS_DogWimForms
         string checkMKD;
         string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=" + Protect.PasswordMysql);
 
-        public void CreateLS(bool chk, string path)
+        public void CreateLS(bool chk_mkd, string path, string name_db)
         {
-            if (chk)
+            if (chk_mkd)
                 checkMKD = "and ipadr_new.pomesh <> '' ";
             else
                 checkMKD = "";
@@ -25,7 +25,7 @@ namespace GIS_DogWimForms
 
             myConnection.Open();
             myCommand.Connection = myConnection;
-
+            if (name_db == "gis_ls")
             myCommand.CommandText = string.Format(@"select distinct mb_ls.ls,   
                 mb_ls.ls,
                 '',
@@ -70,10 +70,55 @@ namespace GIS_DogWimForms
                 and mb_ls.ls = tmp_ipadr_new.id 
                 and mb_ls.ls = gis_id.id 
                 and tmp_ipadr_new.ipadr = gis_object_adress.HOUSEGUID_fias 
+                and gis_object_adress.data_delete = '' 
                 -- and tmp_ipadr_new.pomesh = gis_object_adress.kv 
                 and gis_id.`status` = 'Размещен' "
                 + checkMKD +
                 "order by mb_ls.ls; ");
+            else
+                myCommand.CommandText = string.Format(@"select distinct mb_ls.ls,   
+                mb_ls.ls,
+                gis_ls_cancel.ls_jky,
+                'ЛС РСО',
+                'Нет',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '', '', '', '', '', '', '',
+                mb_ls.ls,
+                '',
+                tmp_ipadr_new.ipadr,
+                case when gis_object_adress.type_dom = 'Многоквартирный'
+                    then 'Жилое помещение'
+                when gis_object_adress.type_dom = 'Жилой'
+                    then ''
+                when gis_object_adress.type_dom = 'Жилой дом блокированной застройки'
+                    then 'Блок в доме блокированной застройки'
+                end JIL,
+                case when gis_object_adress.type_dom = 'Многоквартирный'
+                    then tmp_ipadr_new.pomesh
+                when gis_object_adress.type_dom = 'Жилой'
+                    then ''
+                when gis_object_adress.type_dom = 'Жилой дом блокированной застройки'
+                     then tmp_ipadr_new.pomesh
+                end pomesh,
+                mb_ls.ls,
+                'Договор ресурсоснабжения (ЛС РСО или ЛС РЦ)',
+                gis_id.id_gis 
+                from mb_ls, tmp_ipadr_new, gis_object_adress, gis_id, gis_ls_cancel
+                where mb_ls.ls = gis_ls_cancel.id
+                and mb_ls.ls = tmp_ipadr_new.id 
+                and mb_ls.ls = gis_id.id 
+                and tmp_ipadr_new.ipadr = gis_object_adress.HOUSEGUID_fias 
+                and gis_object_adress.data_delete = '' "
+                + checkMKD +
+                "order by mb_ls.ls;");
             myCommand.Prepare();//подготавливает строку
 
             MyDataReader = myCommand.ExecuteReader();

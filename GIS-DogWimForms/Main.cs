@@ -9,6 +9,7 @@ namespace GIS_DogWimForms
     {
         UpdateOracle update = new UpdateOracle();
         Clear clear = new Clear();
+        ImportGis importGis = new ImportGis();
         // класс protect содержит только две переменные PasswordOracle и PasswordMysql.
         public Main()
         {
@@ -47,9 +48,8 @@ namespace GIS_DogWimForms
             openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
-            ImportGis importGis = new ImportGis();
-            clear.GisLS();
-            importGis.ImportLS(openFileDialog1.FileName);
+            clear.GisLS("gis_ls");
+            importGis.ImportLS(openFileDialog1.FileName, "gis_ls");
 
         }
 
@@ -58,7 +58,6 @@ namespace GIS_DogWimForms
             openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
-            ImportGis importGis = new ImportGis();
             clear.GisDogovor();
             importGis.ImpotGis(openFileDialog1.FileName);
         }
@@ -68,8 +67,6 @@ namespace GIS_DogWimForms
             openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
-            ImportGis importGis = new ImportGis();
-            UpdateOracle update = new UpdateOracle();
             clear.GisAdress();
             importGis.ImportObject(openFileDialog1.FileName);
         }
@@ -79,7 +76,6 @@ namespace GIS_DogWimForms
             openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
-            ImportGis importGis = new ImportGis();
             UpdateOracle update = new UpdateOracle();
             clear.GisPY();
             importGis.ImportPY(openFileDialog1.FileName);
@@ -109,8 +105,12 @@ namespace GIS_DogWimForms
                 }
                 else if (chdListBoxCreate.Items.IndexOf(item) == 2)
                 {
-                    //     Home home = new Home();
-                    //     home.CreateHome();
+                    openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+                    openFileDialog1.FileName = "Home";
+                    if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                        return;
+                    Home home = new Home();
+                    home.CreateHome(openFileDialog1.FileName);
                 }
                 else if (chdListBoxCreate.Items.IndexOf(item) == 3)
                 {
@@ -119,7 +119,7 @@ namespace GIS_DogWimForms
                     if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                         return;
                     LS ls = new LS();
-                    ls.CreateLS(false, openFileDialog1.FileName);
+                    ls.CreateLS(false, openFileDialog1.FileName, "gis_ls");
                 }
                 else if (chdListBoxCreate.Items.IndexOf(item) == 4)
                 {
@@ -177,63 +177,86 @@ namespace GIS_DogWimForms
                     Pay pay = new Pay();
                     pay.Kassa(openFileDialog1.FileName);
                 }
+                else if (chdListBoxCreate.Items.IndexOf(item) == 10)
+                {
+                    openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+                    openFileDialog1.FileName = "LS";
+                    if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                        return;
+                    LS ls = new LS();
+                    ls.CreateLS(false, openFileDialog1.FileName, "");
+                }
             }
         }
 
         private void btnImportMB_Click(object sender, EventArgs e)
         {
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.Cancel)
-                return;
-
-            string data = DateTime.Now.ToString("yyyyMMdd");
-            DirectoryInfo dir = new DirectoryInfo(folderBrowserDialog1.SelectedPath);
-            UpdateMegaBilling update = new UpdateMegaBilling();
-            foreach (var item in dir.GetFiles())
+            try
             {
-                if (item.Name == "jalta_wat_dogovor_" + data + ".txt")
+                if (folderBrowserDialog1.ShowDialog() == DialogResult.Cancel)
+                    return;
+
+                string data = DateTime.Now.ToString("yyyyMMdd");
+                DirectoryInfo dir = new DirectoryInfo(folderBrowserDialog1.SelectedPath);
+                UpdateMegaBilling update = new UpdateMegaBilling();
+                foreach (var item in dir.GetFiles())
                 {
-                    update.SendToBD(item.FullName,"mb_dogovor");
+                    if (item.Name == "jalta_wat_dogovor_" + data + ".txt")
+                    {
+                        update.SendToBD(item.FullName, "mb_dogovor");
+                    }
+                    else if (item.Name == "jalta_wat_ipu_" + data + ".txt")
+                    {
+                        update.SendToBD(item.FullName, "mb_ipy");
+                    }
+                    else if (item.Name == "jalta_wat_bill_99_" + data + ".txt")
+                    {
+                        update.SendToBD(item.FullName, "mb_buh");
+                    }
+                    else if (item.Name == "jalta_wat_ls_" + data + ".txt")
+                    {
+                        update.SendToBD(item.FullName, "mb_ls");
+                    }
+                    else if (item.Name == "jalta_wat_houses_" + data + ".txt")
+                    {
+                        update.SendToBD(item.FullName, "mb_house");
+                    }
+                    else if (item.Name == "jalta_wat_odpy_" + data + ".txt")
+                    {
+                        update.SendToBD(item.FullName, "mb_odpy");
+                    }
+                    else if (item.Name == "jalta_wat_link_" + data + ".txt")
+                    {
+                        update.SendToBD(item.FullName, "mb_ls_odpy");
+                    }
+                    else if (item.Name == "jalta_wat_plat_" + data + ".txt")
+                    {
+                        update.SendToBD(item.FullName, "mb_pay");
+                    }
+                    else if (item.Name == "jalta_wat_uslugi_" + data + ".txt")
+                    {
+                        update.SendToBD(item.FullName, "mb_uslugi");
+                    }
+                    else if (item.Name.Length >= 20)
+                    {
+                        if (item.Name.Substring(0, 16) == "jalta_wat_pokazo" && item.Name.Substring(20) == data + ".txt")
+                        {
+                            update.SendToBD(item.FullName, "mb_pokaz_odpy");
+                        }
+                        else if (item.Name.Substring(0, 14) == "jalta_wat_dolg" && item.Name.Substring(18) == data + ".txt")
+                        {
+                            update.SendToBD(item.FullName, "mb_dolg");
+                        }
+                        else if (item.Name.Substring(0, 16) == "jalta_wat_pokazi" && item.Name.Substring(20) == data + ".txt")
+                        {
+                            update.SendToBD(item.FullName, "mb_pokaz_ipy");
+                        }
+                    }
                 }
-                else if (item.Name == "jalta_wat_ipu_" + data + ".txt")
-                {
-                    update.SendToBD(item.FullName, "mb_ipy");
-                }
-                else if (item.Name == "jalta_wat_bill_99_" + data + ".txt")
-                {
-                    update.SendToBD(item.FullName, "mb_buh");
-                }
-                else if (item.Name.Substring(0,16) == "jalta_wat_pokazi" && item.Name.Substring(20) == data + ".txt")
-                {
-                    update.SendToBD(item.FullName, "mb_pokaz_ipy");
-                }
-                else if (item.Name.Substring(0, 16) == "jalta_wat_pokazo" && item.Name.Substring(20) == data + ".txt")
-                {
-                    update.SendToBD(item.FullName, "mb_pokaz_odpy");
-                }
-                else if (item.Name == "jalta_wat_ls_" + data + ".txt")
-                {
-                    update.SendToBD(item.FullName, "mb_ls");
-                }
-                else if (item.Name == "jalta_wat_houses_" + data + ".txt")
-                {
-                    update.SendToBD(item.FullName, "mb_house");
-                }
-                else if (item.Name == "jalta_wat_odpy_" + data + ".txt")
-                {
-                    update.SendToBD(item.FullName, "mb_odpy");
-                }
-                else if (item.Name == "jalta_wat_link_" + data + ".txt")
-                {
-                    update.SendToBD(item.FullName, "mb_ls_odpy");
-                }
-                else if (item.Name.Substring(0, 14) == "jalta_wat_dolg" && item.Name.Substring(18) == data + ".txt")
-                {
-                    update.SendToBD(item.FullName, "mb_dolg");
-                }
-                else if (item.Name == "jalta_wat_plat_" + data + ".txt")
-                {
-                    update.SendToBD(item.FullName, "mb_pay");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -242,6 +265,29 @@ namespace GIS_DogWimForms
             //имеет жесткую зависимость! Будь осторожен! 
             UpdateOracle update_adress = new UpdateOracle();
             update_adress.UpdateAdress();
+        }
+
+        private void btnImportPD_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+            clear.GisPD();
+            importGis.ImportPD(openFileDialog1.FileName);
+        }
+
+        private void btnLSCancel_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+            clear.GisLS("gis_ls_cancel");
+            importGis.ImportLS(openFileDialog1.FileName, "gis_ls_cancel");
+        }
+
+        private void chdListBoxCreate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

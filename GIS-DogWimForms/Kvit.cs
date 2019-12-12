@@ -56,36 +56,42 @@ namespace GIS_DogWimForms
                            MyDataReader.GetString(15),
                            MyDataReader.GetString(16));
 
-                razdel3_6.AddRow(MyDataReader.GetString(17),
-                MyDataReader.GetString(18),
-                "",
-                MyDataReader.GetString(24),
-                MyDataReader.GetString(25),
-                "","",
-                MyDataReader.GetString(19),
-                "", "", 
-                MyDataReader.GetString(22),
-                MyDataReader.GetString(31),
-                MyDataReader.GetString(32),
-                "", 
-                MyDataReader.GetString(27), 
-                "", "", "", "", "", "", "", "", "", "", "","","","",
-                MyDataReader.GetString(29));
+                razdel3_6.AddRow(MyDataReader.GetString(17), //A
+                MyDataReader.GetString(18), //B
+                "", //C
+                MyDataReader.GetString(24), //D
+                MyDataReader.GetString(25), //E
+                MyDataReader.GetString(33), //F
+                MyDataReader.GetString(34), //G
+                MyDataReader.GetString(19), //H
+                MyDataReader.GetString(22), //I
+                MyDataReader.GetString(35), //J
+                MyDataReader.GetString(36), //K
+                MyDataReader.GetString(31), //L
+                MyDataReader.GetString(32), //M
+                "", //N
+                MyDataReader.GetString(27), //O
+                "", "", "", "", "", "", "", "", "", "", "","","","", 
+                MyDataReader.GetString(29),
+                MyDataReader.GetString(37),
+                MyDataReader.GetString(35)
+                );
 
                 if (MyDataReader.GetString(20) != "")
                 {
-                    razdel3_6.AddRow(MyDataReader.GetString(17),
-                    MyDataReader.GetString(20),
-                    "",
-                    MyDataReader.GetString(24),
-                    MyDataReader.GetString(26), 
-                    "", "",
-                    MyDataReader.GetString(21),
-                    "", "",
-                    MyDataReader.GetString(23),
-                    "", 
-                    "","", 
-                    MyDataReader.GetString(28), 
+                    razdel3_6.AddRow(MyDataReader.GetString(17), //A
+                    MyDataReader.GetString(20),//B
+                    "",//C
+                    MyDataReader.GetString(24),//D
+                    MyDataReader.GetString(26), //E
+                    "", "", //F-G
+                    MyDataReader.GetString(21),//H
+                    MyDataReader.GetString(23), //I
+                    "", //J
+                    "",//K
+                    "", //L
+                    "","", //M-N
+                    MyDataReader.GetString(28), //O
                     "", "", "", "", "", "", "", "", "", "", "", "","","",
                     MyDataReader.GetString(30));
                 }

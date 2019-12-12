@@ -41,6 +41,8 @@
             this.txtProxyServer = new System.Windows.Forms.TextBox();
             this.chbUseProxy = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkSred = new System.Windows.Forms.CheckBox();
+            this.chkNormtative = new System.Windows.Forms.CheckBox();
             this.chkOplata = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.labCheckDostavka = new System.Windows.Forms.Label();
@@ -53,8 +55,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.btnGener = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.chkNormtative = new System.Windows.Forms.CheckBox();
-            this.chkSred = new System.Windows.Forms.CheckBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -212,6 +213,27 @@
             this.groupBox1.Text = "Импорт";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // chkSred
+            // 
+            this.chkSred.AutoSize = true;
+            this.chkSred.Location = new System.Drawing.Point(6, 121);
+            this.chkSred.Name = "chkSred";
+            this.chkSred.Size = new System.Drawing.Size(86, 21);
+            this.chkSred.TabIndex = 26;
+            this.chkSred.Text = "Средняк";
+            this.chkSred.UseVisualStyleBackColor = true;
+            // 
+            // chkNormtative
+            // 
+            this.chkNormtative.AutoSize = true;
+            this.chkNormtative.Location = new System.Drawing.Point(6, 148);
+            this.chkNormtative.Name = "chkNormtative";
+            this.chkNormtative.Size = new System.Drawing.Size(95, 21);
+            this.chkNormtative.TabIndex = 25;
+            this.chkNormtative.Text = "Норматив";
+            this.chkNormtative.UseVisualStyleBackColor = true;
+            this.chkNormtative.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            // 
             // chkOplata
             // 
             this.chkOplata.AutoSize = true;
@@ -318,32 +340,19 @@
             this.btnGener.UseVisualStyleBackColor = true;
             this.btnGener.Click += new System.EventHandler(this.btnGener_Click);
             // 
-            // chkNormtative
+            // progressBar1
             // 
-            this.chkNormtative.AutoSize = true;
-            this.chkNormtative.Location = new System.Drawing.Point(6, 148);
-            this.chkNormtative.Name = "chkNormtative";
-            this.chkNormtative.Size = new System.Drawing.Size(95, 21);
-            this.chkNormtative.TabIndex = 25;
-            this.chkNormtative.Text = "Норматив";
-            this.chkNormtative.UseVisualStyleBackColor = true;
-            this.chkNormtative.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
-            // 
-            // chkSred
-            // 
-            this.chkSred.AutoSize = true;
-            this.chkSred.Location = new System.Drawing.Point(6, 121);
-            this.chkSred.Name = "chkSred";
-            this.chkSred.Size = new System.Drawing.Size(86, 21);
-            this.chkSred.TabIndex = 26;
-            this.chkSred.Text = "Средняк";
-            this.chkSred.UseVisualStyleBackColor = true;
+            this.progressBar1.Location = new System.Drawing.Point(16, 551);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(462, 23);
+            this.progressBar1.TabIndex = 21;
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(495, 556);
+            this.ClientSize = new System.Drawing.Size(495, 580);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -387,6 +396,7 @@
         private System.Windows.Forms.CheckBox chkOplata;
         private System.Windows.Forms.CheckBox chkSred;
         private System.Windows.Forms.CheckBox chkNormtative;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 

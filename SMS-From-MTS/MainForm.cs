@@ -35,7 +35,7 @@ namespace M2MSOAPSample
             labSend.Text = "Отправлено:";
             myConnection.Open();
             myCommand.Connection = myConnection;
-
+            list.Clear();
             int count_sms = 0;
             string idSMS;
             try
@@ -127,81 +127,10 @@ namespace M2MSOAPSample
         {
             stopwatch.Start();
             labCheckDostavka.Text = "Доставлено:";
-            sCommand.Clear();
 
-            int countStatus0 = 0;
-            int countStatus1 = 0;
-            int countStatus2 = 0;
-            int status = 0;
+            Delivery delivery = new Delivery();
+            labCheckDostavka.Text = delivery.GetList(txtLogin.Text, GetMd5Hash(txtPassword.Text));
 
-            try
-            {
-                myConnection.Open();
-                myCommand.Connection = myConnection;
-                myCommand.CommandText = string.Format("select plan.sms_id from plan " +
-                    "where delivery = 0 " +
-                    "and sms_id <> 0 " +
-                    "and length(phone) = 11 " +
-                    "and date_format(sendDate, '%Y-%m') = date_format(now(), '%Y-%m'); ");
-                myCommand.Prepare();//подготавливает строку
-                MyDataReader = myCommand.ExecuteReader();
-
-                //Прокси для вызова методов сервиса
-                MTSCommunicatorM2MXMLAPI client = GetSoapService();
-
-                while (MyDataReader.Read())
-                {
-                    //Получить статус доставки для сообщения
-                    DeliveryInfo[] info = client.GetMessageStatus(MyDataReader.GetInt64(0), txtLogin.Text, GetMd5Hash(txtPassword.Text));
-
-                    switch (info[0].DeliveryStatus.ToString())
-                    {
-                        case "Pending":
-                        case "Sending":
-                        case "Sent":
-                        case "NotSent":
-                            status = 0;
-                            countStatus0++;
-                            break;
-
-                        case "Delivered":
-                            status = 1;
-                            countStatus1++;
-                            break;
-                        case "NotDelivered":
-                        case "TimedOut":
-                        case "Error":
-                            status = 2;
-                            countStatus2++;
-                            break;
-
-                        default:
-                            break;
-
-                    }
-                    sCommand.Append(string.Format("update plan set delivery='{0}', delivery_type='{1}', reciveDate='{2}' where sms_id='{3}'; ",
-                        status, info[0].DeliveryStatus, info[0].DeliveryDate.ToString("yyyy-MM-dd HH:mm:ss"), MyDataReader.GetInt64(0)));
-                }
-
-                labCheckDostavka.Text = string.Format("Доставлено:\n" +
-                                        "В ожид.: {0}\n" +
-                                        "Получ.: {1}\n" +
-                                        "Ошибка: {2}\n" +
-                                        "Всего: {3}\n", countStatus0, countStatus1, countStatus2, (countStatus0 + countStatus1 + countStatus2));
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(string.Format(ex.Message));
-            }
-            MyDataReader.Close();
-            //Подготавливаем и выполняем
-            myCommand.CommandText = sCommand.ToString();
-            myCommand.Prepare();
-            myCommand.ExecuteNonQuery();
-
-            myConnection.Close();
-            sCommand.Clear();
             stopwatch.Stop();
             labTime.Text = string.Format("Время проверки доставки: " + stopwatch.Elapsed);
             stopwatch.Reset();
@@ -223,7 +152,7 @@ namespace M2MSOAPSample
             stopwatch.Reset();
         }
 
-        private MTSCommunicatorM2MXMLAPI GetSoapService()
+        public MTSCommunicatorM2MXMLAPI GetSoapService()
         {
             int port = -1;
             MTSCommunicatorM2MXMLAPI client = null;

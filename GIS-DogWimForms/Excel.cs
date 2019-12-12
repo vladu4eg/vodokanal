@@ -1,7 +1,9 @@
 ﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace GIS_DogWimForms
 {
@@ -38,31 +40,38 @@ namespace GIS_DogWimForms
 
         public void FileSave(string path, string pathSave, int workNum, int numPos)
         {
-            CreateDirIfNotExist(path, true);
-
-            using (XLWorkbook wb = new XLWorkbook(path))
+            try
             {
-                var workSheet = wb.Worksheet(workNum);
-                for (int row = 0; row < Rows.Count; row++)
+                CreateDirIfNotExist(path, true);
+                using (XLWorkbook wb = new XLWorkbook(path))
                 {
-                    for (int col = 0; col < Rows[row].Count; col++)
+                    var workSheet = wb.Worksheet(workNum);
+                    for (int row = 0; row < Rows.Count; row++)
                     {
-                        var cellAdress = GetExcelPos(row + numPos, col);
+                        for (int col = 0; col < Rows[row].Count; col++)
+                        {
+                            var cellAdress = GetExcelPos(row + numPos, col);
 
-                        if (Rows[row][col].StartsWith("="))
-                        {
-                            workSheet.Cell(cellAdress).FormulaA1 = Rows[row][col];
+                            if (Rows[row][col].StartsWith("="))
+                            {
+                                workSheet.Cell(cellAdress).FormulaA1 = Rows[row][col];
+                            }
+                            else
+                            {
+                                workSheet.Cell(cellAdress).Style.NumberFormat.Format = "@";
+                                workSheet.Cell(cellAdress).Value = Rows[row][col];
+                            }
                         }
-                        else
-                        {
-                            workSheet.Cell(cellAdress).Style.NumberFormat.Format = "@";
-                            workSheet.Cell(cellAdress).Value = Rows[row][col];
-                        }
+                        count = 0;
                     }
-                    count = 0;
+                    wb.SaveAs(pathSave);
                 }
-                wb.SaveAs(pathSave);
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         public void AddRow(params string[] cells)

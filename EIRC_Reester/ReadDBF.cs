@@ -17,10 +17,10 @@ namespace EIRC_Reester
 
         OleDbDataReader OleDataReader;
 
-        public ReadDBF()
+        public ReadDBF(string path)
         {
             this._connection = new OleDbConnection();
-            _connection.ConnectionString = "Provider=VFPOLEDB.1;Data Source=C:\\Users\\vlad\\Desktop\\;Exclusive=No;Collating Sequence=Machine;CODEPAGE = 1251";
+            _connection.ConnectionString = "Provider=VFPOLEDB.1;Data Source="+ path +";Exclusive=No;Collating Sequence=Machine;CODEPAGE = 1251";
         }
 
         public string Execute(string command)

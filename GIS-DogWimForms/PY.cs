@@ -16,11 +16,10 @@ namespace GIS_DogWimForms
             MySqlCommand myCommand = new MySqlCommand();
             myConnection.Open();
             myCommand.Connection = myConnection;
-            //Сейчас запрос ищет новые водомеры на новых ЛС, а нужно по инв номеру
 
             myCommand.CommandText = string.Format(@"SELECT distinct '', 
-				mb_ipy.inv, 
-                'Индивидуальный', 
+					 mb_ipy.inv, 
+					 'Индивидуальный', 
                 mb_ipy.type, 
                 mb_ipy.type, 
                 '', 
@@ -37,7 +36,11 @@ namespace GIS_DogWimForms
                 'нет',
                 '',
                 '',
-                'Холодная вода',
+                case when mb_uslugi.type_uslug = 'Холодное водоснабжение'
+					 then 'Холодная вода'
+					 when mb_uslugi.type_uslug = 'Отведение сточных вод'
+					 then 'Сточные бытовые воды'
+					 else '------' end, 
                 'Кубический метр',
                 'Однотарифный',
                 mb_ipy.last_pokaz1,
@@ -53,12 +56,13 @@ namespace GIS_DogWimForms
                 '',
                 'Нет',
                 '' 
-                FROM mb_ipy, gis_ls 
+                FROM mb_ipy, gis_ls,mb_uslugi
                 where mb_ipy.ls = gis_ls.id 
                 and mb_ipy.data_off = '' 
                 and mb_ipy.inv not in (select gis_py_main.nomer from gis_py_main where gis_py_main.`type` = 'Индивидуальный' and gis_py_main.status_py = 'Активный') 
                 and DATE_ADD(STR_TO_DATE(mb_ipy.data_gp, '%d/%m/%Y'), INTERVAL mb_ipy.interval YEAR)  >= date_format(DATE_ADD(now(), INTERVAL 2 month), '%Y-%m-%d') 
                 and trim(mb_ipy.inv) not in ('*', '-') 
+                and mb_ipy.ls = mb_uslugi.id
                 order by mb_ipy.inv; ");
 
             myCommand.Prepare();//подготавливает строку

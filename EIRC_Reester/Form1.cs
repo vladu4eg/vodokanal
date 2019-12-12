@@ -45,7 +45,8 @@ namespace EIRC_Reester
 
                 DateTime dt = DateTime.ParseExact(openFileDialog1.SafeFileName.Substring(5, openFileDialog1.SafeFileName.Length - 9), "yyMMdd", CultureInfo.InvariantCulture);
                 nameFile = dt.ToString("dd.MM.yyyy");
-                ReadDBF WDBF = new ReadDBF();
+                string directoryPath = Path.GetDirectoryName(openFileDialog1.FileName);
+                ReadDBF WDBF = new ReadDBF(directoryPath);
                 ImportReester(WDBF.GetAll(openFileDialog1.SafeFileName));
                 FromDBtoExcel();
                 ErrorCheck();
@@ -257,6 +258,16 @@ namespace EIRC_Reester
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void openFileDialog2_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }

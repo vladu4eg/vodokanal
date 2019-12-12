@@ -152,7 +152,7 @@ namespace M2MSOAPSample
                             MySqlHelper.EscapeString("NULL")));
                         countPokaz++;
                     }
-                    else if (importFile.Rows[i][6].ToString() == "6" && checkPokaz)
+                    else if (importFile.Rows[i][6].ToString() == "6" && checkSred)
                     {
                         Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}')",
                             MySqlHelper.EscapeString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
@@ -163,7 +163,7 @@ namespace M2MSOAPSample
                             MySqlHelper.EscapeString("NULL")));
                         countSred++;
                     }
-                    else if (importFile.Rows[i][6].ToString() == "6" && checkPokaz)
+                    else if (importFile.Rows[i][6].ToString() == "7" && checkNormative)
                     {
                         Rows.Add(string.Format("('{0}','{1}','{2}','{3}','{4}','{5}')",
                             MySqlHelper.EscapeString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
