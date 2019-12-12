@@ -5,37 +5,39 @@ namespace GIS_DogWimForms
 {
     class Home
     {
-        /*
+        
         Excel mkd = new Excel();
         Excel jill = new Excel();
         MySqlDataReader MyDataReader;
 
         string Connect = string.Format("Database=vlad_m;Data Source=192.168.27.79;User Id=vlad_m;charset=cp1251;default command timeout = 999;Password=" + Protect.PasswordMysql);
 
-       public void CreateHome()
+       public void CreateHome(string path)
         {
             MySqlConnection myConnection = new MySqlConnection(Connect);
             MySqlCommand myCommand = new MySqlCommand();
             myConnection.Open();
             myCommand.Connection = myConnection;
 
-            myCommand.CommandText = string.Format("SELECT DISTINCT ipadr_new.adr, " +
-                "ipadr_new.ipadr," +
-                "'35729000001'," +
-                "'Симферополь'," +
-                "ipadr_new.adr," +
-                "ipadr_new.pomesh " +
-                "FROM ipadr_new, object_adress " +
-                "WHERE ipadr_new.ipadr = object_adress.HOUSEGUID_fias " +
-                "and ipadr_new.pomesh <> object_adress.kv " +
-                "AND ipadr_new.pomesh <> '0' " +
-                "AND ipadr_new.pomesh REGEXP '^[[:digit:]]+$' " +
-                "AND ipadr_new.id NOT IN " +
-                "(" +
-                "SELECT id_ls.id " +
-                "FROM id_ls " +
-                ")" +
-                "ORDER BY ipadr_new.adr,ipadr_new.pomesh;");
+            myCommand.CommandText = string.Format(@"SELECT DISTINCT tmp_ipadr_new.adr,  
+                tmp_ipadr_new.ipadr, 
+                '35729000001', 
+                'Симферополь', 
+                tmp_ipadr_new.adr, 
+                tmp_ipadr_new.pomesh 
+                FROM tmp_ipadr_new, gis_object_adress 
+                WHERE tmp_ipadr_new.ipadr = gis_object_adress.HOUSEGUID_fias 
+                and tmp_ipadr_new.pomesh <> gis_object_adress.kv 
+                AND tmp_ipadr_new.pomesh <> '0' 
+                AND tmp_ipadr_new.pomesh REGEXP '^[[:digit:]]+$'  
+                and gis_object_adress.type_dom = 'Многоквартирный' 
+                -- and gis_object_adress.name_obsl = '' 
+                AND tmp_ipadr_new.id NOT IN 
+                ( 
+                SELECT gis_ls.id 
+                FROM gis_ls 
+                ) 
+                ORDER BY tmp_ipadr_new.adr,tmp_ipadr_new.pomesh;");
 
             myCommand.Prepare();//подготавливает строку
 
@@ -66,17 +68,18 @@ namespace GIS_DogWimForms
                 if (z % 1000 == 0)
                 {
 
-                    mkd.FileSave("c:\\gis\\mkd" + y + "k.xlsx");
+                    mkd.FileSave(path, "c:\\gis\\mkd" + y + "k.xlsx", 1, 3);
                     mkd.Rows.Clear();
 
-                    jill.FileSave("c:\\gis\\jill" + y + "k.xlsx");
+                    jill.FileSave("c:\\gis\\mkd" + y + "k.xlsx", "c:\\gis\\mkd" + y + "k.xlsx", 3, 2);
                     jill.Rows.Clear();
+
                     y++;
                 }
                 temp123 = MyDataReader.GetString(1);
             }
-            mkd.FileSave("c:\\gis\\MKD-Final.xlsx");
-            jill.FileSave("c:\\gis\\JILL-Final.xlsx");
+            mkd.FileSave(path, "c:\\gis\\mkd-Final.xlsx", 1, 2);
+            jill.FileSave("c:\\gis\\mkd-Final.xlsx", "c:\\gis\\mkd-Final.xlsx", 3, 2);
 
             mkd.Rows.Clear();
             jill.Rows.Clear();
@@ -86,7 +89,7 @@ namespace GIS_DogWimForms
 
             MessageBox.Show("Готово! С:\\gis\\");
         }
-        */
+        
     }
 
 }
